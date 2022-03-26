@@ -4,40 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameHandler : MonoBehaviour
-{
-    public GameObject gameOver;
-    public GameObject birdHandler;
-    public GameObject pipeHandler;
-    public GameObject scoreText;
-    private GameObject newBird;
-    private GameObject newEndGame;
-    private GameObject newPipeHandler;
-    private float score;
-    private bool alive;
+public class GameHandler : MonoBehaviour {
+    [SerializeField] protected GameObject gameOver;
+    [SerializeField] protected GameObject birdHandler;
+    [SerializeField] protected GameObject pipeHandler;
+    [SerializeField] protected GameObject scoreText;
+    protected GameObject newBird, newEndGame;
+    protected float score, maxScore;
+    protected bool alive;
 
-    private void OnEnable() {
-        Time.timeScale = 1f;
-        alive = true;
-        newBird = Instantiate(birdHandler);
-        newPipeHandler = Instantiate(pipeHandler);
-    }
-
-    public void setDead(){
+    public void setDead() {
         alive = false;
         Time.timeScale = 0f;
         newEndGame = Instantiate(gameOver);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(alive) {
-            score = newBird.gameObject.GetComponent<BirdHandler>().getScore();
-            scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
+    private void OnEnable() {
+        maxScore = getMaxScore();
+        Time.timeScale = 1f;
+        alive = true;
+        newBird = Instantiate(birdHandler);
+        Instantiate(pipeHandler);
+    }
+
+    private void saveMaxScore() {
+        if(maxScore < score) {
+            FileSystem.SaveMaxScore(score);
         }
-        else {
-            Destroy(newBird.gameObject);
+    }
+
+    private float getMaxScore() {
+        return FileSystem.GetMaxScore();
+    }
+
+    private float getScore() {
+        return newBird.gameObject.GetComponent<BirdHandler>().getScore();
+    }
+
+    private void Update() {
+        if(alive) {
+            score = getScore();
+            scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
+            saveMaxScore();
         }
     }
 }

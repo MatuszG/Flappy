@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6108758870422174465}
-  - component: {fileID: 5419352090124046542}
+  - component: {fileID: 8706591566930466618}
   m_Layer: 0
   m_Name: GameAgentHandler
   m_TagString: Untagged
@@ -28,11 +28,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1179158877517067226}
+  - {fileID: 6480588104419741898}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5419352090124046542
+--- !u!114 &8706591566930466618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 5694138880340238413, guid: 1c6aec42c14fb4147993387b39513be8, type: 3}
-  birdHandler: {fileID: 7452896990459617820, guid: 0a468fb0938530d4ea409718f8c07cb0, type: 3}
+  birdHandler: {fileID: 1156206074835558373, guid: 0a246e06e2f8f2b4aaa994d07bc7b65a, type: 3}
   pipeHandler: {fileID: 2374716524926661702, guid: fd5a28ca0f9fecd4da9bb7d60900741a, type: 3}
-  scoreText: {fileID: 8977181061881881949, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
---- !u!1001 &2289460873161825278
+  scoreText: {fileID: 7911047574427372343}
+--- !u!1001 &6230544006089013486
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -57,7 +57,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1123923297861396512, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_Name
-      value: Background2
+      value: BackBackground
       objectReference: {fileID: 0}
     - target: {fileID: 1123923297861396516, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_RootOrder
@@ -105,8 +105,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
---- !u!4 &1179158877517067226 stripped
+--- !u!4 &6480588104419741898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1123923297861396516, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
-  m_PrefabInstance: {fileID: 2289460873161825278}
+  m_PrefabInstance: {fileID: 6230544006089013486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7911047574427372343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4305152183787746265, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+  m_PrefabInstance: {fileID: 6230544006089013486}
   m_PrefabAsset: {fileID: 0}

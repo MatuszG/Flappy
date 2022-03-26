@@ -61,9 +61,9 @@ public class AgentBirdHandler : MonoBehaviour
         alive = false;
     }
 
-    private void addScore(float sc) {
+    private void addScore(float score) {
         if(alive) {
-            score += sc;
+            this.score += score;
         }
     }
 

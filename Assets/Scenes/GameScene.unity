@@ -179,9 +179,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1634294565953763465, guid: 3f9810c2807db1a4bbf29d13323c51da, type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 5694138880340238413, guid: ffa438988814e404faa1dcf3b6478a0e, type: 3}
+    - target: {fileID: 1634294565953763465, guid: 3f9810c2807db1a4bbf29d13323c51da, type: 3}
       propertyPath: birdhandler
       value: 
       objectReference: {fileID: 7452896990459617820, guid: 0a468fb0938530d4ea409718f8c07cb0, type: 3}
+    - target: {fileID: 1634294565953763465, guid: 3f9810c2807db1a4bbf29d13323c51da, type: 3}
+      propertyPath: birdHandler2
+      value: 
+      objectReference: {fileID: 1156206074835558373, guid: 0a246e06e2f8f2b4aaa994d07bc7b65a, type: 3}
     - target: {fileID: 8106712084544660025, guid: 3f9810c2807db1a4bbf29d13323c51da, type: 3}
       propertyPath: m_Name
       value: Scoring
