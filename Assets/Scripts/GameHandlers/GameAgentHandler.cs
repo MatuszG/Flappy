@@ -6,6 +6,14 @@ using TMPro;
 
 public class GameAgentHandler : GameHandler {
     private GameObject[] pipes;
+
+    private void OnEnable() {
+        alive = true;
+        Time.timeScale = 1f;
+        maxScore = getMaxScore();
+        Instantiate(pipeHandler);
+        newBird = Instantiate(birdHandler);
+    }
     
     private void saveAgentMaxScore() {
         if(maxScore < score) {
@@ -21,7 +29,7 @@ public class GameAgentHandler : GameHandler {
         return newBird.gameObject.GetComponent<AgentBirdHandler>().Score;
     }
 
-    protected void Update() {
+    private void Update() {
         if(alive) {
             score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

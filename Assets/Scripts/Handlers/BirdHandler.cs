@@ -8,7 +8,7 @@ public class BirdHandler : MonoBehaviour {
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected Sprite[] sprites;
     protected bool alive;
-    protected int id;
+    protected int id = -1;
     public int Id {
         get { return id; }
         set { id = value; }
@@ -34,13 +34,17 @@ public class BirdHandler : MonoBehaviour {
     }
 
     protected void Animate() {
-        spriteIndex++;
-        if(spriteIndex == sprites.Length) spriteIndex = 0;
-        spriteRenderer.sprite = sprites[spriteIndex];
+        if(id == -1) {
+            spriteIndex++;
+            if(spriteIndex == sprites.Length) spriteIndex = 0;
+            spriteRenderer.sprite = sprites[spriteIndex];
+        }
+        // spriteIndex++;
+        // if(spriteIndex == sprites.Length) spriteIndex = 0;
+        // spriteRenderer.sprite = sprites[spriteIndex];
     }
 
     protected void Start() {
-        id = -1;
         InvokeRepeating(nameof(Animate), 0.15f, 0.1f);
     }
 
@@ -63,8 +67,8 @@ public class BirdHandler : MonoBehaviour {
     }
 
     protected void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Obstacle") {
-            if(alive) gameHandler.setDead(id);
+        if(other.gameObject.tag == "Obstacle" && alive) {
+            if(id == -1) gameHandler.setDead();
             setDead();
         }
         else if(other.gameObject.tag == "Score") {

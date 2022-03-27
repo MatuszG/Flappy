@@ -241,48 +241,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.97858, y: 22.017841}
   m_EdgeRadius: 0
---- !u!68 &9036126702472710024
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6119416640146091416}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 1.0809641, y: 11.011765}
-  - {x: -1.0875572, y: 11.016072}
-  - {x: -1.0765908, y: -9.458743}
-  - {x: -1.4872534, y: -9.47604}
-  - {x: -1.4869431, y: -9.59858}
-  - {x: -1.458953, y: -9.59889}
-  - {x: -1.4584368, y: -10.802124}
-  - {x: -1.456263, y: -10.812238}
-  - {x: -1.4556175, y: -10.849749}
-  - {x: -1.3867934, y: -10.903672}
-  - {x: -1.1298709, y: -10.926328}
-  - {x: -0.5881425, y: -10.973414}
-  - {x: -0.4307567, y: -10.973769}
-  - {x: 0.49936128, y: -10.975292}
-  - {x: 0.9711458, y: -10.946904}
-  - {x: 1.3703996, y: -10.910723}
-  - {x: 1.454492, y: -10.835387}
-  - {x: 1.4585874, y: -9.600084}
-  - {x: 1.4864606, y: -9.592142}
-  - {x: 1.4816128, y: -9.470547}
-  - {x: 1.0472904, y: -9.464378}
-  - {x: 1.068053, y: 10.9930525}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1001 &8313415704951655261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1584702539068332846, guid: 79787458b287f4c4a953d1a28fade07b, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1584702539068332846, guid: 79787458b287f4c4a953d1a28fade07b, type: 3}
       propertyPath: m_IsTrigger
@@ -582,7 +540,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Obstacle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1584702539068332846, guid: 79787458b287f4c4a953d1a28fade07b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 79787458b287f4c4a953d1a28fade07b, type: 3}
 --- !u!1 &3610418376313109146 stripped
 GameObject:

@@ -16,6 +16,12 @@ public class MainMenu : MonoBehaviour
     }
 
     public void Train() {
+        PipesController.EvolutionNumber = 0;
+        SceneManager.LoadScene("TrainingScene");
+    }
+
+    public void TrainAgain() {
+        PipesController.EvolutionNumber++;
         SceneManager.LoadScene("TrainingScene");
     }
 

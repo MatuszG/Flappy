@@ -13,15 +13,13 @@ public class GameHandler : MonoBehaviour {
     protected float score, maxScore;
     protected bool alive;
 
-    public void setDead(int id) {
-        if(id == -1) {
-            alive = false;
-            Time.timeScale = 0f;
-            Instantiate(gameOver);
-        }
+    public void setDead() {
+        alive = false;
+        Time.timeScale = 0f;
+        Instantiate(gameOver);
     }
 
-    protected void OnEnable() {
+    private void OnEnable() {
         alive = true;
         Time.timeScale = 1f;
         maxScore = getMaxScore();

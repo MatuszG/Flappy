@@ -4,45 +4,47 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameTrainingHandler : MonoBehaviour {
-    [SerializeField] private GameObject birdHandler;
-    [SerializeField] private GameObject pipeHandler;
-    [SerializeField] private GameObject scoreText;
+public class GameTrainingHandler : GameAgentHandler {
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject evolutionText;
+    [SerializeField] private GameObject maxScoreText;
+    [SerializeField] private GameObject aliveText;
+    private MainMenu menu;
     private GameObject[] newBirds;
-    private GameObject newBird;
+    private AgentBirdHandler[] newBirdsHandler;
+    private TextMeshProUGUI textMeshScore, textMeshEvolution, textMeshMaxScore, textMeshAlive;
     private bool[] notAlive;
     private float[] score;
-    private float maxScore, currentMaxScore;
-    private const int numberOfAgents = 10;
+    private float currentMaxScore;
+    private const int numberOfAgents = 200;
+    private int aliveNumber, evolutionNumber;
 
-    private void Start() {
+    private void OnEnable() {
+        Time.timeScale = 1f;
+        aliveNumber = numberOfAgents;
+        maxScore = getAgentMaxScore();
+        evolutionNumber = PipesController.EvolutionNumber;
         notAlive = new bool[numberOfAgents];
         score = new float[numberOfAgents];
         newBirds = new GameObject[numberOfAgents];
-        Debug.Log(newBirds.Length);
-        Time.timeScale = 1f;
-        maxScore = getAgentMaxScore();
+        newBirdsHandler = new AgentBirdHandler[numberOfAgents];
+        menu = mainMenu.GetComponent<MainMenu>();
+        textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
+        textMeshEvolution = evolutionText.gameObject.GetComponent<TextMeshProUGUI>();
+        textMeshMaxScore = maxScoreText.gameObject.GetComponent<TextMeshProUGUI>();
+        textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
+        for(int i = 0; i < numberOfAgents; i++) createAgent(i);
         Instantiate(pipeHandler);
-        for(int i = 0; i < numberOfAgents; i++) {
-            createAgent(i);
-            newBirds[i].GetComponent<BirdHandler>().Id = i;
-            Debug.Log(newBirds[i].GetComponent<BirdHandler>().Id);
-        }
-    }
-
-    public void setDead(int i) {
-        notAlive[i] = true;
-        Debug.Log("setDead");
-        if(lastAlive()) {
-            Debug.Log("RESTARTING");
-            // restart
-        }
+        textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
+        textMeshMaxScore.text = "Max score: " + maxScore.ToString();
     }
 
     private void Update() {
         currentMaxScore = 0;
+        for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
-        scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = currentMaxScore.ToString("0");
+        textMeshScore.text = currentMaxScore.ToString("0");
+        textMeshAlive.text = "Alive: " + aliveNumber.ToString();
     }
 
     private void update(int i) {
@@ -50,28 +52,32 @@ public class GameTrainingHandler : MonoBehaviour {
             score[i] = getAgentScore(i);
             saveAgentMaxScore(i);
         }
-        else {
-            Destroy(newBirds[i].gameObject);
+    }
+
+    private void checkAlive(int i) {
+        if(!notAlive[i] && !newBirdsHandler[i].Alive) {
+            setDeadAgent(i);
         }
     }
 
-    private bool lastAlive() {
-        int alive = 0;
-        for(int i = 0; i < notAlive.Length; i++) {
-            if(!notAlive[i]) alive++;
+    private void setDeadAgent(int i) {
+        notAlive[i] = true;
+        aliveNumber--;
+        Destroy(newBirds[i].gameObject);
+        if(aliveNumber == 0) {
+            menu.TrainAgain();
+            Time.timeScale = 0f;
         }
-        if(alive == 1) return true;
-        return false;
     }
 
     private void createAgent(int i) {
-        newBird = Instantiate(birdHandler);
-        Debug.Log(newBird);
-        newBirds[i] = newBird.gameObject;
+        newBirds[i] = Instantiate(birdHandler);
+        newBirdsHandler[i] = newBirds[i].GetComponent<AgentBirdHandler>();
+        newBirdsHandler[i].Id = i;
     }
 
     private float getAgentScore(int i) {
-        return newBirds[i].gameObject.GetComponent<AgentBirdHandler>().Score;
+        return newBirdsHandler[i].Score;
     }
 
     private void saveAgentMaxScore(int i) {
