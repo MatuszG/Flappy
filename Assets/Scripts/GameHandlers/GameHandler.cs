@@ -9,22 +9,24 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] protected GameObject birdHandler;
     [SerializeField] protected GameObject pipeHandler;
     [SerializeField] protected GameObject scoreText;
-    protected GameObject newBird, newEndGame;
+    protected GameObject newBird;
     protected float score, maxScore;
     protected bool alive;
 
-    public void setDead() {
-        alive = false;
-        Time.timeScale = 0f;
-        newEndGame = Instantiate(gameOver);
+    public void setDead(int id) {
+        if(id == -1) {
+            alive = false;
+            Time.timeScale = 0f;
+            Instantiate(gameOver);
+        }
     }
 
-    private void OnEnable() {
-        maxScore = getMaxScore();
-        Time.timeScale = 1f;
+    protected void OnEnable() {
         alive = true;
-        newBird = Instantiate(birdHandler);
+        Time.timeScale = 1f;
+        maxScore = getMaxScore();
         Instantiate(pipeHandler);
+        newBird = Instantiate(birdHandler);
     }
 
     private void saveMaxScore() {
@@ -38,7 +40,7 @@ public class GameHandler : MonoBehaviour {
     }
 
     private float getScore() {
-        return newBird.gameObject.GetComponent<BirdHandler>().getScore();
+        return newBird.gameObject.GetComponent<BirdHandler>().Score;
     }
 
     private void Update() {

@@ -8,13 +8,11 @@ public class GameOverAgentView : MonoBehaviour {
     [SerializeField] private GameObject agentMaxScoreText;
     
     private void OnEnable() {
-        Debug.Log("AgentScore");
         float score = FileSystem.GetAgentMaxScore();
-        agentMaxScoreText.gameObject.GetComponent<TextMeshProUGUI>().text = "Max score: " + score.ToString("0");
+        if(agentMaxScoreText) agentMaxScoreText.gameObject.GetComponent<TextMeshProUGUI>().text = "Max score: " + score.ToString("0");
     }
 
     public void Restart() {
-        Debug.Log("AgentScene");
         SceneManager.LoadScene("AgentScene");
     }
 

@@ -2,54 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdHandler : MonoBehaviour
-{
-    public GameHandler GameHandler;
-    public float gravity = -9.8f;
-    public float jumpSpeed = 10f;
-    private bool alive;
-    private float score;
-    private Vector3 speed;
+public class BirdHandler : MonoBehaviour {
+    [SerializeField] protected GameHandler gameHandler;
+    [SerializeField] protected float gravity = -9.8f;
+    [SerializeField] protected float jumpSpeed = 10f;
+    [SerializeField] protected Sprite[] sprites;
+    protected bool alive;
+    protected int id;
+    public int Id {
+        get { return id; }
+        set { id = value; }
+    }
+    public bool Alive {
+        get { return alive; }
+        set { alive = value; }
+    }
+    protected float score;
+    public float Score {
+        get { return score; }
+        set { score = value; }
+    }
 
-    private SpriteRenderer spriteRenderer;
-    private int spriteIndex;
-    public Sprite[] sprites;
+    protected Vector3 speed;
+    protected SpriteRenderer spriteRenderer;
+    protected int spriteIndex;
 
-    private void Awake() {
+    protected void Awake() {
         alive = true;
         score = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Animate(){
+    protected void Animate() {
         spriteIndex++;
-        if(spriteIndex > sprites.Length - 1) spriteIndex = 0;
+        if(spriteIndex == sprites.Length) spriteIndex = 0;
         spriteRenderer.sprite = sprites[spriteIndex];
     }
 
-    private void Start() {
+    protected void Start() {
+        id = -1;
         InvokeRepeating(nameof(Animate), 0.15f, 0.1f);
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
+    private void Update() {
         if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) {
-            speed = Vector3.up * jumpSpeed;
+            jump();
         }
-        // if(Input.Touch() > 0) {
-        //     Touch touch = Input.GetTouch(0);
-        //     if(touch.phase == TouchPhase.Began) {
-        //         speed = Vector3.up * jumpSpeed;
-        //     }
-        // }
+        if(Input.touchCount > 0) {
+            Touch touch = Input.GetTouch(0);
+            if(touch.phase == TouchPhase.Began) {
+                jump();
+            }
+        }
         speed.y += gravity * Time.deltaTime*3.25f;
         transform.position += speed * Time.deltaTime/0.7f;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    protected void jump() {
+        speed = Vector3.up * jumpSpeed;
+    }
+
+    protected void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Obstacle") {
-            if(alive) GameHandler.setDead();
+            if(alive) gameHandler.setDead(id);
             setDead();
         }
         else if(other.gameObject.tag == "Score") {
@@ -57,21 +72,13 @@ public class BirdHandler : MonoBehaviour
         }
     }
 
-    private void setDead() {
+    protected void setDead() {
         alive = false;
     }
 
-    private void addScore(float sc) {
+    protected void addScore(float sc) {
         if(alive) {
             score += sc;
         }
-    }
-
-    public bool getAlive() {
-        return alive;
-    }
-
-    public float getScore() {
-        return score;
     }
 }

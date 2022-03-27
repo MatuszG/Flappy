@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOver: {fileID: 5694138880340238413, guid: ffa438988814e404faa1dcf3b6478a0e, type: 3}
   birdHandler: {fileID: 7452896990459617820, guid: 0a468fb0938530d4ea409718f8c07cb0, type: 3}
-  birdHandler2: {fileID: 7452896990459617820, guid: 0a468fb0938530d4ea409718f8c07cb0, type: 3}
   pipeHandler: {fileID: 2374716524926661702, guid: fd5a28ca0f9fecd4da9bb7d60900741a, type: 3}
   scoreText: {fileID: 3349987320337310633}
 --- !u!1001 &870752926555162468

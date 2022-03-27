@@ -5,15 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 
 public class GameAgentHandler : GameHandler {
-    private void OnEnable() {
-        maxScore = getMaxScore();
-        Time.timeScale = 1f;
-        alive = true;
-        newBird = Instantiate(birdHandler);
-        Instantiate(pipeHandler);
-    }
-
-    private void saveMaxScore() {
+    private GameObject[] pipes;
+    
+    private void saveAgentMaxScore() {
         if(maxScore < score) {
             FileSystem.SaveAgentMaxScore(score);
         }
@@ -23,15 +17,15 @@ public class GameAgentHandler : GameHandler {
         return FileSystem.GetAgentMaxScore();
     }
 
-    private float getScore() {
-        return newBird.gameObject.GetComponent<AgentBirdHandler>().getScore();
+    private float getAgentScore() {
+        return newBird.gameObject.GetComponent<AgentBirdHandler>().Score;
     }
 
     protected void Update() {
         if(alive) {
-            score = getScore();
+            score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
-            saveMaxScore();
+            saveAgentMaxScore();
         }
     }
 }

@@ -30,7 +30,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1398709814651424905}
+  - {fileID: 1447307657081139751}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1001 &865398525230649065
+--- !u!1001 &828216825595931719
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -195,19 +195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PanelAgent
       objectReference: {fileID: 0}
-    - target: {fileID: 6122331709912663405, guid: 6c241b3becab8824c99400b25864b043, type: 3}
-      propertyPath: agentMaxScoreText
-      value: 
-      objectReference: {fileID: 1398709814560280328}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c241b3becab8824c99400b25864b043, type: 3}
---- !u!224 &1398709814651424905 stripped
+--- !u!224 &1447307657081139751 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2264101655704477280, guid: 6c241b3becab8824c99400b25864b043, type: 3}
-  m_PrefabInstance: {fileID: 865398525230649065}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1398709814560280328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2264101655730635233, guid: 6c241b3becab8824c99400b25864b043, type: 3}
-  m_PrefabInstance: {fileID: 865398525230649065}
+  m_PrefabInstance: {fileID: 828216825595931719}
   m_PrefabAsset: {fileID: 0}

@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bffe15810299cf46a77a84b59014be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScoreText: {fileID: 2264101655730635233}
+  agentMaxScoreText: {fileID: 2264101655730635233}
 --- !u!1 &2264101655730635233
 GameObject:
   m_ObjectHideFlags: 0
