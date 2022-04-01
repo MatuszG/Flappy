@@ -5,11 +5,6 @@ using UnityEngine;
 public static class PipesController {
     private static List<GameObject> pipes;
     private static GameObject[] pipess;
-    private static int evolutionNumber = 0;
-    public static int EvolutionNumber {
-        get { return evolutionNumber; }
-        set { evolutionNumber = value; }
-    }
 
     public static void restart() {
         pipes = new List<GameObject>();

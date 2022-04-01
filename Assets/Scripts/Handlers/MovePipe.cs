@@ -12,4 +12,8 @@ public class MovePipe : MonoBehaviour
     {
         transform.position += Vector3.left * speed * Time.deltaTime;
     }
+
+    public Vector3 getTransformPosition() {
+        return transform.position;
+    }
 }

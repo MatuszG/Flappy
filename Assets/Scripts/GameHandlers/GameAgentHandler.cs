@@ -12,6 +12,11 @@ public class GameAgentHandler : GameHandler {
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
     }
+
+    // private void Awake() {
+    //     Instantiate(pipeHandler);
+    //     newBird = Instantiate(birdHandler);
+    // }
     
     private void saveAgentMaxScore() {
         if(maxScore < score) {

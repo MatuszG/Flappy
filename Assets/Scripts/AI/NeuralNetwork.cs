@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NeuralNetwork {   
+public class NeuralNetwork {
+    private int[] topology = new int[]{2,3,1};
     private Neuron[][] neuralNetwork;
-    public NeuralNetwork(int[] topology) {
+    public NeuralNetwork() {
         neuralNetwork = new Neuron[topology.Length][];
         for(int i = 0; i < topology.Length; i++) {
             neuralNetwork[i] = new Neuron[topology[i]];
@@ -16,8 +17,8 @@ public class NeuralNetwork {
         }
     }
 
-    public void propagate() {
-        float[] input = {1,2};
+    public double propagate(float[] input) {
+        // float[] input = {1,2};
         for(int i = 0; i < neuralNetwork.Length; i++) {
             if(i == 0) for(int j = 0; j < neuralNetwork[i].Length; j++) neuralNetwork[i][j].Value = input[j];
             else {
@@ -29,7 +30,11 @@ public class NeuralNetwork {
                 }
             }
         }
-        Debug.Log(neuralNetwork[neuralNetwork.Length-1][0].Value);
+        return activationFunction(neuralNetwork[neuralNetwork.Length-1][0].Value);
+    }
+
+    private double activationFunction(float x) {
+        return 1/(1 + System.Math.Exp(-x));
     }
 
     public void print() {

@@ -5,11 +5,17 @@ using UnityEngine;
 public class AgentBirdHandler : BirdHandler {
     private GameObject[] pipes;
     private float random;
-
+    private NeuralNetwork network;
+    public NeuralNetwork Network{
+        get {return network;}
+        set {network = value;}
+    }
+    private float[] input;
     private void Update()  { 
         pipes = gameHandler.getPipes();
-        random = Random.Range(0f,1f);
-        if(random > 0.98) {
+        input = new float[4];
+        
+        if(network != null && network.propagate(input) > 0.5) {
             jump();
         }
         speed.y += gravity * 3.25f* Time.deltaTime;

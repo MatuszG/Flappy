@@ -16,17 +16,12 @@ public class GameTrainingHandler : GameAgentHandler {
     private bool[] notAlive;
     private float[] score;
     private float currentMaxScore;
-    private const int numberOfAgents = 200;
+    private const int numberOfAgents = 100;
     private int aliveNumber, evolutionNumber;
-    private int[] topology;
     private NeuralNetwork net;
 
     private void OnEnable() {
-        topology = new int[]{2,3,1};
-        net = new NeuralNetwork(topology);
-        net.propagate();
         Time.timeScale = 1f;
-        Instantiate(pipeHandler);
     }
 
     private void Awake() {
@@ -36,7 +31,10 @@ public class GameTrainingHandler : GameAgentHandler {
         notAlive = new bool[numberOfAgents];
         newBirds = new GameObject[numberOfAgents];
         menu = mainMenu.GetComponent<MainMenu>();
-        evolutionNumber = PipesController.EvolutionNumber;
+        NetworkManager.NetworksN = numberOfAgents;
+        evolutionNumber = NetworkManager.EvolutionNumber;
+        if(evolutionNumber == 0) NetworkManager.create();
+        else NetworkManager.create();
         newBirdsHandler = new AgentBirdHandler[numberOfAgents];
         for(int i = 0; i < numberOfAgents; i++) createAgent(i);
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
@@ -45,11 +43,15 @@ public class GameTrainingHandler : GameAgentHandler {
         textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
+        Instantiate(pipeHandler);
+        pipes = PipesController.getPipes();
+        Debug.Log(pipes[0].GetComponent<MovePipe>().getTransformPosition());
+
     }
 
     private void Update() {
         currentMaxScore = 0;
-        pipes = PipesController.getPipes();
+        
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("0");
@@ -81,6 +83,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private void createAgent(int i) {
         newBirds[i] = Instantiate(birdHandler);
         newBirdsHandler[i] = newBirds[i].GetComponent<AgentBirdHandler>();
+        newBirdsHandler[i].Network = NetworkManager.Networks[i];
         newBirdsHandler[i].Id = i;
     }
 
