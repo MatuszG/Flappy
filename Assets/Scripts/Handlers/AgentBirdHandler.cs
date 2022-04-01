@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AgentBirdHandler : BirdHandler {
-    private List<GameObject> pipes;
+    private GameObject[] pipes;
     private float random;
 
-    private void Update()  {  
+    private void Update()  { 
+        pipes = gameHandler.getPipes();
         random = Random.Range(0f,1f);
         if(random > 0.98) {
             jump();
@@ -14,5 +15,9 @@ public class AgentBirdHandler : BirdHandler {
         speed.y += gravity * 3.25f* Time.deltaTime;
         transform.position += speed/0.7f * Time.deltaTime;
     }
+
+    // private void Update() {
+        
+    // }
 }
 

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 
 public class GameAgentHandler : GameHandler {
-    private GameObject[] pipes;
-
     private void OnEnable() {
         alive = true;
         Time.timeScale = 1f;
@@ -30,6 +28,7 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Update() {
+        pipes = PipesController.getPipes();
         if(alive) {
             score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

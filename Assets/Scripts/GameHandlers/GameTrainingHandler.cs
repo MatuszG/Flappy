@@ -18,29 +18,38 @@ public class GameTrainingHandler : GameAgentHandler {
     private float currentMaxScore;
     private const int numberOfAgents = 200;
     private int aliveNumber, evolutionNumber;
+    private int[] topology;
+    private NeuralNetwork net;
 
     private void OnEnable() {
+        topology = new int[]{2,3,1};
+        net = new NeuralNetwork(topology);
+        net.propagate();
         Time.timeScale = 1f;
+        Instantiate(pipeHandler);
+    }
+
+    private void Awake() {
         aliveNumber = numberOfAgents;
         maxScore = getAgentMaxScore();
-        evolutionNumber = PipesController.EvolutionNumber;
-        notAlive = new bool[numberOfAgents];
         score = new float[numberOfAgents];
+        notAlive = new bool[numberOfAgents];
         newBirds = new GameObject[numberOfAgents];
-        newBirdsHandler = new AgentBirdHandler[numberOfAgents];
         menu = mainMenu.GetComponent<MainMenu>();
+        evolutionNumber = PipesController.EvolutionNumber;
+        newBirdsHandler = new AgentBirdHandler[numberOfAgents];
+        for(int i = 0; i < numberOfAgents; i++) createAgent(i);
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution = evolutionText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshMaxScore = maxScoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
-        for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-        Instantiate(pipeHandler);
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
     }
 
     private void Update() {
         currentMaxScore = 0;
+        pipes = PipesController.getPipes();
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("0");
@@ -66,7 +75,6 @@ public class GameTrainingHandler : GameAgentHandler {
         Destroy(newBirds[i].gameObject);
         if(aliveNumber == 0) {
             menu.TrainAgain();
-            Time.timeScale = 0f;
         }
     }
 
