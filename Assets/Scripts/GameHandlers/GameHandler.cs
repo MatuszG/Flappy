@@ -10,13 +10,8 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] protected GameObject pipeHandler;
     [SerializeField] protected GameObject scoreText;
     protected GameObject newBird;
-    protected GameObject[] pipes;
     protected float score, maxScore;
     protected bool alive;
-
-    public GameObject[] getPipes() {
-        return pipes;
-    }
 
     public void setDead() {
         alive = false;

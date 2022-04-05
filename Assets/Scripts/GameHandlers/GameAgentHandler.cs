@@ -12,11 +12,6 @@ public class GameAgentHandler : GameHandler {
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
     }
-
-    // private void Awake() {
-    //     Instantiate(pipeHandler);
-    //     newBird = Instantiate(birdHandler);
-    // }
     
     private void saveAgentMaxScore() {
         if(maxScore < score) {
@@ -33,7 +28,6 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Update() {
-        pipes = PipesController.getPipes();
         if(alive) {
             score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

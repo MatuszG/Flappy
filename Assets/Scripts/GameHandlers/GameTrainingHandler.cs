@@ -14,27 +14,27 @@ public class GameTrainingHandler : GameAgentHandler {
     private AgentBirdHandler[] newBirdsHandler;
     private TextMeshProUGUI textMeshScore, textMeshEvolution, textMeshMaxScore, textMeshAlive;
     private bool[] notAlive;
-    private float[] score;
+    private float[] scores;
     private float currentMaxScore;
-    private const int numberOfAgents = 100;
+    private const int numberOfAgents = 200;
     private int aliveNumber, evolutionNumber;
-    private NeuralNetwork net;
 
     private void OnEnable() {
         Time.timeScale = 1f;
     }
 
     private void Awake() {
+        Instantiate(pipeHandler);
         aliveNumber = numberOfAgents;
         maxScore = getAgentMaxScore();
-        score = new float[numberOfAgents];
+        scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
         newBirds = new GameObject[numberOfAgents];
         menu = mainMenu.GetComponent<MainMenu>();
         NetworkManager.NetworksN = numberOfAgents;
         evolutionNumber = NetworkManager.EvolutionNumber;
         if(evolutionNumber == 0) NetworkManager.create();
-        else NetworkManager.create();
+        else NetworkManager.mutate();
         newBirdsHandler = new AgentBirdHandler[numberOfAgents];
         for(int i = 0; i < numberOfAgents; i++) createAgent(i);
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
@@ -43,15 +43,10 @@ public class GameTrainingHandler : GameAgentHandler {
         textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
-        Instantiate(pipeHandler);
-        pipes = PipesController.getPipes();
-        Debug.Log(pipes[0].GetComponent<MovePipe>().getTransformPosition());
-
     }
 
     private void Update() {
         currentMaxScore = 0;
-        
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("0");
@@ -60,7 +55,7 @@ public class GameTrainingHandler : GameAgentHandler {
 
     private void update(int i) {
         if(!notAlive[i]) {
-            score[i] = getAgentScore(i);
+            scores[i] = getAgentScore(i);
             saveAgentMaxScore(i);
         }
     }
@@ -75,6 +70,8 @@ public class GameTrainingHandler : GameAgentHandler {
         notAlive[i] = true;
         aliveNumber--;
         Destroy(newBirds[i].gameObject);
+        newBirdsHandler[i].updatedNetworkTime();
+        newBirdsHandler[i].updateNetworkScore(scores[i]);
         if(aliveNumber == 0) {
             menu.TrainAgain();
         }
@@ -92,12 +89,12 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void saveAgentMaxScore(int i) {
-        if(maxScore < score[i]) {
-            maxScore = score[i];
-            FileSystem.SaveAgentMaxScore(score[i]);
+        if(maxScore < scores[i]) {
+            maxScore = scores[i];
+            FileSystem.SaveAgentMaxScore(scores[i]);
         }
-        if(currentMaxScore < score[i]) {
-            currentMaxScore = score[i];
+        if(currentMaxScore < scores[i]) {
+            currentMaxScore = scores[i];
         }
     }
 

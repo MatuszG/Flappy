@@ -20,24 +20,21 @@ public class Neuron {
     }
 
     public Neuron(int weightsN) {
-        bias = getRandomBias();
+        bias = NetworkManager.getRandomBias();
         weights = new float[weightsN];
-        for(int i = 0; i < weights.Length; i++) weights[i] = getRandomWeight();
+        for(int i = 0; i < weights.Length; i++) weights[i] = NetworkManager.getRandomWeight();
     }
+
     public Neuron(int weightsN, bool bias) {
         this.bias = 0;
         weights = new float[weightsN];
         if(weightsN == 1) weights[0] = 1;
-        else for(int i = 0; i < weights.Length; i++) weights[i] = getRandomWeight();
+        else for(int i = 0; i < weights.Length; i++) weights[i] = NetworkManager.getRandomWeight();
     }
+    
     public void print() {
         Debug.Log(bias);
         Debug.Log(weights[0]);
     }
-    private float getRandomWeight() {
-        return Random.Range(-1f,1f);
-    }
-    private float getRandomBias() {
-        return Random.Range(-10f,10f);
-    }
+    
 }

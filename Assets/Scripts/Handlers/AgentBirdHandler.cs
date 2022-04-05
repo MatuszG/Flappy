@@ -3,27 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AgentBirdHandler : BirdHandler {
-    private GameObject[] pipes;
-    private float random;
+    private MovePipe[] pipes;
+    private float liveTime = 0;
+    private float[] input;
     private NeuralNetwork network;
     public NeuralNetwork Network{
         get {return network;}
         set {network = value;}
     }
-    private float[] input;
+
+    public void updatedNetworkTime() {
+        network.LiveTime = liveTime;
+    }
+
+    public void updateNetworkScore(float score) {
+        network.Score = score;
+    }
+
     private void Update()  { 
-        pipes = gameHandler.getPipes();
-        input = new float[4];
-        
-        if(network != null && network.propagate(input) > 0.5) {
-            jump();
-        }
+        liveTime += Time.deltaTime;
         speed.y += gravity * 3.25f* Time.deltaTime;
         transform.position += speed/0.7f * Time.deltaTime;
     }
 
-    // private void Update() {
-        
-    // }
+    private void FixedUpdate() {
+        pipes = PipesController.getPipes();
+        input = new float[5];
+        input[0] = transform.position.y;
+        input[1] = pipes[0].transform.position.x;
+        input[2] = pipes[0].transform.position.y;
+        input[3] = pipes[1].transform.position.x;
+        input[4] = pipes[1].transform.position.y;
+        if(network.propagate(input) > 0.5) {
+            jump();
+        }
+    }
 }
 
