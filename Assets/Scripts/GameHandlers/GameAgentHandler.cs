@@ -11,13 +11,16 @@ public class GameAgentHandler : GameHandler {
         maxScore = getMaxScore();
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
+        newBird.gameObject.GetComponent<AgentBirdHandler>().getAgentPolicy();
     }
     
     private void saveAgentMaxScore() {
         if(maxScore < score) {
+            NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
             FileSystem.SaveAgentMaxScore(score);
+            FileSystem.SaveAgentPolicy(network.getGenome());
         }
-    }
+    }   
 
     private float getMaxScore() {
         return FileSystem.GetAgentMaxScore();

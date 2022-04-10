@@ -26,13 +26,14 @@ public static class PipesController {
     }
     
     public static MovePipe[] getPipes() {
+        updateBestPipes();
         return bestPipeHandlers;
     }
 
     private static void updateBestPipes() { // do poprawy
         bestPipes = new float[]{Mathf.Infinity, Mathf.Infinity};
         for(int i = 0; i < bestPipeHandlers.Length; i++) {
-            if(bestPipeHandlers[i] != null && bestPipeHandlers[i].transform.position.x < 0.1) {
+            if(bestPipeHandlers[i] != null && bestPipeHandlers[i].transform.position.x < 0.6) {
                 bestPipes[i] = Mathf.Infinity;
             }
         }

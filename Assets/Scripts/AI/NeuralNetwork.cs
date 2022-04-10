@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NeuralNetwork {
-    private int[] topology = new int[]{5,8,1};
-    private float score, liveTime;
+    // private int[] topology = new int[]{4,6,3,1};
+    private int[] topology = new int[]{4,7,1};
+    private float score, liveTime, fitness;
     private Neuron[][] neuralNetwork;
 
+    public float Fitness {
+        get{return fitness;}
+        set{fitness = value;}
+    }
+    
     public float LiveTime {
         get{return liveTime;}
         set{liveTime = value;}
@@ -32,8 +38,9 @@ public class NeuralNetwork {
         }
     }
 
-    public NeuralNetwork(NeuralNetwork network, List<float> genome) {
-        this.neuralNetwork = network.Network;
+    public NeuralNetwork(List<float> genome) {
+        this.neuralNetwork = new NeuralNetwork().Network;
+        if(genome.Count == 0) return;
         float[] gens = genome.ToArray();
         int id = 0;
         for(int i = 1; i < topology.Length - 1; i++) {
@@ -47,7 +54,6 @@ public class NeuralNetwork {
     }
 
     public double propagate(float[] input) {
-        if(neuralNetwork == null) return 0;
         for(int i = 0; i < neuralNetwork.Length; i++) {
             if(i == 0) for(int j = 0; j < neuralNetwork[i].Length; j++) neuralNetwork[i][j].Value = input[j];
             else {
@@ -56,12 +62,12 @@ public class NeuralNetwork {
                     for(int k = 0; k < neuralNetwork[i-1].Length; k++) {
                         neuralNetwork[i][j].Value += neuralNetwork[i][j].Weights[k] * neuralNetwork[i-1][k].Value;
                     }
-                    neuralNetwork[i][j].Value = (float)activationSigmoidFunction(neuralNetwork[i][j].Value);
+                    // neuralNetwork[i][j].Value = (float)activationReluFunction(neuralNetwork[i][j].Value);
                 }
             }
         }
         // Debug.Log(neuralNetwork[neuralNetwork.Length-1][0].Value);
-        return activationFunction(neuralNetwork[neuralNetwork.Length-1][0].Value);
+        return activationSigmoidFunction(neuralNetwork[neuralNetwork.Length-1][0].Value);
     }
 
     public List<float> getGenome() {
@@ -79,11 +85,11 @@ public class NeuralNetwork {
         return genome;
     }
 
-    private double activationFunction(float x) {
+    private double activationSigmoidFunction(float x) {
         return 1/(1 + System.Math.Exp(-x));
     }
 
-    private double activationSigmoidFunction(float x) {
+    private double activationReluFunction(float x) {
         return System.Math.Max(0, x);
     }
 }

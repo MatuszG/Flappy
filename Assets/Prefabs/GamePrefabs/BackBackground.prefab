@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3441522917975985511}
   m_Layer: 0
   m_Name: BackBackground
-  m_TagString: Obstacle
+  m_TagString: GroundObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,6 +252,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1123923297861396516}
     m_Modifications:
+    - target: {fileID: 287792049907770636, guid: a39f6a9b31f328049bfb749e122f697c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2443641195007029302, guid: a39f6a9b31f328049bfb749e122f697c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4837608409174502574, guid: a39f6a9b31f328049bfb749e122f697c, type: 3}
+      propertyPath: m_MaxValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6269844012577087732, guid: a39f6a9b31f328049bfb749e122f697c, type: 3}
       propertyPath: m_Pivot.x
       value: 0

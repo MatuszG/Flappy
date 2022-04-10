@@ -9,6 +9,7 @@ public class BirdHandler : MonoBehaviour {
     [SerializeField] protected Sprite[] sprites;
     protected bool alive;
     protected int id = -1;
+    protected float maxScore;
     public int Id {
         get { return id; }
         set { id = value; }
@@ -30,6 +31,7 @@ public class BirdHandler : MonoBehaviour {
     protected void Awake() {
         alive = true;
         score = 0;
+        maxScore = FileSystem.GetAgentMaxScore();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -70,6 +72,11 @@ public class BirdHandler : MonoBehaviour {
         if(other.gameObject.tag == "Obstacle" && alive) {
             if(id == -1) gameHandler.setDead();
             setDead();
+        }
+        else if(other.gameObject.tag == "GroundObstacle" && alive) {
+            if(id == -1) gameHandler.setDead();
+            setDead();
+            if(id != -1) NetworkManager.Networks[id].LiveTime -= 1f;
         }
         else if(other.gameObject.tag == "Score") {
             addScore(1f);

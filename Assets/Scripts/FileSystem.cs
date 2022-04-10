@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 // -1 means File not found
@@ -8,6 +10,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 public static class FileSystem {
     static string pathScore = Application.persistentDataPath + "/playerMaxScore.bin";
     static string pathAgentScore = Application.persistentDataPath + "/agentMaxScore.bin";
+    static string pathAgentPolicy = Application.persistentDataPath + "/agentPolicy.bin";
+
+    public static void printPath() {
+        Debug.Log(pathAgentPolicy);
+    }
 
     public static void SaveMaxScore(float score) {
         float data = GetMaxScore();
@@ -23,6 +30,24 @@ public static class FileSystem {
         }
     }
 
+    public static void SaveAgentPolicy(List<float> genome) {
+        BinaryFormatter formatter = new BinaryFormatter();
+        // Debug.Log("Saving");
+        // Debug.Log(genome.Count);
+        AgentPolicy data = new AgentPolicy(genome);
+        // for(int i = 0; i < genome.Count; i++) {
+        //     Debug.Log(genome[i]);
+        // }
+        // Debug.Log("Checking");
+        // Debug.Log(data.genome.Count);
+        // for(int i = 0; i < data.genome.Count; i++) {
+        //     Debug.Log(data.genome[i]);
+        // }
+        FileStream stream = new FileStream(pathAgentPolicy, FileMode.Create);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
     public static float GetMaxScore() {
         float data = LoadScore(pathScore);
         if(data == -1f) return 0;
@@ -33,6 +58,23 @@ public static class FileSystem {
         float data = LoadScore(pathAgentScore);
         if(data == -1f) return 0;
         return data;
+    }
+
+    public static List<float> GetAgentPolicy() {
+        if(File.Exists(pathAgentPolicy)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(pathAgentPolicy, FileMode.Open);
+            AgentPolicy data = formatter.Deserialize(stream) as AgentPolicy;
+            stream.Close();
+            // Debug.Log("Loading");
+            // Debug.Log(data.genome.Count);
+            // for(int i = 0; i < data.genome.Count; i++) {
+            // Debug.Log(data.genome[i]);
+            return data.genome;
+        }
+        else {
+            return new List<float>();
+        }
     }
 
     private static void SaveScore(string path, float score) {
