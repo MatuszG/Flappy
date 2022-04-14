@@ -12,6 +12,7 @@ public class AgentSlider : MonoBehaviour {
     void Start() {
         text = textMesh.gameObject.GetComponent<TextMeshProUGUI>();
         slider.value = NetworkManager.NetworksN;
+        text.text = slider.value.ToString();
         slider.onValueChanged.AddListener( (v) => {
             NetworkManager.NetworksN = (int)v;
             text.text = v.ToString();

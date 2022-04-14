@@ -12,9 +12,9 @@ public class MutationSlider : MonoBehaviour {
     void Start() {
         text = textMesh.gameObject.GetComponent<TextMeshProUGUI>();
         slider.value = NetworkManager.MutateRatio * 100;
-        text.text = (NetworkManager.MutateRatio * 100).ToString("0") + "%";
+        text.text = slider.value.ToString("0") + "%";
         slider.onValueChanged.AddListener( (v) => {
-            NetworkManager.MutateRatio = v/100f;
+            NetworkManager.MutateRatio = (int)v/100f;
             text.text = v.ToString("0") + "%";
         });
     }
