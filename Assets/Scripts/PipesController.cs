@@ -31,6 +31,7 @@ public static class PipesController {
     }
 
     private static void updateBestPipes() { // do poprawy
+        if(bestPipeHandlers == null) return;
         bestPipes = new float[]{Mathf.Infinity, Mathf.Infinity};
         for(int i = 0; i < bestPipeHandlers.Length; i++) {
             if(bestPipeHandlers[i] != null && bestPipeHandlers[i].transform.position.x < 0.6) {

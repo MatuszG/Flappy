@@ -12,6 +12,8 @@ public class GameAgentHandler : GameHandler {
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
         newBird.gameObject.GetComponent<AgentBirdHandler>().getAgentPolicy();
+        newBird.gameObject.GetComponent<AgentBirdHandler>().setOn(true);
+        // Debug.Log(newBird.gameObject.GetComponent<AgentBirdHandler>().Network);
     }
     
     private void saveAgentMaxScore() {
@@ -30,7 +32,7 @@ public class GameAgentHandler : GameHandler {
         return newBird.gameObject.GetComponent<AgentBirdHandler>().Score;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(alive) {
             score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

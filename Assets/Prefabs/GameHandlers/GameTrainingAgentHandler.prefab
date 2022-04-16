@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3251333029208759387}
   - component: {fileID: 600197059277706789}
+  - component: {fileID: 1411871026184000701}
   m_Layer: 0
   m_Name: GameTrainingAgentHandler
   m_TagString: Untagged
@@ -53,6 +54,22 @@ MonoBehaviour:
   evolutionText: {fileID: 1592907360804778883}
   maxScoreText: {fileID: 535863738003727332}
   aliveText: {fileID: 2688263491552258642}
+--- !u!114 &1411871026184000701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3251333029208759380}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be51f50bf18f1440b510b3fc20175a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  pooledObjectsArray: []
+  scriptedObjects: []
+  objectToPool: {fileID: 1156206074835558373, guid: 1f55e175e9a854748a659ca24768de6c, type: 3}
 --- !u!1001 &2873601490596449461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232,6 +249,10 @@ PrefabInstance:
     - target: {fileID: 2735192044803264152, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_Value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2735192044803264152, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2999761047971624013, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

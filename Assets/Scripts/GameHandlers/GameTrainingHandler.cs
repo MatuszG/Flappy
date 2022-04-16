@@ -23,18 +23,23 @@ public class GameTrainingHandler : GameAgentHandler {
     private GameObject newBird;
     private AgentBirdHandler newBirdHandler;
     private int cratedBirds;
+    private BirdPool pool;
+    private float elapsedTime;
 
     private void OnEnable() {
-        cratedBirds = 0;
+        // cratedBirds = 0;
         Time.timeScale = 1f;
     }
 
     private void Awake() {
-        newBirdsList = new List<GameObject>();
-        newBirdsHandlerList = new List<AgentBirdHandler>();
+        // newBirdsList = new List<GameObject>();
+        // newBirdsHandlerList = new List<AgentBirdHandler>();
+        // newBirds = new GameObject[numberOfAgents];
+        // Instantiate(pipeHandler);
         Instantiate(pipeHandler);
         numberOfAgents = NetworkManager.NetworksN;
         aliveNumber = numberOfAgents;
+        newBirdsHandler = new AgentBirdHandler[numberOfAgents];
         maxScore = getAgentMaxScore();
         scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
@@ -42,54 +47,42 @@ public class GameTrainingHandler : GameAgentHandler {
         evolutionNumber = NetworkManager.EvolutionNumber;
         if(evolutionNumber == 0) NetworkManager.create();
         else NetworkManager.mutate();
-        // newBirds = new GameObject[numberOfAgents];
-        // newBirdsHandler = new AgentBirdHandler[numberOfAgents];
-        // for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-        // newBirds = newBirdsList.ToArray();
-        // newBirdsHandler = newBirdsHandlerList.ToArray();
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution = evolutionText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshMaxScore = maxScoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
+        elapsedTime = 0;
         // FileSystem.printPath();
         // C:/Users/mateo/AppData/LocalLow/DefaultCompany/Flappy/
     }
 
     private void Start() {
+        // PoolsHandler.restart();
+        // PoolsHandler.play();
+        // pool = Test.pool;
+        // Debug.Log(pool.pooledObjects.Count);
         for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-        newBirds = newBirdsList.ToArray();
-        newBirdsHandler = newBirdsHandlerList.ToArray();
+        // newBirdsHandler = newBirdsHandlerList.ToArray();
+        for(int i = 0; i < numberOfAgents; i++) {
+            // newBirdsHandler[i].setActive(true);
+            newBirdsHandler[i].setOn(true);
+        }
     }
 
-    private void Update() {
-        // if(cratedBirds < numberOfAgents) {
-        //     createAgent(cratedBirds++);
+    private void FixedUpdate() {
+        // if(Time.timeScale < 1.5f) {
+        //     Time.timeScale += 0.003f;
         // }
-        // else {
-        //     if(Time.timeScale == 0.01f) Time.timeScale = 1f;
-        //     currentMaxScore = 0;
-        //     for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
-        //     for(int i = 0; i < numberOfAgents; i++) update(i);
-        //     textMeshScore.text = currentMaxScore.ToString("0");
-        //     textMeshAlive.text = "Alive: " + aliveNumber.ToString();
+        // else if(Time.timeScale < 10f) {
+        //     Time.timeScale += 0.01f;
         // }
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("0");
         textMeshAlive.text = "Alive: " + aliveNumber.ToString();
-
-        // MovePipe[] pipes = PipesController.getPipes();
-        // if(pipes[0].transform.position.x < 0.6) Debug.Log(pipes[0].transform.position);
-        // else if(pipes[0].transform.position.x > 3) Debug.Log(pipes[0].transform.position);
-        // for(int i = 0; i < pipes.Length; i++) {
-        //     Debug.Log(pipes[i].transform.position);
-        // }
-        // newBird = Instantiate(birdHandler);
-        // newBirdHandler = newBird.GetComponent<AgentBirdHandler>();
-        // newBirdHandler.Id = 999;
     }
 
     private void update(int i) {
@@ -108,7 +101,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private void setDeadAgent(int i) {
         notAlive[i] = true;
         aliveNumber--;
-        Destroy(newBirds[i].gameObject);
+        newBirdsHandler[i].setActive(false);
         newBirdsHandler[i].updatedNetworkTime();
         newBirdsHandler[i].updateNetworkScore(scores[i]);
         if(aliveNumber == 0) {
@@ -116,23 +109,21 @@ public class GameTrainingHandler : GameAgentHandler {
         }
     }
 
-    // private void createAgent(int i) {
-    //     newBird = Instantiate(birdHandler);
-    //     newBirds[i] = newBird.gameObject;
-    //     newBirdHandler = newBird.GetComponent<AgentBirdHandler>();
-    //     newBirdHandler.Network = NetworkManager.Networks[i];
-    //     newBirdHandler.Id = i;
-    //     newBirdsHandler[i] = newBirdHandler;
-    // }
-
     private void createAgent(int i) {
         newBird = Instantiate(birdHandler);
-        newBirdsList.Add(newBird.gameObject);
         newBirdHandler = newBird.GetComponent<AgentBirdHandler>();
         newBirdHandler.Network = NetworkManager.Networks[i];
         newBirdHandler.Id = i;
-        newBirdsHandlerList.Add(newBirdHandler);
+        newBirdsHandler[i] = newBirdHandler;
     }
+
+    // private void createAgent(int i) {
+    //     GameObject bird = pool.GetPooledObject(i);
+    //     newBirdHandler = bird.GetComponent<AgentBirdHandler>();
+    //     newBirdHandler.Network = NetworkManager.Networks[i];
+    //     newBirdHandler.Id = i;
+    //     newBirdsHandlerList.Add(newBirdHandler);
+    // }
 
     private float getAgentScore(int i) {
         return newBirdsHandler[i].Score;

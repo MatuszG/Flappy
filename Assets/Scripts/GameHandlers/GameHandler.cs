@@ -41,7 +41,7 @@ public class GameHandler : MonoBehaviour {
         return newBird.gameObject.GetComponent<BirdHandler>().Score;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(alive) {
             score = getScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

@@ -13,4 +13,8 @@ public class SliderScript : MonoBehaviour {
             Time.timeScale = v; 
         });
     }
+
+    void Update() {
+        slider.value = Time.timeScale;
+    }
 }

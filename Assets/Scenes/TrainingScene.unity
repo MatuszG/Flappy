@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1411871026184000701, guid: 67c800bbea235e549bb2a62c9424a25f, type: 3}
+      propertyPath: amountToPool
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2816257853053312795, guid: 67c800bbea235e549bb2a62c9424a25f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -249,6 +253,14 @@ PrefabInstance:
     - target: {fileID: 5032670189307118438, guid: 67c800bbea235e549bb2a62c9424a25f, type: 3}
       propertyPath: m_fontSizeBase
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556054095602716270, guid: 67c800bbea235e549bb2a62c9424a25f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713400498950871892, guid: 67c800bbea235e549bb2a62c9424a25f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67c800bbea235e549bb2a62c9424a25f, type: 3}

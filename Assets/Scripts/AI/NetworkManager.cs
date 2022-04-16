@@ -124,6 +124,9 @@ public static class NetworkManager {
                 // if(!bias(genome[i])) genome[i] += getWeightOffset();
                 // else genome[i] += getBiasOffset();
             }
+            else {
+                genome[i] += randomGaussian() * 0.05f;
+            }
             // else {
             //     if(!bias(genome[i])) {
             //         genome[i] += Random.Range(-0.05f, 0.05f);
