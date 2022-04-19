@@ -9,6 +9,8 @@ public class GameTrainingHandler : GameAgentHandler {
     [SerializeField] private GameObject evolutionText;
     [SerializeField] private GameObject maxScoreText;
     [SerializeField] private GameObject aliveText;
+    [SerializeField] private GameObject toggleObj;
+    private Toggle toggle;
     private MainMenu menu;
     private GameObject[] newBirds;
     private List<GameObject> newBirdsList;
@@ -25,17 +27,19 @@ public class GameTrainingHandler : GameAgentHandler {
     private int cratedBirds;
     private BirdPool pool;
     private float elapsedTime;
+    private bool automaticAcceleration;
+
+    public void changeAcceleration() {
+        automaticAcceleration = !automaticAcceleration;
+        NetworkManager.AutomaticAcceleration = automaticAcceleration;
+    }
 
     private void OnEnable() {
-        // cratedBirds = 0;
+        automaticAcceleration = NetworkManager.AutomaticAcceleration;
         Time.timeScale = 1f;
     }
 
     private void Awake() {
-        // newBirdsList = new List<GameObject>();
-        // newBirdsHandlerList = new List<AgentBirdHandler>();
-        // newBirds = new GameObject[numberOfAgents];
-        // Instantiate(pipeHandler);
         Instantiate(pipeHandler);
         numberOfAgents = NetworkManager.NetworksN;
         aliveNumber = numberOfAgents;
@@ -43,10 +47,10 @@ public class GameTrainingHandler : GameAgentHandler {
         maxScore = getAgentMaxScore();
         scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
-        menu = mainMenu.GetComponent<MainMenu>();
         evolutionNumber = NetworkManager.EvolutionNumber;
         if(evolutionNumber == 0) NetworkManager.create();
         else NetworkManager.mutate();
+        menu = mainMenu.GetComponent<MainMenu>();
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution = evolutionText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshMaxScore = maxScoreText.gameObject.GetComponent<TextMeshProUGUI>();
@@ -59,12 +63,9 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void Start() {
-        // PoolsHandler.restart();
-        // PoolsHandler.play();
-        // pool = Test.pool;
-        // Debug.Log(pool.pooledObjects.Count);
+        toggle = toggleObj.GetComponent<Toggle>();
+        toggle.isOn = NetworkManager.AutomaticAcceleration;
         for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-        // newBirdsHandler = newBirdsHandlerList.ToArray();
         for(int i = 0; i < numberOfAgents; i++) {
             // newBirdsHandler[i].setActive(true);
             newBirdsHandler[i].setOn(true);
@@ -72,12 +73,16 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void FixedUpdate() {
-        // if(Time.timeScale < 1.5f) {
-        //     Time.timeScale += 0.003f;
-        // }
-        // else if(Time.timeScale < 10f) {
-        //     Time.timeScale += 0.01f;
-        // }
+        toggle.isOn = NetworkManager.AutomaticAcceleration;
+        automaticAcceleration = NetworkManager.AutomaticAcceleration;
+        if(automaticAcceleration) {
+            if(Time.timeScale < 1.5f) {
+                Time.timeScale += 0.003f;
+            }
+            else if(Time.timeScale < 10f) {
+                Time.timeScale += 0.01f;
+            }
+        }
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);

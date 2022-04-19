@@ -54,6 +54,7 @@ MonoBehaviour:
   evolutionText: {fileID: 1592907360804778883}
   maxScoreText: {fileID: 535863738003727332}
   aliveText: {fileID: 2688263491552258642}
+  toggleObj: {fileID: 2364593170680621762}
 --- !u!114 &1411871026184000701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +279,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5975833160115233135, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7289507846706677562, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -300,5 +305,10 @@ Transform:
 --- !u!1 &7051908504417797351 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6777681976814718387, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+  m_PrefabInstance: {fileID: 4598809316554361172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2364593170680621762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2234621322619610006, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
   m_PrefabInstance: {fileID: 4598809316554361172}
   m_PrefabAsset: {fileID: 0}

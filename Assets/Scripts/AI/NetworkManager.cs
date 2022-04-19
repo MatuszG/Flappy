@@ -8,10 +8,16 @@ public static class NetworkManager {
     private static List<NeuralNetwork> networksList;
     private static int evolutionNumber = 0, networksN = 275;
     private static float sumFitness, mutateRatio = 0.1f;
+    private static bool automaticAcceleration = false;
 
     public static int EvolutionNumber {
         get { return evolutionNumber; }
         set { evolutionNumber = value; }
+    }
+
+    public static bool AutomaticAcceleration {
+        get { return automaticAcceleration; }
+        set { automaticAcceleration = value; }
     }
 
     // public static int NumberOfAgents {
@@ -79,8 +85,17 @@ public static class NetworkManager {
 
     private static void crossover2() {
         networksList = new List<NeuralNetwork>();
+        // Saving the best species
+        int i = 0;
+        List<float> genome = networks[i++].getGenome();
+        networksList.Add(new NeuralNetwork(genome));
+        while (networksList.Count < networksN / 100f) { 
+            genome = networks[i++].getGenome();
+            networksList.Add(new NeuralNetwork(genome));
+        }
+        // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
-            List<float> genome = poolSelection();
+            genome = poolSelection();
             mutation(genome);
             networksList.Add(new NeuralNetwork(genome));
         }
@@ -116,17 +131,17 @@ public static class NetworkManager {
     }
 
     private static void mutation(List<float> genome) {
-        // Debug.Log(randomGaussian()*0.25f);
+        // Debug.Log(randomGaussian()*0.1f);
         for(int i = 0; i < genome.Count; i++) {
             if(Random.Range(0, 1f) > 1 - mutateRatio) {
                 // genome[i] += getWeightOffset();
-                genome[i] += randomGaussian() * 0.5f;
+                genome[i] += randomGaussian() * 0.1f;
                 // if(!bias(genome[i])) genome[i] += getWeightOffset();
                 // else genome[i] += getBiasOffset();
             }
-            else {
-                genome[i] += randomGaussian() * 0.05f;
-            }
+            // else {
+            //     genome[i] += randomGaussian() * 0.05f;
+            // }
             // else {
             //     if(!bias(genome[i])) {
             //         genome[i] += Random.Range(-0.05f, 0.05f);
