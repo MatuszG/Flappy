@@ -7,7 +7,7 @@ public class PipeHandler : MonoBehaviour {
 
     private float timer;
     private float diifTime = 0;
-    private int pipesMin = 3;
+    private int pipesMin = 1;
     private int offsetTime = 22; //12
 
     private const int xPosDiff = 10;
@@ -21,6 +21,15 @@ public class PipeHandler : MonoBehaviour {
         for(int i = 0; i < pipesMin; i++) {
             addPipe(xPosDiff * i);
         }
+    }
+
+    public void Restart() {
+        GameObject[] pipes = GameObject.FindGameObjectsWithTag("Score");
+        foreach (GameObject pipe in pipes) {
+            pipe.SetActive(false);
+            // Destroy(pipe);
+        }
+        Start();
     }
 
     private void Update() {

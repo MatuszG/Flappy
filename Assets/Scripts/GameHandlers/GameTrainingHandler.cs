@@ -36,40 +36,58 @@ public class GameTrainingHandler : GameAgentHandler {
 
     private void OnEnable() {
         automaticAcceleration = NetworkManager.AutomaticAcceleration;
-        Time.timeScale = 1f;
     }
 
     private void Awake() {
+        Debug.Log("XD");
         Instantiate(pipeHandler);
+        toggle = toggleObj.GetComponent<Toggle>();
+        toggle.isOn = NetworkManager.AutomaticAcceleration;
         numberOfAgents = NetworkManager.NetworksN;
-        aliveNumber = numberOfAgents;
         newBirdsHandler = new AgentBirdHandler[numberOfAgents];
-        maxScore = getAgentMaxScore();
-        scores = new float[numberOfAgents];
-        notAlive = new bool[numberOfAgents];
-        evolutionNumber = NetworkManager.EvolutionNumber;
-        if(evolutionNumber == 0) NetworkManager.create();
-        else NetworkManager.mutate();
         menu = mainMenu.GetComponent<MainMenu>();
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshEvolution = evolutionText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshMaxScore = maxScoreText.gameObject.GetComponent<TextMeshProUGUI>();
         textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
-        textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
-        textMeshMaxScore.text = "Max score: " + maxScore.ToString();
         elapsedTime = 0;
         // FileSystem.printPath();
         // C:/Users/mateo/AppData/LocalLow/DefaultCompany/Flappy/
     }
 
-    private void Start() {
-        toggle = toggleObj.GetComponent<Toggle>();
-        toggle.isOn = NetworkManager.AutomaticAcceleration;
-        for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-        for(int i = 0; i < numberOfAgents; i++) {
-            // newBirdsHandler[i].setActive(true);
-            newBirdsHandler[i].setOn(true);
+    private void start() {
+        Time.timeScale = 1f;
+        aliveNumber = numberOfAgents;
+        maxScore = getAgentMaxScore();
+        scores = new float[numberOfAgents];
+        notAlive = new bool[numberOfAgents];
+        evolutionNumber = NetworkManager.EvolutionNumber;
+        if(evolutionNumber == 0) {
+            NetworkManager.create();
+            for(int i = 0; i < numberOfAgents; i++) createAgent(i);
+            for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
+        else {
+            // NetworkManager.mutate();
+            for(int i = 0; i < numberOfAgents; i++) {
+                newBirdsHandler[i].Restart();
+                newBirdsHandler[i].setOn(true);
+                newBirdsHandler[i].setActive(true);
+            }
+        }
+        textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
+        textMeshMaxScore.text = "Max score: " + maxScore.ToString();
+    }
+
+    private void Start() {
+        start();
+    }
+
+    private void Restart() {
+        pipeHandler.GetComponent<PipeHandler>().Restart();
+        NetworkManager.EvolutionNumber++;
+        // Debug.Log(NetworkManager.EvolutionNumber);
+        start();
     }
 
     private void FixedUpdate() {
@@ -110,7 +128,9 @@ public class GameTrainingHandler : GameAgentHandler {
         newBirdsHandler[i].updatedNetworkTime();
         newBirdsHandler[i].updateNetworkScore(scores[i]);
         if(aliveNumber == 0) {
-            menu.TrainAgain();
+            Restart();
+            // Debug.Log(aliveNumber);
+            // menu.TrainAgain();
         }
     }
 

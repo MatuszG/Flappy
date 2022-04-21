@@ -7,6 +7,7 @@ public class AgentBirdHandler : BirdHandler {
     private float liveTime = 0;
     private float[] input;
     private bool active = false;
+    private Vector3 defaultPos = new Vector3(0,7,0);
     private NeuralNetwork network;
 
     private Vector2 sped;
@@ -43,6 +44,10 @@ public class AgentBirdHandler : BirdHandler {
 
     public void setActive(bool active) {
         this.gameObject.SetActive(active);
+    }
+
+    public void Restart() {
+        rb.MovePosition(defaultPos);
     }
 
     private void Update() {
