@@ -11,6 +11,9 @@ public class BirdHandler : MonoBehaviour {
     protected int id = -1;
     protected float maxScore;
     protected Rigidbody2D rb;
+    protected Vector3 speed;
+    protected SpriteRenderer spriteRenderer;
+    protected int spriteIndex;
 
     public int Id {
         get { return id; }
@@ -25,11 +28,6 @@ public class BirdHandler : MonoBehaviour {
         get { return score; }
         set { score = value; }
     }
-
-    protected Vector3 speed;
-    protected Vector2 sped;
-    protected SpriteRenderer spriteRenderer;
-    protected int spriteIndex;
 
     protected void Awake() {
         alive = true;
@@ -70,7 +68,6 @@ public class BirdHandler : MonoBehaviour {
 
     protected void jump() {
         speed = Vector3.up * jumpSpeed;
-        sped = Vector2.up * jumpSpeed;
     }
 
     protected void OnTriggerEnter2D(Collider2D other) {

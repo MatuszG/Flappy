@@ -14,7 +14,7 @@ public static class PipesController {
     }
 
     public static void clear() {
-        if(pipeHandlers.Count > 8) {
+        if(pipeHandlers.Count > 5) {
             pipeHandlers.RemoveAt(0);
             updateBestPipes();
         }

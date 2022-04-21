@@ -6,9 +6,9 @@ public class PipeHandler : MonoBehaviour {
     [SerializeField] private GameObject pipe;
 
     private float timer;
-    private float diifTime = 0;
+    private float diffTime;
     private int pipesMin = 1;
-    private int offsetTime = 22; //12
+    private int offsetTime = 10; //12
 
     private const int xPosDiff = 10;
     private const float speedPipe = 5f;
@@ -16,8 +16,9 @@ public class PipeHandler : MonoBehaviour {
     private float diffRange;
 
     private void Start() {
-        PipesController.restart();
         timer = 0f;
+        diffTime = 0f;
+        PipesController.restart();
         for(int i = 0; i < pipesMin; i++) {
             addPipe(xPosDiff * i);
         }
@@ -33,11 +34,12 @@ public class PipeHandler : MonoBehaviour {
     }
 
     private void Update() {
-        // timeMovePipe = xPosDiff/(speedPipe*Time.timeScale);
         timeMovePipe = xPosDiff/(speedPipe);
         diffRange = timeMovePipe/20;
         PipesController.clear();
-        if(timer >= diifTime) addPipe(xPosDiff * pipesMin);
+        if(timer >= diffTime) {
+            addPipe(xPosDiff * pipesMin);
+        }
         updateTime();
     }
 
@@ -46,6 +48,7 @@ public class PipeHandler : MonoBehaviour {
     }
 
     private void addPipe(int xPos) {
+        // Debug.Log(xPos);
         GameObject newPipe = Instantiate(pipe, transform.position, Quaternion.identity);
         newPipe.transform.position = transform.position + new Vector3(xPos, Random.Range(-6f, 6f), 0); // (-6f, -6f)
         PipesController.addPipe(newPipe.gameObject);
@@ -53,7 +56,7 @@ public class PipeHandler : MonoBehaviour {
         Destroy(newPipe, timeDestroy);
         if(xPos == xPosDiff * pipesMin) {
             timer = 0;
-            diifTime = Random.Range(timeMovePipe - diffRange, timeMovePipe + diffRange);
+            diffTime = Random.Range(timeMovePipe - diffRange, timeMovePipe + diffRange);
         }
     }
 }

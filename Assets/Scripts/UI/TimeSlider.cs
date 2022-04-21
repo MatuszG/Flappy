@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SliderScript : MonoBehaviour {
+public class TimeSlider : MonoBehaviour {
     [SerializeField] private Slider slider;
     [SerializeField] private GameObject textMesh;
     private TextMeshProUGUI text;
@@ -12,7 +12,7 @@ public class SliderScript : MonoBehaviour {
     void Start() {
         slider.value = Time.timeScale; 
         text = textMesh.GetComponent<TextMeshProUGUI>();
-        text.text = slider.value.ToString("n2");
+        text.text = slider.value.ToString("n3");
         slider.onValueChanged.AddListener( (v) => {
             Time.timeScale = v; 
         });
@@ -21,7 +21,7 @@ public class SliderScript : MonoBehaviour {
     void Update() {
         if(slider.value != Time.timeScale) {
             slider.value = Time.timeScale;
-            text.text = slider.value.ToString();
+            text.text = slider.value.ToString("n3");
         }
     }
 }
