@@ -27,7 +27,7 @@ public class PipeHandler : MonoBehaviour {
         GameObject[] pipes = GameObject.FindGameObjectsWithTag("Score");
         foreach (GameObject pipe in pipes) {
             pipe.SetActive(false);
-            // Destroy(pipe);
+            Destroy(pipe);
         }
         Start();
     }

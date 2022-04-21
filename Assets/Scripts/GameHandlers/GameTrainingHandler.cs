@@ -28,6 +28,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private BirdPool pool;
     private float elapsedTime;
     private bool automaticAcceleration;
+    private bool restarting;
 
     public void changeAcceleration() {
         automaticAcceleration = !automaticAcceleration;
@@ -36,6 +37,7 @@ public class GameTrainingHandler : GameAgentHandler {
 
     private void OnEnable() {
         automaticAcceleration = NetworkManager.AutomaticAcceleration;
+        restarting = false;
     }
 
     private void Awake() {
@@ -68,11 +70,9 @@ public class GameTrainingHandler : GameAgentHandler {
             for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
         else {
-            // NetworkManager.mutate();
+            NetworkManager.mutate();
             for(int i = 0; i < numberOfAgents; i++) {
-                newBirdsHandler[i].Restart();
-                newBirdsHandler[i].setOn(true);
-                newBirdsHandler[i].setActive(true);
+                newBirdsHandler[i].restart(i);
             }
         }
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
@@ -83,7 +83,7 @@ public class GameTrainingHandler : GameAgentHandler {
         start();
     }
 
-    private void Restart() {
+    private void restart() {
         pipeHandler.GetComponent<PipeHandler>().Restart();
         NetworkManager.EvolutionNumber++;
         // Debug.Log(NetworkManager.EvolutionNumber);
@@ -106,9 +106,11 @@ public class GameTrainingHandler : GameAgentHandler {
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("0");
         textMeshAlive.text = "Alive: " + aliveNumber.ToString();
+        restarting = false;
     }
 
     private void update(int i) {
+        if(restarting) return;
         if(!notAlive[i]) {
             scores[i] = getAgentScore(i);
             saveAgentMaxScore(i);
@@ -116,6 +118,7 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void checkAlive(int i) {
+        if(restarting) return;
         if(!notAlive[i] && !newBirdsHandler[i].Alive) {
             setDeadAgent(i);
         }
@@ -127,8 +130,11 @@ public class GameTrainingHandler : GameAgentHandler {
         newBirdsHandler[i].setActive(false);
         newBirdsHandler[i].updatedNetworkTime();
         newBirdsHandler[i].updateNetworkScore(scores[i]);
+        // Debug.Log(aliveNumber);
         if(aliveNumber == 0) {
-            Restart();
+            restart();
+            restarting = true;
+            // Debug.Log("restarting");
             // Debug.Log(aliveNumber);
             // menu.TrainAgain();
         }

@@ -46,11 +46,17 @@ public class AgentBirdHandler : BirdHandler {
         this.gameObject.SetActive(active);
     }
 
-    public void Restart() {
+    public void restart(int i) {
         rb.MovePosition(defaultPos);
+        this.transform.position = defaultPos;
+        this.active = true;
+        this.gameObject.SetActive(true);
+        liveTime = 0;
+        Network = NetworkManager.Networks[i];
     }
 
     private void Update() {
+        Debug.Log(liveTime);
         return;
     }
 
@@ -89,19 +95,5 @@ public class AgentBirdHandler : BirdHandler {
     private float Map(float s, float a1, float a2, float b1, float b2) {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
-
-    // private void FixedUpdate() {
-    //     pipes = PipesController.getPipes();
-    //     input = new float[6];
-    //     input[0] = transform.position.y;
-    //     input[1] = speed.y;
-    //     input[2] = pipes[0].transform.position.x;
-    //     input[3] = pipes[0].transform.position.y;
-    //     // input[4] = pipes[1].transform.position.x;
-    //     // input[5] = pipes[1].transform.position.y;
-    //     if(network.propagate(input) > 0.5) {
-    //         jump();
-    //     }
-    // }
 }
 
