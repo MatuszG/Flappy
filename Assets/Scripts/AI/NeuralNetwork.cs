@@ -33,7 +33,7 @@ public class NeuralNetwork {
             for(int j = 0; j < topology[i]; j++) {
                 if(i == 0) neuralNetwork[i][j] = new Neuron(1,false);
                 else if(i == topology.Length - 1) neuralNetwork[i][j] = new Neuron(topology[i - 1], false);
-                else neuralNetwork[i][j] = new Neuron(topology[i-1]);
+                else neuralNetwork[i][j] = new Neuron(topology[i-1]);   
             }
         }
     }
@@ -41,9 +41,10 @@ public class NeuralNetwork {
     public NeuralNetwork(List<float> genome) {
         this.neuralNetwork = new NeuralNetwork().Network;
         if(genome.Count == 0) return;
+        genome.Add(0);
         float[] gens = genome.ToArray();
         int id = 0;
-        for(int i = 1; i < topology.Length - 1; i++) {
+        for(int i = 1; i < topology.Length; i++) {
             for(int j = 0; j < topology[i]; j++) {
                 for(int k = 0; k < neuralNetwork[i][j].Weights.Length; k++) {
                     neuralNetwork[i][j].Weights[k] = gens[id++];
@@ -54,19 +55,16 @@ public class NeuralNetwork {
     }
 
     public double propagate(float[] input) {
-        for(int i = 0; i < neuralNetwork.Length; i++) {
-            if(i == 0) for(int j = 0; j < neuralNetwork[i].Length; j++) neuralNetwork[i][j].Value = input[j];
-            else {
-                for(int j = 0; j < neuralNetwork[i].Length; j++) {
-                    neuralNetwork[i][j].Value = neuralNetwork[i][j].Bias;
-                    for(int k = 0; k < neuralNetwork[i-1].Length; k++) {
-                        neuralNetwork[i][j].Value += neuralNetwork[i][j].Weights[k] * neuralNetwork[i-1][k].Value;
-                    }
-                    // neuralNetwork[i][j].Value = (float)activationReluFunction(neuralNetwork[i][j].Value);
+        int i = 0;
+        for(int j = 0; j < neuralNetwork[i].Length; j++) neuralNetwork[i][j].Value = input[j];
+        for(i = 1; i < neuralNetwork.Length; i++) {
+            for(int j = 0; j < neuralNetwork[i].Length; j++) {
+                neuralNetwork[i][j].Value = neuralNetwork[i][j].Bias;
+                for(int k = 0; k < neuralNetwork[i][j].Weights.Length; k++) {
+                    neuralNetwork[i][j].Value += neuralNetwork[i][j].Weights[k] * neuralNetwork[i-1][k].Value;
                 }
             }
         }
-        // Debug.Log(neuralNetwork[neuralNetwork.Length-1][0].Value);
         return activationSigmoidFunction(neuralNetwork[neuralNetwork.Length-1][0].Value);
     }
 

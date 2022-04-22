@@ -9,30 +9,16 @@ public class GameTrainingHandler : GameAgentHandler {
     [SerializeField] private GameObject evolutionText;
     [SerializeField] private GameObject maxScoreText;
     [SerializeField] private GameObject aliveText;
-    [SerializeField] private GameObject toggleObj;
-    private Toggle toggle;
     private MainMenu menu;
     private GameObject[] newBirds;
-    private List<GameObject> newBirdsList;
     private AgentBirdHandler[] newBirdsHandler;
-    private List<AgentBirdHandler> newBirdsHandlerList;
     private TextMeshProUGUI textMeshScore, textMeshEvolution, textMeshMaxScore, textMeshAlive;
     private bool[] notAlive;
     private float[] scores;
-    private float currentMaxScore;
-    private int numberOfAgents;
-    private int aliveNumber, evolutionNumber;
+    private float currentMaxScore, elapsedTime;
+    private int numberOfAgents, aliveNumber, evolutionNumber;
     private AgentBirdHandler newBirdHandler;
-    private int cratedBirds;
-    private BirdPool pool;
     private GameObject pipes;
-    private float elapsedTime;
-    private bool automaticAcceleration;
-
-    public void changeAcceleration() {
-        automaticAcceleration = !automaticAcceleration;
-        NetworkManager.AutomaticAcceleration = automaticAcceleration;
-    }
 
     private void OnEnable() {
         automaticAcceleration = NetworkManager.AutomaticAcceleration;
@@ -56,8 +42,6 @@ public class GameTrainingHandler : GameAgentHandler {
     private void Start() {
         elapsedTime = 0;
         Time.timeScale = 1f;
-        // if(automaticAcceleration) Time.timeScale = 0.01f;
-        // else Time.timeScale = 1f;
         aliveNumber = numberOfAgents;
         maxScore = getAgentMaxScore();
         scores = new float[numberOfAgents];
@@ -71,33 +55,27 @@ public class GameTrainingHandler : GameAgentHandler {
         else {
             NetworkManager.mutate();
             // for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-            for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].restart(i);
+            for(int i = 0; i < numberOfAgents; i++) {
+                Destroy(newBirdsHandler[i].gameObject);
+                createAgent(i);
+            }
             for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
+            // for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].restart(i);
+            // for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
     }
 
     private void Restart() {
+        Time.timeScale = 0.1f;
         pipes.GetComponent<PipeHandler>().Restart();
         NetworkManager.EvolutionNumber++;
         Start();
     }
 
     private void FixedUpdate() {
-        toggle.isOn = NetworkManager.AutomaticAcceleration;
-        automaticAcceleration = NetworkManager.AutomaticAcceleration;
-        if(automaticAcceleration) {
-            if(Time.timeScale < 1f) {
-                Time.timeScale += 0.001f;
-            }
-            if(Time.timeScale < 1.5f) {
-                Time.timeScale += 0.003f;
-            }
-            else if(Time.timeScale < 10f) {
-                Time.timeScale += 0.01f;
-            }
-        }
+        autoSpeed();
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);

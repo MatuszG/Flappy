@@ -20,6 +20,7 @@ public class AgentBirdHandler : BirdHandler {
     }
 
     public void getAgentPolicy() {
+
         network = new NeuralNetwork(FileSystem.GetAgentPolicy());
     }
 

@@ -6,20 +6,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject birdPrefab;
     void Start() {
-        // Debug.Log("TEST");
-        // if(PoolsHandler.prefab != null) return;
-        // PoolsHandler.prefab = birdPrefab;
-        // PoolsHandler.create();
-        // PoolsHandler.play();
+        Time.timeScale = 1f;
     }
     
     public void PlayGame() {
-        // Debug.Log(Test.pool.GetPooledObject());
-        // GameObject bird = Test.pool.GetPooledObject();
-        // bird.SetActive(true);
-        // Debug.Log(Test.pool.pooledObjects.Count);
-        // PoolsHandler.restart();
-        // PoolsHandler.play();
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("GameScene");
     }

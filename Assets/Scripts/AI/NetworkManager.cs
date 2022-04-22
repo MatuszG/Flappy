@@ -20,11 +20,6 @@ public static class NetworkManager {
         set { automaticAcceleration = value; }
     }
 
-    // public static int NumberOfAgents {
-    //     get { return numberOfAgents; }
-    //     set { numberOfAgents = value; }  
-    // }
-
     public static float MutateRatio {
         get { return mutateRatio; }
         set { mutateRatio = value; }
@@ -48,7 +43,7 @@ public static class NetworkManager {
 
     public static void mutate() {
         selection();
-        crossover2();
+        crossover();
     }
 
     private static void selection() {
@@ -70,16 +65,18 @@ public static class NetworkManager {
     }
 
     private static List<float> poolSelection() {
-        float random = Random.Range(0, 1);
+        float random = Random.Range(0, 1f);
         int i;
         float sum = 0;
         for(i = 0; i < networks.Length; i++) {
             random -= networks[i].Fitness;
             sum += networks[i].Fitness;
             if(random <= 0) {
+                // Debug.Log(i);
                 return networks[i].getGenome();
             } 
         }
+        // Debug.Log(i-1);
         return networks[i-1].getGenome();
     }
 
@@ -106,6 +103,15 @@ public static class NetworkManager {
         int randomRange;
         List<float> firstGenome, secondGenome;
         networksList = new List<NeuralNetwork>();
+        // Saving the best species
+        int i = 0;
+        List<float> genome = networks[i++].getGenome();
+        networksList.Add(new NeuralNetwork(genome));
+        while (networksList.Count < networksN / 100f) { 
+            genome = networks[i++].getGenome();
+            networksList.Add(new NeuralNetwork(genome));
+        }
+        // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
             randomRange = RandomRange();
             firstGenome = poolSelection();

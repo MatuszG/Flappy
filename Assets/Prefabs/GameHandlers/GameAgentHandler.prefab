@@ -48,6 +48,7 @@ MonoBehaviour:
   birdHandler: {fileID: 1156206074835558373, guid: 0a246e06e2f8f2b4aaa994d07bc7b65a, type: 3}
   pipeHandler: {fileID: 2374716524926661702, guid: fd5a28ca0f9fecd4da9bb7d60900741a, type: 3}
   scoreText: {fileID: 610377500845159773}
+  toggleObj: {fileID: 5293328817360640888}
 --- !u!1001 &6230544006089013486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,5 +134,10 @@ Transform:
 --- !u!1 &610377500845159773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6777681976814718387, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+  m_PrefabInstance: {fileID: 6230544006089013486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5293328817360640888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2234621322619610006, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
   m_PrefabInstance: {fileID: 6230544006089013486}
   m_PrefabAsset: {fileID: 0}

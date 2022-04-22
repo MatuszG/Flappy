@@ -48,6 +48,19 @@ public static class FileSystem {
         stream.Close();
     }
 
+    public static List<float> GetAgentPolicy() {
+        if(File.Exists(pathAgentPolicy)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(pathAgentPolicy, FileMode.Open);
+            AgentPolicy data = formatter.Deserialize(stream) as AgentPolicy;
+            stream.Close();
+            return data.genome;
+        }
+        else {
+            return new List<float>();
+        }
+    }
+
     public static float GetMaxScore() {
         float data = LoadScore(pathScore);
         if(data == -1f) return 0;
@@ -58,23 +71,6 @@ public static class FileSystem {
         float data = LoadScore(pathAgentScore);
         if(data == -1f) return 0;
         return data;
-    }
-
-    public static List<float> GetAgentPolicy() {
-        if(File.Exists(pathAgentPolicy)) {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(pathAgentPolicy, FileMode.Open);
-            AgentPolicy data = formatter.Deserialize(stream) as AgentPolicy;
-            stream.Close();
-            // Debug.Log("Loading");
-            // Debug.Log(data.genome.Count);
-            // for(int i = 0; i < data.genome.Count; i++) {
-            // Debug.Log(data.genome[i]);
-            return data.genome;
-        }
-        else {
-            return new List<float>();
-        }
     }
 
     private static void SaveScore(string path, float score) {

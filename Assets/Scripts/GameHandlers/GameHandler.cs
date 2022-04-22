@@ -19,7 +19,7 @@ public class GameHandler : MonoBehaviour {
         Instantiate(gameOver);
     }
 
-    private void OnEnable() {
+    private void Start() {
         alive = true;
         Time.timeScale = 1f;
         maxScore = getMaxScore();

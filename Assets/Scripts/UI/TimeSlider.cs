@@ -19,6 +19,8 @@ public class TimeSlider : MonoBehaviour {
     }
 
     void Update() {
+        slider.value = Time.timeScale;
+        text.text = slider.value.ToString("n3");
         if(slider.value != Time.timeScale) {
             slider.value = Time.timeScale;
             text.text = slider.value.ToString("n3");
