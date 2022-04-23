@@ -6,6 +6,7 @@ public class Neuron {
     private float value = 0;
     private float bias;
     private float[] weights;
+
     public float Value {
         get{return value;}
         set{this.value = value;}
@@ -32,10 +33,4 @@ public class Neuron {
         if(weightsN == 1) weights[0] = 1;
         else for(int i = 0; i < weights.Length; i++) weights[i] = NetworkManager.getRandomWeight();
     }
-    
-    public void print() {
-        Debug.Log(bias);
-        Debug.Log(weights[0]);
-    }
-    
 }

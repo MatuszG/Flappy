@@ -32,17 +32,7 @@ public static class FileSystem {
 
     public static void SaveAgentPolicy(List<float> genome) {
         BinaryFormatter formatter = new BinaryFormatter();
-        // Debug.Log("Saving");
-        // Debug.Log(genome.Count);
         AgentPolicy data = new AgentPolicy(genome);
-        // for(int i = 0; i < genome.Count; i++) {
-        //     Debug.Log(genome[i]);
-        // }
-        // Debug.Log("Checking");
-        // Debug.Log(data.genome.Count);
-        // for(int i = 0; i < data.genome.Count; i++) {
-        //     Debug.Log(data.genome[i]);
-        // }
         FileStream stream = new FileStream(pathAgentPolicy, FileMode.Create);
         formatter.Serialize(stream, data);
         stream.Close();

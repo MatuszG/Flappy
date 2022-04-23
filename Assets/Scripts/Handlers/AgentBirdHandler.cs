@@ -55,6 +55,10 @@ public class AgentBirdHandler : BirdHandler {
         Network = NetworkManager.Networks[i];
     }
 
+    public void setBestPipes(MovePipe[] bestPipes) {
+        this.pipes = bestPipes;
+    }
+
     private void Update() {
         // Debug.Log(liveTime);
         return;
@@ -62,10 +66,7 @@ public class AgentBirdHandler : BirdHandler {
 
     private void FixedUpdate()  { 
         if(!active) return;
-        // if(pipes == null) { // to optimize <HAVE TO>
-        //     pipes = PipesController.getPipes();
-        // }
-        pipes = PipesController.getPipes();
+        if(id == -1) pipes = PipesController.getPipes();
         if(pipes == null) return;
         if(score > maxScore) {
             maxScore = score;

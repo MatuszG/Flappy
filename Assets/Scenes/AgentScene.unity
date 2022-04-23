@@ -217,9 +217,25 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2902108896809759540, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902108896809759540, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902108896809759540, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3701640037977309140, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008757425991153669, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6108758870422174465, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_RootOrder
@@ -268,6 +284,14 @@ PrefabInstance:
     - target: {fileID: 6108758870422174478, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_Name
       value: GameAgentHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775755692353239350, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775755692353239350, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}

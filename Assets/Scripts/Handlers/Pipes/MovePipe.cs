@@ -10,9 +10,7 @@ public class MovePipe : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         rb.MovePosition(transform.position + speed * Time.deltaTime * Vector3.left);
-        // transform.position += Vector3.left * speed * Time.deltaTime;
     }
 }

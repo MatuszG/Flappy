@@ -32,7 +32,7 @@ public class GameAgentHandler : GameHandler {
             if(Time.timeScale < 1.5f) {
                 Time.timeScale += 0.003f;
             }
-            else if(Time.timeScale < 100f) { 
+            else if(Time.timeScale < 15f) { 
                 Time.timeScale += 0.01f;
             }
         }

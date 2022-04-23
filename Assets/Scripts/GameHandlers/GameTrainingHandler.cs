@@ -19,6 +19,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private int numberOfAgents, aliveNumber, evolutionNumber;
     private AgentBirdHandler newBirdHandler;
     private GameObject pipes;
+    private MovePipe[] bestPipes;
 
     private void OnEnable() {
         automaticAcceleration = NetworkManager.AutomaticAcceleration;
@@ -53,7 +54,7 @@ public class GameTrainingHandler : GameAgentHandler {
             for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
         else {
-            NetworkManager.mutate();
+            NetworkManager.evolve();
             // for(int i = 0; i < numberOfAgents; i++) createAgent(i);
             for(int i = 0; i < numberOfAgents; i++) {
                 Destroy(newBirdsHandler[i].gameObject);
@@ -76,11 +77,22 @@ public class GameTrainingHandler : GameAgentHandler {
 
     private void FixedUpdate() {
         autoSpeed();
+        setBestPipes();
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("0");
         textMeshAlive.text = "Alive: " + aliveNumber.ToString();
+    }
+
+    private void setBestPipes() {
+        if(PipesController.getPipes() != bestPipes) {
+            bestPipes = PipesController.getPipes();
+        }
+        if(bestPipes == null) return;
+        for(int i = 0; i < numberOfAgents; i++) {
+            newBirdsHandler[i].setBestPipes(bestPipes);
+        }
     }
 
     private void update(int i) {

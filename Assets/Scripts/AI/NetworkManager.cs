@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using MathNet.Numerics.Distributions;
 public static class NetworkManager {
-    private const float percentage = 0.1f;
     private static NeuralNetwork[] networks;
     private static List<NeuralNetwork> networksList;
     private static int evolutionNumber = 0, networksN = 275;
-    private static float sumFitness, mutateRatio = 0.1f;
-    private static bool automaticAcceleration = false;
+    private static float sumFitness, mutateRatio = 0.1f, learningRate = 0.2f;
+    private static bool automaticAcceleration = false, parentOffSprings = true;
 
     public static int EvolutionNumber {
         get { return evolutionNumber; }
@@ -41,9 +40,10 @@ public static class NetworkManager {
         }
     }
 
-    public static void mutate() {
+    public static void evolve() {
         selection();
-        crossover();
+        if(parentOffSprings) parentsCrossover();
+        else crossover();
     }
 
     private static void selection() {
@@ -72,16 +72,13 @@ public static class NetworkManager {
             random -= networks[i].Fitness;
             sum += networks[i].Fitness;
             if(random <= 0) {
-                // Debug.Log(i);
                 return networks[i].getGenome();
             } 
         }
-        // Debug.Log(i-1);
         return networks[i-1].getGenome();
     }
 
-    private static void crossover2() {
-        networksList = new List<NeuralNetwork>();
+    private static void savingBests() {
         // Saving the best species
         int i = 0;
         List<float> genome = networks[i++].getGenome();
@@ -90,6 +87,12 @@ public static class NetworkManager {
             genome = networks[i++].getGenome();
             networksList.Add(new NeuralNetwork(genome));
         }
+    }
+
+    private static void crossover() {
+        networksList = new List<NeuralNetwork>();
+        List<float> genome;
+        savingBests();
         // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
             genome = poolSelection();
@@ -99,18 +102,12 @@ public static class NetworkManager {
         networks = networksList.ToArray();
     }
 
-    private static void crossover() {
+    private static void parentsCrossover() {
         int randomRange;
         List<float> firstGenome, secondGenome;
         networksList = new List<NeuralNetwork>();
         // Saving the best species
-        int i = 0;
-        List<float> genome = networks[i++].getGenome();
-        networksList.Add(new NeuralNetwork(genome));
-        while (networksList.Count < networksN / 100f) { 
-            genome = networks[i++].getGenome();
-            networksList.Add(new NeuralNetwork(genome));
-        }
+        savingBests();
         // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
             randomRange = RandomRange();
@@ -137,27 +134,10 @@ public static class NetworkManager {
     }
 
     private static void mutation(List<float> genome) {
-        // Debug.Log(randomGaussian()*0.1f);
         for(int i = 0; i < genome.Count; i++) {
             if(Random.Range(0, 1f) > 1 - mutateRatio) {
-                // genome[i] += getWeightOffset();
-                genome[i] += randomGaussian() * 0.1f;
-                // if(!bias(genome[i])) genome[i] += getWeightOffset();
-                // else genome[i] += getBiasOffset();
+                genome[i] += randomGaussian() * learningRate;
             }
-            // else {
-            //     genome[i] += randomGaussian() * 0.05f;
-            // }
-            // else {
-            //     if(!bias(genome[i])) {
-            //         genome[i] += Random.Range(-0.05f, 0.05f);
-            //         if(!bias(genome[i])) genome[i] = getRandomWeight();
-            //     }
-            //     else {
-            //         genome[i] += Random.Range(-1f, 1f);
-            //         if(bias(genome[i])) genome[i] = getRandomBias();
-            //     }
-            // }
         }
     }
 
@@ -171,11 +151,6 @@ public static class NetworkManager {
     private static float Map(float s, float a1, float a2, float b1, float b2) {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
-
-    // private static int randomId() {
-    //     float last = matingPoolArray.Length - 1;
-    //     return (int)Mathf.Round(Random.Range(0, last));
-    // }
 
     private static int RandomRange() {
         float last = networks[0].getGenome().Count;
