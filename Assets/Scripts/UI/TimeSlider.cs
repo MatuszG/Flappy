@@ -12,7 +12,7 @@ public class TimeSlider : MonoBehaviour {
     void Start() {
         slider.value = Time.timeScale; 
         text = textMesh.GetComponent<TextMeshProUGUI>();
-        text.text = slider.value.ToString("n3");
+        text.text = slider.value.ToString("n2");
         slider.onValueChanged.AddListener( (v) => {
             Time.timeScale = v; 
         });
@@ -20,10 +20,10 @@ public class TimeSlider : MonoBehaviour {
 
     void Update() {
         slider.value = Time.timeScale;
-        text.text = slider.value.ToString("n3");
+        text.text = slider.value.ToString("n2");
         if(slider.value != Time.timeScale) {
             slider.value = Time.timeScale;
-            text.text = slider.value.ToString("n3");
+            text.text = slider.value.ToString("n2");
         }
     }
 }

@@ -20,7 +20,7 @@ public class GameAgentHandler : GameHandler {
         automaticAcceleration = NetworkManager.AutomaticAcceleration;
     }
 
-    protected void autoSpeed() {
+    protected void autoSpeed(int alive = 0) {
         toggle.isOn = NetworkManager.AutomaticAcceleration;
         automaticAcceleration = NetworkManager.AutomaticAcceleration;
         // Soft start
@@ -29,10 +29,25 @@ public class GameAgentHandler : GameHandler {
         // }
         // else 
         if(automaticAcceleration) {
-            if(Time.timeScale < 1.5f) {
+            if(Time.timeScale < 1.5f && alive < 500) {
                 Time.timeScale += 0.003f;
             }
-            else if(Time.timeScale < 15f) { 
+            else if(Time.timeScale < 3f && alive < 200) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 5f && alive < 100) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 7f && alive < 50) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 10f && alive < 30) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 15f && alive < 10) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 20f && alive < 5) { 
                 Time.timeScale += 0.01f;
             }
         }
@@ -67,8 +82,8 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void FixedUpdate() {
-        autoSpeed();
         if(alive) {
+            autoSpeed(0);
             score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
             saveAgentMaxScore();

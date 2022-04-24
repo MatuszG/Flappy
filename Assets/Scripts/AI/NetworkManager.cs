@@ -7,16 +7,11 @@ public static class NetworkManager {
     private static List<NeuralNetwork> networksList;
     private static int evolutionNumber = 0, networksN = 275;
     private static float sumFitness, mutateRatio = 0.1f, learningRate = 0.2f;
-    private static bool automaticAcceleration = false, parentOffSprings = true;
+    private static bool automaticAcceleration = false, parentOffSprings = false;
 
-    public static int EvolutionNumber {
-        get { return evolutionNumber; }
-        set { evolutionNumber = value; }
-    }
-
-    public static bool AutomaticAcceleration {
-        get { return automaticAcceleration; }
-        set { automaticAcceleration = value; }
+    public static float LearningRate {
+        get { return learningRate; }
+        set { learningRate = value; }
     }
 
     public static float MutateRatio {
@@ -24,10 +19,26 @@ public static class NetworkManager {
         set { mutateRatio = value; }
     }
 
+    public static bool ParentOffSprings {
+        get { return parentOffSprings; }
+        set { parentOffSprings = value; }
+    }
+
+    public static bool AutomaticAcceleration {
+        get { return automaticAcceleration; }
+        set { automaticAcceleration = value; }
+    }
+
     public static NeuralNetwork[] Networks {
         get{return networks;}
         set{networks = value;}
     }
+
+    public static int EvolutionNumber {
+        get { return evolutionNumber; }
+        set { evolutionNumber = value; }
+    }
+
     public static int NetworksN {
         get{return networksN;}
         set{networksN = value;}
@@ -42,6 +53,7 @@ public static class NetworkManager {
 
     public static void evolve() {
         selection();
+        Debug.Log(parentOffSprings);
         if(parentOffSprings) parentsCrossover();
         else crossover();
     }

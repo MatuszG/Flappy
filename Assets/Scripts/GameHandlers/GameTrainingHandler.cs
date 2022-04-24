@@ -69,14 +69,14 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void Restart() {
-        Time.timeScale = 0.1f;
+        Time.timeScale = 1f;
         pipes.GetComponent<PipeHandler>().Restart();
         NetworkManager.EvolutionNumber++;
         Start();
     }
 
     private void FixedUpdate() {
-        autoSpeed();
+        autoSpeed(aliveNumber);
         setBestPipes();
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);

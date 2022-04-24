@@ -20,7 +20,8 @@ public class AgentBirdHandler : BirdHandler {
     }
 
     public void getAgentPolicy() {
-
+        // <! TO DO !>
+            // calculate and check if this genomes fits to neural network 
         network = new NeuralNetwork(FileSystem.GetAgentPolicy());
     }
 
@@ -60,8 +61,17 @@ public class AgentBirdHandler : BirdHandler {
     }
 
     private void Update() {
-        // Debug.Log(liveTime);
         return;
+        // if(!active || pipes == null) return;
+        // input[0] = Map(transform.position.y, -0.5f, 0.75f, 0 , 1f);
+        // input[1] = Map(speed.y, -40f, 10f, -4f, 1f);
+        // input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);
+        // input[3] = Map(pipes[0].transform.position.y, -6f, 6f, -1f, 1f);
+        // // input[4] = pipes[1].transform.position.x; // CHECK IF CAN OPTIMIZE OR REFACTOR
+        // // input[5] = pipes[1].transform.position.y;
+        // if(network != null && network.propagate(input) > 0.5) { // CHECK IF CAN OPTIMIZE
+        //     jump();
+        // }
     }
 
     private void FixedUpdate()  { 
@@ -76,7 +86,7 @@ public class AgentBirdHandler : BirdHandler {
         input[1] = Map(speed.y, -40f, 10f, -4f, 1f);
         input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);
         input[3] = Map(pipes[0].transform.position.y, -6f, 6f, -1f, 1f);
-        // input[4] = pipes[1].transform.position.x;
+        // input[4] = pipes[1].transform.position.x; // CHECK IF CAN OPTIMIZE OR REFACTOR
         // input[5] = pipes[1].transform.position.y;
         if(network != null && network.propagate(input) > 0.5) { // CHECK IF CAN OPTIMIZE
             jump();
