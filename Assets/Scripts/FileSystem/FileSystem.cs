@@ -16,6 +16,12 @@ public static class FileSystem {
         Debug.Log(pathAgentPolicy);
     }
 
+    public static void Reset() {
+        File.Delete(pathScore); // working
+        // File.Delete(pathAgentScore);
+        // File.Delete(pathAgentPolicy);
+    }
+
     public static void SaveMaxScore(float score) {
         float data = GetMaxScore();
         if(data < score) {
@@ -32,7 +38,7 @@ public static class FileSystem {
 
     public static void SaveAgentPolicy(List<float> genome) {
         BinaryFormatter formatter = new BinaryFormatter();
-        AgentPolicy data = new AgentPolicy(genome);
+        AgentPolicy data = new AgentPolicy(genome, NetworkManager.Topology);
         FileStream stream = new FileStream(pathAgentPolicy, FileMode.Create);
         formatter.Serialize(stream, data);
         stream.Close();
@@ -44,11 +50,12 @@ public static class FileSystem {
             FileStream stream = new FileStream(pathAgentPolicy, FileMode.Open);
             AgentPolicy data = formatter.Deserialize(stream) as AgentPolicy;
             stream.Close();
+            // if(data.topology == NetworkManager.Topology) {
+            //     return data.genome;
+            // }
             return data.genome;
         }
-        else {
-            return new List<float>();
-        }
+        return new List<float>();
     }
 
     public static float GetMaxScore() {
