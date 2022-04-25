@@ -29,7 +29,8 @@ public class GameAgentHandler : GameHandler {
         // }
         // else 
         if(automaticAcceleration) {
-            if(Time.timeScale < 1.5f && alive < 500) {
+            if(Time.timeScale < 1f) return;
+            else if(Time.timeScale < 1.5f && alive < 500) {
                 Time.timeScale += 0.003f;
             }
             else if(Time.timeScale < 3f && alive < 200) { 
@@ -54,7 +55,7 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Start() {
-        alive = true;
+        this.alive = true;
         Time.timeScale = 1f;
         maxScore = getMaxScore();
         Instantiate(pipeHandler);
@@ -82,7 +83,7 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void FixedUpdate() {
-        if(alive) {
+        if(this.alive) {
             autoSpeed(0);
             score = getAgentScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

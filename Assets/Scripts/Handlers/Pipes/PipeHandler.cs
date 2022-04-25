@@ -33,7 +33,7 @@ public class PipeHandler : MonoBehaviour {
         Start();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         timeMovePipe = xPosDiff/(speedPipe);
         diffRange = timeMovePipe/20;
         PipesController.clear();

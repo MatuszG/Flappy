@@ -14,7 +14,7 @@ public class GameHandler : MonoBehaviour {
     protected bool alive;
 
     public void setDead() {
-        alive = false;
+        this.alive = false;
         Time.timeScale = 0f;
         Instantiate(gameOver);
     }

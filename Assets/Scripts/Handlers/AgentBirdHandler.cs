@@ -77,7 +77,8 @@ public class AgentBirdHandler : BirdHandler {
     private void FixedUpdate()  { 
         if(!active) return;
         if(id == -1) pipes = PipesController.getPipes();
-        if(pipes == null) return;
+        PipesController.getPipes();
+        if(pipes == null || pipes[0] == null) return;
         if(score > maxScore) {
             maxScore = score;
             FileSystem.SaveAgentPolicy(network.getGenome());
