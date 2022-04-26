@@ -54,6 +54,11 @@ public class GameAgentHandler : GameHandler {
         }
     }
 
+    protected void Reset() {
+        FileSystem.ResetAgentScore();
+        FileSystem.ResetAgentPolicy();
+    }
+
     private void Start() {
         this.alive = true;
         Time.timeScale = 1f;
@@ -83,6 +88,7 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void FixedUpdate() {
+        checkKeybordInput();
         if(this.alive) {
             autoSpeed(0);
             score = getAgentScore();

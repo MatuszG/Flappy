@@ -16,10 +16,16 @@ public static class FileSystem {
         Debug.Log(pathAgentPolicy);
     }
 
-    public static void Reset() {
-        File.Delete(pathScore); // working
-        // File.Delete(pathAgentScore);
-        // File.Delete(pathAgentPolicy);
+    public static void ResetPlayer() {
+        File.Delete(pathScore);
+    }
+
+    public static void ResetAgentScore() {
+       File.Delete(pathAgentScore);
+    }
+
+    public static void ResetAgentPolicy() {
+        File.Delete(pathAgentPolicy);
     }
 
     public static void SaveMaxScore(float score) {
@@ -50,9 +56,9 @@ public static class FileSystem {
             FileStream stream = new FileStream(pathAgentPolicy, FileMode.Open);
             AgentPolicy data = formatter.Deserialize(stream) as AgentPolicy;
             stream.Close();
-            // if(data.topology == NetworkManager.Topology) {
-            //     return data.genome;
-            // }
+            if(data.topology == NetworkManager.Topology) {
+                return data.genome;
+            }
             return data.genome;
         }
         return new List<float>();

@@ -12,6 +12,17 @@ public class GameHandler : MonoBehaviour {
     protected GameObject newBird;
     protected float score, maxScore;
     protected bool alive;
+    
+    private void Reset() {
+        FileSystem.ResetPlayer();
+    }
+
+    protected void checkKeybordInput() {
+        if (Input.GetKeyDown(KeyCode.Delete)) {
+            Debug.Log("detected");
+            // Reset();
+        }
+    }
 
     public void setDead() {
         this.alive = false;
@@ -42,6 +53,7 @@ public class GameHandler : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        checkKeybordInput();
         if(alive) {
             score = getScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");

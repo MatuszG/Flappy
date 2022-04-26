@@ -76,6 +76,7 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void FixedUpdate() {
+        checkKeybordInput();
         autoSpeed(aliveNumber);
         setBestPipes();
         currentMaxScore = 0;
