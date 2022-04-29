@@ -96,4 +96,14 @@ public class GameAgentHandler : GameHandler {
             saveAgentMaxScore();
         }
     }
+
+    // private void Update() {
+    //     Debug.Log(this.alive);
+    //     if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) && !this.alive) {
+    //         Debug.Log("Enter key was pressed.");
+    //     }
+    //     else {
+    //         if(!this.alive) Debug.Log("LOL");
+    //     }
+    // }
 }

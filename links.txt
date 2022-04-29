@@ -1,0 +1,3 @@
+https://numerics.mathdotnet.com/api/MathNet.Numerics.Distributions/Normal.htm
+https://gamedev.stackexchange.com/questions/182801/how-to-make-mathnet-numerics-work-with-unity
+https://github.com/GlitchEnzo/NuGetForUnity

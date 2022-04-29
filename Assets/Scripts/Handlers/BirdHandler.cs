@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BirdHandler : MonoBehaviour {
-    [SerializeField] protected GameHandler gameHandler;
     [SerializeField] protected float gravity = -9.8f;
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected Sprite[] sprites;
@@ -12,8 +11,10 @@ public class BirdHandler : MonoBehaviour {
     protected float maxScore;
     protected Rigidbody2D rb;
     protected Vector3 speed;
+    protected Vector2 sped;
     protected SpriteRenderer spriteRenderer;
     protected int spriteIndex;
+    private GameHandler gameHandler;
 
     public int Id {
         get { return id; }
@@ -30,6 +31,7 @@ public class BirdHandler : MonoBehaviour {
     }
 
     protected void Awake() {
+        gameHandler = FindObjectOfType<GameHandler>();
         alive = true;
         score = 0;
         maxScore = FileSystem.GetAgentMaxScore();
@@ -38,7 +40,7 @@ public class BirdHandler : MonoBehaviour {
     }
 
     protected void Animate() {
-        if(id == -1) {
+        if(id == -1 && sprites.Length > 0) {
             spriteIndex++;
             if(spriteIndex == sprites.Length) spriteIndex = 0;
             spriteRenderer.sprite = sprites[spriteIndex];
@@ -68,15 +70,18 @@ public class BirdHandler : MonoBehaviour {
 
     protected void jump() {
         speed = Vector3.up * jumpSpeed;
+        sped = Vector2.up * jumpSpeed;
     }
 
     protected void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Obstacle" && alive) {
-            if(id == -1) gameHandler.setDead();
+        if(other.gameObject.tag == "LiteObstacle" && alive) {
             setDead();
         }
+        else if(other.gameObject.tag == "Obstacle" && alive) {
+            setDead();
+            if(id != -1) NetworkManager.Networks[id].LiveTime -= 0.5f;
+        }
         else if(other.gameObject.tag == "GroundObstacle" && alive) {
-            if(id == -1) gameHandler.setDead();
             setDead();
             if(id != -1) NetworkManager.Networks[id].LiveTime -= 1f;
         }
@@ -87,6 +92,7 @@ public class BirdHandler : MonoBehaviour {
 
     protected void setDead() {
         alive = false;
+        if(id == -1) gameHandler.GetComponent<GameHandler>().setDead();
     }
 
     protected void addScore(float sc) {

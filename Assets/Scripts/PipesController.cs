@@ -4,13 +4,11 @@ using UnityEngine;
 
 public static class PipesController {
     private static List<MovePipe> pipeHandlers;
-    private static MovePipe[] bestPipeHandlers;
-    private static float[] bestPipes;
+    private static List<MovePipe> bestPipeHandlers;
 
     public static void restart() {
         pipeHandlers = new List<MovePipe>();
-        bestPipeHandlers = new MovePipe[2];
-        bestPipes = new float[]{Mathf.Infinity, Mathf.Infinity};
+        bestPipeHandlers = new List<MovePipe>();
     }
 
     public static void clear() {
@@ -27,28 +25,18 @@ public static class PipesController {
     
     public static MovePipe[] getPipes() {
         updateBestPipes();
-        return bestPipeHandlers;
+        return bestPipeHandlers.ToArray();
     }
 
-    private static void updateBestPipes() { // do poprawy
+    private static void updateBestPipes() {
+        bestPipeHandlers = pipeHandlers;
         if(bestPipeHandlers == null) return;
-        bestPipes = new float[]{Mathf.Infinity, Mathf.Infinity};
-        for(int i = 0; i < bestPipeHandlers.Length; i++) {
-            if(bestPipeHandlers[i] != null && bestPipeHandlers[i].transform.position.x < 0.6) {
-                bestPipes[i] = Mathf.Infinity;
-            }
-        }
-        foreach(MovePipe pipe in pipeHandlers) {
-            if(pipe.transform.position.x >= 0.1) {
-                if(bestPipes[0] >= bestPipes[1] && pipe.transform.position.x < bestPipes[0]) {
-                    bestPipes[0] = pipe.transform.position.x;
-                    bestPipeHandlers[0] = pipe;
-                }
-                else if(bestPipes[1] > bestPipes[0] && pipe.transform.position.x < bestPipes[1]) {
-                    bestPipes[1] = pipe.transform.position.x;
-                    bestPipeHandlers[1] = pipe;
-                }
-            }
-        }
+        bestPipeHandlers.Sort(delegate(MovePipe a, MovePipe b){
+            if(a.transform.position.x < b.transform.position.x) return -1;
+            else if(a.transform.position.x >= b.transform.position.x) return 1;
+            else return 0;
+        });
+        // if bird is after pipe, look for another
+        if(bestPipeHandlers[0].transform.position.x < 0.5) bestPipeHandlers.RemoveAt(0);
     }
 }

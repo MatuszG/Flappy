@@ -12,6 +12,7 @@ public class GameHandler : MonoBehaviour {
     protected GameObject newBird;
     protected float score, maxScore;
     protected bool alive;
+    private GameObject gameOverObj;
     
     private void Reset() {
         FileSystem.ResetPlayer();
@@ -25,9 +26,9 @@ public class GameHandler : MonoBehaviour {
     }
 
     public void setDead() {
-        this.alive = false;
-        Time.timeScale = 0f;
-        Instantiate(gameOver);
+        alive = false;
+        Time.timeScale = 0.00f;
+        gameOverObj = Instantiate(gameOver);
     }
 
     private void Start() {
@@ -60,4 +61,10 @@ public class GameHandler : MonoBehaviour {
             saveMaxScore();
         }
     }
+
+    // private void Update() {
+    //     if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) && !this.alive) {
+    //         Debug.Log("Enter key was pressed.");
+    //     }
+    // }
 }

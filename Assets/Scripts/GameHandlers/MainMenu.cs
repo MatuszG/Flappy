@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject birdPrefab;
-    void Start() {
+    void Awake() {
+        Application.targetFrameRate = 144;
         Time.timeScale = 1f;
     }
     

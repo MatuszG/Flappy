@@ -8,7 +8,7 @@ public static class NetworkManager {
     private static int evolutionNumber = 0, networksN = 275;
     private static int[] topology = new int[]{4,7,1};
     private static float sumFitness, mutateRatio = 0.1f, learningRate = 0.2f;
-    private static bool automaticAcceleration = false, parentOffSprings = false;
+    private static bool automaticAcceleration = false, parentOffSprings = false, continueTraining = true;
 
     public static float LearningRate {
         get { return learningRate; }
@@ -57,10 +57,15 @@ public static class NetworkManager {
         }
     }
 
+    public static void savePopulation() {
+        
+    }
+
     public static void evolve() {
         selection();
         if(parentOffSprings) parentsCrossover();
         else crossover();
+        // if(continueTraining) savePopulation();
     }
 
     private static void selection() {

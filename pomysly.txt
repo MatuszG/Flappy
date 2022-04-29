@@ -1,4 +1,11 @@
-powiadomienie, ze nie ma wytrenowanego agenta, oraz ze usunieto dane po kliknieciu delete
+sounds (points, dead, itp) settings
+ograniczenie fps (w opcjach) na początku może być bez
 resetowanie gry, powrot (escpape, enter, spacja) - skróty klawiszowe
-poprawienie zapisywania informacji o ptakach (podfoldery dla topologii)
+powiadomienie, ze nie ma wytrenowanego agenta, oraz ze usunieto dane po kliknieciu delete (jakis menedżer powiadomień kilkosekundowych)
 zmiana fizyki skoku/spadania
+klucze sesji dla kilku aplikacji odpalonych jednocześnie lub coś na wzór topologi wpisanej w nazwę pliku
+dynamic learning rate
+poprawic learning rate, żeby zmiany były co 1.
+algorytm updateBestPipes
+poprawienie zapisywania informacji o ptakach (podfoldery dla topologii), możliwość kontynuowania nauki nawet po wyłączeniu programu
+zoptymalizować kontynuowanie nauki

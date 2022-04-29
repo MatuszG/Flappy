@@ -21,7 +21,7 @@ public static class FileSystem {
     }
 
     public static void ResetAgentScore() {
-       File.Delete(pathAgentScore);
+        File.Delete(pathAgentScore);
     }
 
     public static void ResetAgentPolicy() {

@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97af578ba17bd984bb7e9fb45b486341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameHandler: {fileID: 1634294565953763465, guid: 3f9810c2807db1a4bbf29d13323c51da, type: 3}
   gravity: -9.8
   jumpSpeed: 10
   sprites:
