@@ -993,7 +993,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 6577973182802732014}
   m_HandleRect: {fileID: 1794389725687556588}
   m_Direction: 0
-  m_MinValue: 1
+  m_MinValue: 0
   m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 1

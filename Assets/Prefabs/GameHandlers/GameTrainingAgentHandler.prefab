@@ -50,11 +50,11 @@ MonoBehaviour:
   birdHandler: {fileID: 1156206074835558373, guid: 1f55e175e9a854748a659ca24768de6c, type: 3}
   pipeHandler: {fileID: 2374716524926661702, guid: fd5a28ca0f9fecd4da9bb7d60900741a, type: 3}
   scoreText: {fileID: 7051908504417797351}
-  mainMenu: {fileID: 2710607201269932420, guid: 0e5e5c45895ab9e4786d40c3a3afe9ae, type: 3}
-  evolutionText: {fileID: 1592907360804778883}
-  maxScoreText: {fileID: 535863738003727332}
-  aliveText: {fileID: 2688263491552258642}
   toggleObj: {fileID: 2364593170680621762}
+  mainMenu: {fileID: 2710607201269932420, guid: 0e5e5c45895ab9e4786d40c3a3afe9ae, type: 3}
+  evolutionText: {fileID: 0}
+  maxScoreText: {fileID: 0}
+  aliveText: {fileID: 0}
 --- !u!114 &1411871026184000701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,21 +173,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1682629337432678853, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
   m_PrefabInstance: {fileID: 2873601490596449461}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1592907360804778883 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3601245392514547510, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
-  m_PrefabInstance: {fileID: 2873601490596449461}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2688263491552258642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 193571442914715367, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
-  m_PrefabInstance: {fileID: 2873601490596449461}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &535863738003727332 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2346041633997418321, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
-  m_PrefabInstance: {fileID: 2873601490596449461}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4598809316554361172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,6 +253,10 @@ PrefabInstance:
       value: GameOverAgentView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4440090023251952088, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440090023251952088, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -289,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7011073533611401630, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_MinValue
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7289507846706677562, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_AnchorMax.x
@@ -304,7 +293,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9093060569355209690, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093060569355209690, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093060569355209690, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

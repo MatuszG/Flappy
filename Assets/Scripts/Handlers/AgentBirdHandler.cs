@@ -78,10 +78,6 @@ public class AgentBirdHandler : BirdHandler {
         if(!active) return;
         if(id == -1) pipes = PipesController.getPipes();
         if(pipes == null) return;
-        if(score > maxScore) {
-            maxScore = score;
-            FileSystem.SaveAgentPolicy(network.getGenome());
-        }
         input[0] = Map(transform.position.y, -0.5f, 0.75f, 0 , 1f);
         input[1] = Map(sped.y, -40f, 10f, -4f, 1f);
         input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);

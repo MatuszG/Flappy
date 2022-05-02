@@ -11,7 +11,7 @@ public class MoveMesh : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         mesh.material.mainTextureOffset -= new Vector2(speed * Time.deltaTime, 0);
     }
 }

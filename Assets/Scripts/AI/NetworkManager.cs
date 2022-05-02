@@ -5,7 +5,7 @@ using MathNet.Numerics.Distributions;
 public static class NetworkManager {
     private static NeuralNetwork[] networks;
     private static List<NeuralNetwork> networksList;
-    private static int evolutionNumber = 0, networksN = 275;
+    private static int evolutionNumber = 0, networksN = 275, maxPopulationScore = 0;
     private static int[] topology = new int[]{4,7,1};
     private static float sumFitness, mutateRatio = 0.1f, learningRate = 0.2f;
     private static bool automaticAcceleration = false, parentOffSprings = false, continueTraining = true;
@@ -48,6 +48,11 @@ public static class NetworkManager {
     public static int NetworksN {
         get{return networksN;}
         set{networksN = value;}
+    }
+
+    public static int MaxPopulationScore {
+        get{return maxPopulationScore;}
+        set{maxPopulationScore = value;}
     }
 
     public static void create() {

@@ -124,6 +124,18 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4440090023251952088, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011073533611401630, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093060569355209690, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d8ce7878668ce04c9b5825c8d99a928, type: 3}
 --- !u!4 &6480588104419741898 stripped

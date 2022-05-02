@@ -37,6 +37,6 @@ public static class PipesController {
             else return 0;
         });
         // if bird is after pipe, look for another
-        if(bestPipeHandlers[0].transform.position.x < 0.5) bestPipeHandlers.RemoveAt(0);
+        if(bestPipeHandlers[0].transform.position.x < 0.65f) bestPipeHandlers.RemoveAt(0);
     }
 }

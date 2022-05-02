@@ -33,22 +33,22 @@ public class GameAgentHandler : GameHandler {
             else if(Time.timeScale < 1.5f && alive < 500) {
                 Time.timeScale += 0.003f;
             }
-            else if(Time.timeScale < 3f && alive < 200) { 
+            else if(Time.timeScale < 3f && alive < 250) { 
                 Time.timeScale += 0.01f;
             }
-            else if(Time.timeScale < 5f && alive < 100) { 
+            else if(Time.timeScale < 5f && alive < 150) { 
                 Time.timeScale += 0.01f;
             }
-            else if(Time.timeScale < 7f && alive < 50) { 
+            else if(Time.timeScale < 7f && alive < 100) { 
                 Time.timeScale += 0.01f;
             }
-            else if(Time.timeScale < 10f && alive < 30) { 
+            else if(Time.timeScale < 10f && alive < 75) { 
                 Time.timeScale += 0.01f;
             }
-            else if(Time.timeScale < 15f && alive < 10) { 
+            else if(Time.timeScale < 15f && alive < 50) { 
                 Time.timeScale += 0.01f;
             }
-            else if(Time.timeScale < 20f && alive < 5) { 
+            else if(Time.timeScale < 20f && alive < 30) { 
                 Time.timeScale += 0.01f;
             }
         }
@@ -71,8 +71,27 @@ public class GameAgentHandler : GameHandler {
     }
     
     private void saveAgentMaxScore() {
+        if(score == 500) {
+            NetworkManager.LearningRate = 0.2f;
+        }
+        if(score == 1000) {
+            NetworkManager.LearningRate = 0.1f;
+        }
+        if(score == 1500) {
+            NetworkManager.LearningRate = 0.07f;
+        }
+        else if(score == 2000) {
+            NetworkManager.LearningRate = 0.05f;
+        }
+        else if(score == 4000) {
+            NetworkManager.LearningRate = 0.03f;
+        }
+        else if(score == 5000) {
+            NetworkManager.LearningRate = 0.01f;
+        }
         if(maxScore < score) {
             maxScore = score;
+            NetworkManager.MaxPopulationScore = (int)score;
             FileSystem.SaveAgentMaxScore(score);
             NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
             FileSystem.SaveAgentPolicy(network.getGenome());

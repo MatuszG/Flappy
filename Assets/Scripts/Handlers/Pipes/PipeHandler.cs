@@ -10,7 +10,7 @@ public class PipeHandler : MonoBehaviour {
     private int pipesMin = 1;
     private int offsetTime = 10; //12
 
-    private const int xPosDiff = 10;
+    private const int xPosDiff = 12;
     private const float speedPipe = 5f;
     private float timeMovePipe = xPosDiff/speedPipe;
     private float diffRange;
