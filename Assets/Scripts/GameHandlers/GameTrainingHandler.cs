@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class GameTrainingHandler : GameAgentHandler {
     [SerializeField] private GameObject mainMenu;
@@ -44,7 +45,12 @@ public class GameTrainingHandler : GameAgentHandler {
         elapsedTime = 0;
         Time.timeScale = 1f;
         aliveNumber = numberOfAgents;
-        maxScore = getAgentMaxScore();
+        try {
+            maxScore = getAgentMaxScore();
+        }
+        catch {
+            Debug.Log("violation path");
+        }
         scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
         evolutionNumber = NetworkManager.EvolutionNumber;
@@ -73,6 +79,27 @@ public class GameTrainingHandler : GameAgentHandler {
         pipes.GetComponent<PipeHandler>().Restart();
         NetworkManager.EvolutionNumber++;
         Start();
+    }
+
+    private void fixedLearningRate() {
+        if(maxScore == 500) {
+            NetworkManager.LearningRate = 0.2f;
+        }
+        else if(maxScore == 1000) {
+            NetworkManager.LearningRate = 0.1f;
+        }
+        else if(maxScore == 1500) {
+            NetworkManager.LearningRate = 0.07f;
+        }
+        else if(maxScore == 2000) {
+            NetworkManager.LearningRate = 0.05f;
+        }
+        else if(maxScore == 4000) {
+            NetworkManager.LearningRate = 0.03f;
+        }
+        else if(maxScore == 5000) {
+            NetworkManager.LearningRate = 0.01f;
+        }
     }
 
     private void FixedUpdate() {
@@ -135,6 +162,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private void saveAgentMaxScore(int i) {
         if(maxScore < scores[i]) {
             maxScore = scores[i];
+            NetworkManager.MaxPopulationScore = maxScore;
             FileSystem.SaveAgentMaxScore(scores[i]);
             newBirdsHandler[i].saveAgentPolicy();
         }

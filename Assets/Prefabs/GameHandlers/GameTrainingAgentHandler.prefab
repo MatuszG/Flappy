@@ -52,9 +52,9 @@ MonoBehaviour:
   scoreText: {fileID: 7051908504417797351}
   toggleObj: {fileID: 2364593170680621762}
   mainMenu: {fileID: 2710607201269932420, guid: 0e5e5c45895ab9e4786d40c3a3afe9ae, type: 3}
-  evolutionText: {fileID: 0}
-  maxScoreText: {fileID: 0}
-  aliveText: {fileID: 0}
+  evolutionText: {fileID: 2910239238388169550}
+  maxScoreText: {fileID: 4852663195365942209}
+  aliveText: {fileID: 5272831961395669120}
 --- !u!114 &1411871026184000701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +171,21 @@ PrefabInstance:
 --- !u!224 &3510823241241046384 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1682629337432678853, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
+  m_PrefabInstance: {fileID: 2873601490596449461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5272831961395669120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7984259746395350069, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
+  m_PrefabInstance: {fileID: 2873601490596449461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4852663195365942209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7257843422599245684, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
+  m_PrefabInstance: {fileID: 2873601490596449461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2910239238388169550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1117502385284937723, guid: 621badcb4d5504a4d8ac7e95137dc6ed, type: 3}
   m_PrefabInstance: {fileID: 2873601490596449461}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4598809316554361172

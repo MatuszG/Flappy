@@ -95,7 +95,7 @@ public class AgentBirdHandler : BirdHandler {
         // Debug.Log(sped.y);
         // rb.AddForce(sped/0.7f * Time.deltaTime);
         // Debug.Log(rb.velocity);
-        rb.MovePosition(transform.position + speed/0.7f * Time.deltaTime); // CHECK IF CAN OPTIMIZE
+        rb.MovePosition(transform.position + speed * Time.deltaTime / 0.7f); // CHECK IF CAN OPTIMIZE
     }
 
     private float Map(float s, float a1, float a2, float b1, float b2) {

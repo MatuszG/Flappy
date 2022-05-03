@@ -10,7 +10,7 @@ public class PipeHandler : MonoBehaviour {
     private int pipesMin = 1;
     private int offsetTime = 10; //12
 
-    private const int xPosDiff = 12;
+    private const int xPosDiff = 10; //10
     private const float speedPipe = 5f;
     private float timeMovePipe = xPosDiff/speedPipe;
     private float diffRange;
@@ -48,9 +48,18 @@ public class PipeHandler : MonoBehaviour {
     }
 
     private void addPipe(int xPos) {
-        // Debug.Log(xPos);
+        float range = Random.Range(-6f, 6f);
         GameObject newPipe = Instantiate(pipe, transform.position, Quaternion.identity);
-        newPipe.transform.position = transform.position + new Vector3(xPos, Random.Range(-6f, 6f), 0); // (-6f, -6f)
+        if(NetworkManager.MaxPopulationScore > 100) {
+            Debug.Log("added");
+            if(Random.Range(0f,1f) > 0.5f) {
+                range = Random.Range(-6f, -4f);
+            }
+            else {
+                range = Random.Range(4f, 6f);
+            }
+        }
+        newPipe.transform.position = transform.position + new Vector3(xPos, range, 0); // (-6f, -6f)
         PipesController.addPipe(newPipe.gameObject);
         float timeDestroy = offsetTime + xPosDiff * pipesMin * diffRange;
         Destroy(newPipe, timeDestroy);

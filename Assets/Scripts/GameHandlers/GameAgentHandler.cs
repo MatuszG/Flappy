@@ -71,24 +71,6 @@ public class GameAgentHandler : GameHandler {
     }
     
     private void saveAgentMaxScore() {
-        if(score == 500) {
-            NetworkManager.LearningRate = 0.2f;
-        }
-        if(score == 1000) {
-            NetworkManager.LearningRate = 0.1f;
-        }
-        if(score == 1500) {
-            NetworkManager.LearningRate = 0.07f;
-        }
-        else if(score == 2000) {
-            NetworkManager.LearningRate = 0.05f;
-        }
-        else if(score == 4000) {
-            NetworkManager.LearningRate = 0.03f;
-        }
-        else if(score == 5000) {
-            NetworkManager.LearningRate = 0.01f;
-        }
         if(maxScore < score) {
             maxScore = score;
             NetworkManager.MaxPopulationScore = (int)score;

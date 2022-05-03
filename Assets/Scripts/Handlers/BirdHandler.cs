@@ -7,34 +7,34 @@ public class BirdHandler : MonoBehaviour {
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected Sprite[] sprites;
     protected bool alive;
-    protected int id = -1;
-    protected float maxScore;
+    protected float score, maxScore;
     protected Rigidbody2D rb;
     protected Vector3 speed;
     protected Vector2 sped;
     protected SpriteRenderer spriteRenderer;
-    protected int spriteIndex;
+    protected int id = -1, spriteIndex;
     private GameHandler gameHandler;
 
     public int Id {
         get { return id; }
         set { id = value; }
     }
-    public bool Alive {
-        get { return alive; }
-        set { alive = value; }
-    }
-    protected float score;
+    
     public float Score {
         get { return score; }
         set { score = value; }
+    }
+
+    public bool Alive {
+        get { return alive; }
+        set { alive = value; }
     }
 
     protected void Awake() {
         gameHandler = FindObjectOfType<GameHandler>();
         alive = true;
         score = 0;
-        maxScore = FileSystem.GetAgentMaxScore();
+        maxScore = FileSystem.GetMaxScore();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -86,16 +86,36 @@ public class BirdHandler : MonoBehaviour {
             if(id != -1) NetworkManager.Networks[id].LiveTime -= 1f;
         }
         else if(other.gameObject.tag == "Score") {
-            addScore(1f);
+            addScore(1);
         }
     }
+
+    // protected void OnCollisionEnter2D(Collision2D other) {
+    //     if(other.collider.tag == "LiteObstacle" && alive) {
+    //         setDead();
+    //     }
+    //     else if(other.collider.tag == "Obstacle" && alive) {
+    //         setDead();
+    //         if(id != -1) NetworkManager.Networks[id].LiveTime -= 0.5f;
+    //     }
+    //     else if(other.collider.tag == "GroundObstacle" && alive) {
+    //         setDead();
+    //         if(id != -1) NetworkManager.Networks[id].LiveTime -= 1f;
+    //     }
+    //     else if(other.collider.tag == "Score") {
+    //         addScore(1f);
+    //     }
+    //     else {
+    //         Debug.Log("xD");
+    //     }
+    // }
 
     protected void setDead() {
         alive = false;
         if(id == -1) gameHandler.GetComponent<GameHandler>().setDead();
     }
 
-    protected void addScore(float sc) {
+    protected void addScore(int sc) {
         if(alive) {
             score += sc;
         }
