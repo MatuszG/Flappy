@@ -8,6 +8,6 @@ public class ParentsOffspringsScript : MonoBehaviour {
     private bool parentOffSprings;
 
     public void Clicked() {
-        NetworkManager.ParentOffSprings = !NetworkManager.ParentOffSprings;
+        PopulationManager.ParentOffSprings = !PopulationManager.ParentOffSprings;
     }
 }

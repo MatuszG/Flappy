@@ -50,15 +50,6 @@ public class PipeHandler : MonoBehaviour {
     private void addPipe(float xPos) {
         float range = Random.Range(-6f, 6f);
         GameObject newPipe = Instantiate(pipe, transform.position, Quaternion.identity);
-        // if(NetworkManager.MaxPopulationScore > 100) {
-        //     Debug.Log("added");
-        //     if(Random.Range(0f,1f) > 0.5f) {
-        //         range = Random.Range(-6f, -4f);
-        //     }
-        //     else {
-        //         range = Random.Range(4f, 6f);
-        //     }
-        // }
         newPipe.transform.position = transform.position + new Vector3(xPos, range, 0); // (-6f, -6f)
         PipesController.addPipe(newPipe.gameObject);
         float timeDestroy = offsetTime + xPosDiff * pipesMin * diffRange;

@@ -11,18 +11,48 @@ public class GameAgentHandler : GameHandler {
 
     public void changeAcceleration() {
         automaticAcceleration = !automaticAcceleration;
-        NetworkManager.AutomaticAcceleration = automaticAcceleration;
+        PopulationManager.AutomaticAcceleration = automaticAcceleration;
     }
 
     private void OnEnable() {
         toggle = toggleObj.GetComponent<Toggle>();
-        toggle.isOn = NetworkManager.AutomaticAcceleration;
-        automaticAcceleration = NetworkManager.AutomaticAcceleration;
+        toggle.isOn = PopulationManager.AutomaticAcceleration;
+        automaticAcceleration = PopulationManager.AutomaticAcceleration;
+    }
+
+    private void Start() {
+        this.alive = true;
+        Time.timeScale = 1f;
+        maxScore = getMaxScore();
+        Instantiate(pipeHandler);
+        newBird = Instantiate(birdHandler);
+        newBird.gameObject.GetComponent<AgentBirdHandler>().getAgentPolicy();
+        newBird.gameObject.GetComponent<AgentBirdHandler>().setOn(true);
+    }
+
+    private void FixedUpdate() {
+        checkKeybordInput();
+        if(this.alive) {
+            autoSpeed(0);
+            score = getAgentScore();
+            scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
+            saveAgentMaxScore();
+        }
+    }
+
+    private void Update() {
+        checkKeybordInput();
+        if (Input.GetKeyDown(KeyCode.Escape) && !this.alive) {
+            GameObject.Find("PanelAgent").GetComponent<GameOverView>().BackToMenu();
+        }
+        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !this.alive) {
+            GameObject.Find("PanelAgent").GetComponent<GameOverView>().Restart();
+        }
     }
 
     protected void autoSpeed(int alive = 0) {
-        toggle.isOn = NetworkManager.AutomaticAcceleration;
-        automaticAcceleration = NetworkManager.AutomaticAcceleration;
+        toggle.isOn = PopulationManager.AutomaticAcceleration;
+        automaticAcceleration = PopulationManager.AutomaticAcceleration;
         // Soft start
         // if(Time.timeScale < 1f) {
         //     Time.timeScale += 0.001f;
@@ -61,20 +91,10 @@ public class GameAgentHandler : GameHandler {
         }
     }
 
-    private void Start() {
-        this.alive = true;
-        Time.timeScale = 1f;
-        maxScore = getMaxScore();
-        Instantiate(pipeHandler);
-        newBird = Instantiate(birdHandler);
-        newBird.gameObject.GetComponent<AgentBirdHandler>().getAgentPolicy();
-        newBird.gameObject.GetComponent<AgentBirdHandler>().setOn(true);
-    }
-    
     private void saveAgentMaxScore() {
         if(maxScore < score) {
             maxScore = score;
-            NetworkManager.MaxPopulationScore = (int)score;
+            PopulationManager.MaxPopulationScore = (int)score;
             FileSystem.SaveAgentMaxScore(score);
             NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
             FileSystem.SaveAgentPolicy(network.getGenome());
@@ -87,25 +107,5 @@ public class GameAgentHandler : GameHandler {
 
     private float getAgentScore() {
         return newBird.gameObject.GetComponent<AgentBirdHandler>().Score;
-    }
-
-    private void FixedUpdate() {
-        checkKeybordInput();
-        if(this.alive) {
-            autoSpeed(0);
-            score = getAgentScore();
-            scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
-            saveAgentMaxScore();
-        }
-    }
-
-    private void Update() {
-        checkKeybordInput();
-        if (Input.GetKeyDown(KeyCode.Escape) && !this.alive) {
-            GameObject.Find("PanelAgent").GetComponent<GameOverView>().BackToMenu();
-        }
-        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !this.alive) {
-            GameObject.Find("PanelAgent").GetComponent<GameOverView>().Restart();
-        }
     }
 }

@@ -3,31 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NeuralNetwork {
-    private int[] topology = NetworkManager.Topology;
-    private float score, liveTime, fitness;
+    private int[] topology = PopulationManager.Topology;
+    private float score, liveTime;
+    private double fitness;
     private Neuron[][] neuralNetwork;
 
     public int[] Topology {
-        get{return topology;}
-        set{topology = value;}
+        get{ return topology; }
+        set{ topology = value; }
     }
 
-    public float Fitness {
-        get{return fitness;}
-        set{fitness = value;}
+    public double Fitness {
+        get{ return fitness; }
+        set{ fitness = value; }
     }
     
     public float LiveTime {
-        get{return liveTime;}
-        set{liveTime = value;}
+        get{ return liveTime; }
+        set{ liveTime = value; }
     }
     public float Score {
-        get{return score;}
-        set{score = value;}
+        get{ return score; }
+        set{ score = value; }
     }
     public Neuron[][] Network {
-        get{return neuralNetwork;}
-        set{neuralNetwork = value;}
+        get{ return neuralNetwork; }
+        set{ neuralNetwork = value; }
     }
 
     public NeuralNetwork() {

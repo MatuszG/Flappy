@@ -11,10 +11,10 @@ public class LearningSlider : MonoBehaviour {
 
     void Start() {
         text = textMesh.gameObject.GetComponent<TextMeshProUGUI>();
-        slider.value = NetworkManager.LearningRate;
+        slider.value = PopulationManager.LearningRate;
         text.text = slider.value.ToString("n2");
         slider.onValueChanged.AddListener( (v) => {
-            NetworkManager.LearningRate = v;
+            PopulationManager.LearningRate = v;
             text.text = v.ToString("n2");
         });
     }

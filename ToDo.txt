@@ -2,10 +2,13 @@
 - Fitness func
 - Zasady nauki
 - Poprawienie kodu (usunięcie niepotrzebnych fragmentów kodu)
-- Notification manager
 - Hotkeys
-- Poprawienie płynności rozpoczynania gry treningowej
 - Sprawdzenie czy "wypłaszczanie" learning rate pomaga w nauce (jest niezbędne)
-- Napisanie do promotora
-- Przygotowanie nowego repo dla licencjatu
+- SPRAWDZENIE PRZEPEŁNIEŃ (FITNESS)
+- Population manager
+
+- Notification manager
 - Poprawienie błedów
+- Przygotowanie nowego repo dla licencjatu
+- Napisanie do promotora
+- Poprawienie płynności rozpoczynania gry treningowej

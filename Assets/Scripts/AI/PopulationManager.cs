@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MathNet.Numerics.Distributions;
-public static class NetworkManager {
+public static class PopulationManager {
     private static NeuralNetwork[] networks;
     private static List<NeuralNetwork> networksList;
     private static int evolutionNumber = 0, networksN = 600;
     private static int[] topology = new int[]{4,7,1};
-    private static float sumFitness, maxPopulationScore = 0, mutateRatio = 0.1f, learningRate = 0.2f;
-    private static bool automaticAcceleration = false, parentOffSprings = false, continueTraining = true;
+    private static float maxPopulationScore = 0, mutateRatio = 0.1f, learningRate = 0.2f;
+    private static double sumFitness;
+    private static bool automaticAcceleration = false, parentOffSprings = false;
 
     public static float LearningRate {
         get { return learningRate; }
@@ -87,9 +88,9 @@ public static class NetworkManager {
     }
 
     private static List<float> poolSelection() {
-        float random = Random.Range(0, 1f);
         int i;
-        float sum = 0;
+        double sum = 0;
+        double random = Random.Range(0, 1);
         for(i = 0; i < networks.Length; i++) {
             random -= networks[i].Fitness;
             sum += networks[i].Fitness;

@@ -16,21 +16,21 @@ public class GameTrainingHandler : GameAgentHandler {
     private TextMeshProUGUI textMeshScore, textMeshEvolution, textMeshMaxScore, textMeshAlive;
     private bool[] notAlive;
     private float[] scores;
-    private float currentMaxScore, elapsedTime;
+    private float currentMaxScore;
     private int numberOfAgents, aliveNumber, evolutionNumber;
     private AgentBirdHandler newBirdHandler;
     private GameObject pipes;
     private MovePipe[] bestPipes;
 
     private void OnEnable() {
-        automaticAcceleration = NetworkManager.AutomaticAcceleration;
+        automaticAcceleration = PopulationManager.AutomaticAcceleration;
     }
 
     private void Awake() {
         pipes = Instantiate(pipeHandler);
         toggle = toggleObj.GetComponent<Toggle>();
-        toggle.isOn = NetworkManager.AutomaticAcceleration;
-        numberOfAgents = NetworkManager.NetworksN;
+        toggle.isOn = PopulationManager.AutomaticAcceleration;
+        numberOfAgents = PopulationManager.NetworksN;
         newBirdsHandler = new AgentBirdHandler[numberOfAgents];
         menu = mainMenu.GetComponent<MainMenu>();
         textMeshScore = scoreText.gameObject.GetComponent<TextMeshProUGUI>();
@@ -42,34 +42,33 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void Start() {
-        elapsedTime = 0;
         Time.timeScale = 1f;
         aliveNumber = numberOfAgents;
-        // maxScore = getAgentMaxScore();
+        maxScore = getAgentMaxScore();
         scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
-        evolutionNumber = NetworkManager.EvolutionNumber;
+        evolutionNumber = PopulationManager.EvolutionNumber;
         if(evolutionNumber == 0) {
-            NetworkManager.create();
+            PopulationManager.create();
             for(int i = 0; i < numberOfAgents; i++) createAgent(i);
             for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
         else {
-            NetworkManager.evolve();
+            PopulationManager.evolve();
             // for(int i = 0; i < numberOfAgents; i++) createAgent(i);
-            for(int i = 0; i < numberOfAgents; i++) {
-                Destroy(newBirdsHandler[i].gameObject);
-                createAgent(i);
-            }
-            for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
-            // for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].restart(i);
+            // for(int i = 0; i < numberOfAgents; i++) {
+            //     Destroy(newBirdsHandler[i].gameObject);
+            //     createAgent(i);
+            // }
+            // for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
+            for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].restart(i);
             // for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
     }
 
-    protected void checkKeybordInput() {
+    protected new void checkKeybordInput() {
         if (Input.GetKeyDown(KeyCode.Delete)) {
             FileSystem.ResetAgentScore();
             FileSystem.ResetAgentPolicy();
@@ -79,28 +78,28 @@ public class GameTrainingHandler : GameAgentHandler {
     private void Restart() {
         Time.timeScale = 1f;
         pipes.GetComponent<PipeHandler>().Restart();
-        NetworkManager.EvolutionNumber++;
+        PopulationManager.EvolutionNumber++;
         Start();
     }
 
     private void fixedLearningRate() {
         if(maxScore == 500) {
-            NetworkManager.LearningRate = 0.2f;
+            PopulationManager.LearningRate = 0.2f;
         }
         else if(maxScore == 1000) {
-            NetworkManager.LearningRate = 0.1f;
+            PopulationManager.LearningRate = 0.1f;
         }
         else if(maxScore == 1500) {
-            NetworkManager.LearningRate = 0.07f;
+            PopulationManager.LearningRate = 0.07f;
         }
         else if(maxScore == 2000) {
-            NetworkManager.LearningRate = 0.05f;
+            PopulationManager.LearningRate = 0.05f;
         }
         else if(maxScore == 4000) {
-            NetworkManager.LearningRate = 0.03f;
+            PopulationManager.LearningRate = 0.03f;
         }
         else if(maxScore == 5000) {
-            NetworkManager.LearningRate = 0.01f;
+            PopulationManager.LearningRate = 0.01f;
         }
     }
 
@@ -152,8 +151,8 @@ public class GameTrainingHandler : GameAgentHandler {
     private void createAgent(int i) {
         newBird = Instantiate(birdHandler);
         newBirdHandler = newBird.GetComponent<AgentBirdHandler>();
-        newBirdHandler.Network = NetworkManager.Networks[i];
         newBirdHandler.Id = i;
+        newBirdHandler.Network = PopulationManager.Networks[i];
         newBirdsHandler[i] = newBirdHandler;
     }
 
@@ -164,7 +163,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private void saveAgentMaxScore(int i) {
         if(maxScore < scores[i]) {
             maxScore = scores[i];
-            NetworkManager.MaxPopulationScore = maxScore;
+            PopulationManager.MaxPopulationScore = maxScore;
             FileSystem.SaveAgentMaxScore(scores[i]);
             newBirdsHandler[i].saveAgentPolicy();
         }

@@ -6,12 +6,12 @@ public class BirdHandler : MonoBehaviour {
     [SerializeField] protected float gravity = -9.8f;
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected Sprite[] sprites;
+    protected int id, spriteIndex;
     protected bool alive;
     protected float score, maxScore;
-    protected Rigidbody2D rb;
     protected Vector3 speed;
+    protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
-    protected int id = -1, spriteIndex;
     private GameHandler gameHandler;
 
     public int Id {
@@ -30,11 +30,12 @@ public class BirdHandler : MonoBehaviour {
     }
 
     protected void Awake() {
-        gameHandler = FindObjectOfType<GameHandler>();
-        alive = true;
+        id = -1;
         score = 0;
+        alive = true;
         maxScore = FileSystem.GetMaxScore();
         rb = GetComponent<Rigidbody2D>();
+        gameHandler = FindObjectOfType<GameHandler>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -74,14 +75,14 @@ public class BirdHandler : MonoBehaviour {
         }
         else if(other.gameObject.tag == "Obstacle" && alive) {
             setDead();
-            if(id != -1) NetworkManager.Networks[id].LiveTime -= 0.5f;
+            if(id != -1) PopulationManager.Networks[id].LiveTime -= 0.5f;
         }
         else if(other.gameObject.tag == "GroundObstacle" && alive) {
             setDead();
-            if(id != -1) NetworkManager.Networks[id].LiveTime -= 1f;
+            if(id != -1) PopulationManager.Networks[id].LiveTime -= 1f;
         }
         else if(other.gameObject.tag == "Score") {
-            addScore(1);
+            addScore();
         }
     }
 
@@ -114,9 +115,9 @@ public class BirdHandler : MonoBehaviour {
         if(id == -1) gameHandler.GetComponent<GameHandler>().setDead();
     }
 
-    protected void addScore(int score) {
+    protected void addScore() {
         if(alive) {
-            this.score += score;
+            score++;
         }
     }
 }

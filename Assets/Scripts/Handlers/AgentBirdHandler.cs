@@ -5,14 +5,14 @@ using UnityEngine;
 public class AgentBirdHandler : BirdHandler {
     private MovePipe[] pipes;
     private float liveTime = 0;
-    private float[] input = new float[NetworkManager.Topology[0]];
+    private float[] input = new float[PopulationManager.Topology[0]];
     private bool active = false;
     private Vector3 defaultPos = new Vector3(0, 7f, 0);
     private NeuralNetwork network;
 
     public NeuralNetwork Network {
-        get {return network;}
-        set {network = value;}
+        get { return network; }
+        set { network = value; }
     }
 
     public void saveAgentPolicy() {
@@ -32,7 +32,7 @@ public class AgentBirdHandler : BirdHandler {
     }
 
     public void setPosition(Vector3 pos) {
-        this.transform.position = pos;
+        transform.position = pos;
     }
 
     public void setOn(bool active) {
@@ -40,22 +40,23 @@ public class AgentBirdHandler : BirdHandler {
     }
 
     public void setActive(bool active) {
-        this.gameObject.SetActive(active);
+        gameObject.SetActive(active);
     }
 
     public void setBestPipes(MovePipe[] bestPipes) {
-        this.pipes = bestPipes;
+        pipes = bestPipes;
     }
 
     public void restart(int i) {
-        alive = true;
+        id = i;
         score = 0;
         liveTime = 0f;
+        alive = true;
+        active = true;
+        gameObject.SetActive(true);
+        transform.position = defaultPos;
         maxScore = FileSystem.GetAgentMaxScore();
-        this.transform.position = defaultPos;
-        this.active = true;
-        this.gameObject.SetActive(true);
-        Network = NetworkManager.Networks[i];
+        Network = PopulationManager.Networks[i];
     }
 
     private void Update() { 

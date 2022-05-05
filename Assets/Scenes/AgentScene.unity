@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2463241095001098421, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: agentMaxScoreText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2902108896809759540, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

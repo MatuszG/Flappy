@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject birdPrefab;
+    
     void Awake() {
         Application.targetFrameRate = 144;
         Time.timeScale = 1f;
@@ -20,12 +21,12 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Train() {
-        NetworkManager.EvolutionNumber = 0;
+        PopulationManager.EvolutionNumber = 0;
         SceneManager.LoadScene("TrainingScene");
     }
 
     public void TrainAgain() {
-        NetworkManager.EvolutionNumber++;
+        PopulationManager.EvolutionNumber++;
         SceneManager.LoadScene("TrainingScene");
     }
 

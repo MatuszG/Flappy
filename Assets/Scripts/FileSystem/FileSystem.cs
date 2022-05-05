@@ -44,7 +44,7 @@ public static class FileSystem {
 
     public static void SaveAgentPolicy(List<float> genome) {
         BinaryFormatter formatter = new BinaryFormatter();
-        AgentPolicy data = new AgentPolicy(genome, NetworkManager.Topology);
+        AgentPolicy data = new AgentPolicy(genome, PopulationManager.Topology);
         FileStream stream = new FileStream(pathAgentPolicy, FileMode.Create);
         formatter.Serialize(stream, data);
         stream.Close();
@@ -56,7 +56,7 @@ public static class FileSystem {
             FileStream stream = new FileStream(pathAgentPolicy, FileMode.Open);
             AgentPolicy data = formatter.Deserialize(stream) as AgentPolicy;
             stream.Close();
-            if(data.topology == NetworkManager.Topology) {
+            if(data.topology == PopulationManager.Topology) {
                 return data.genome;
             }
             return data.genome;

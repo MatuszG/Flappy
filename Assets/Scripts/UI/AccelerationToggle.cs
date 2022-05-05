@@ -9,7 +9,7 @@ public class AccelerationToggle : MonoBehaviour {
     void Start() {
         toggle.onValueChanged.AddListener( (v) => {
             toggle.isOn = v;
-            NetworkManager.AutomaticAcceleration = v;
+            PopulationManager.AutomaticAcceleration = v;
         });
     }
 }
