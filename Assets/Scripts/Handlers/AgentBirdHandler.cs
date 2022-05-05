@@ -7,7 +7,7 @@ public class AgentBirdHandler : BirdHandler {
     private float liveTime = 0;
     private float[] input = new float[NetworkManager.Topology[0]];
     private bool active = false;
-    private Vector3 defaultPos = new Vector3(0,7f,0);
+    private Vector3 defaultPos = new Vector3(0, 7f, 0);
     private NeuralNetwork network;
 
     public NeuralNetwork Network {
@@ -20,8 +20,6 @@ public class AgentBirdHandler : BirdHandler {
     }
 
     public void getAgentPolicy() {
-        // <! TO DO !>
-            // calculate and check if this genomes fits to neural network 
         network = new NeuralNetwork(FileSystem.GetAgentPolicy());
     }
 
@@ -45,10 +43,14 @@ public class AgentBirdHandler : BirdHandler {
         this.gameObject.SetActive(active);
     }
 
+    public void setBestPipes(MovePipe[] bestPipes) {
+        this.pipes = bestPipes;
+    }
+
     public void restart(int i) {
         alive = true;
-        liveTime = 0f;
         score = 0;
+        liveTime = 0f;
         maxScore = FileSystem.GetAgentMaxScore();
         this.transform.position = defaultPos;
         this.active = true;
@@ -56,22 +58,8 @@ public class AgentBirdHandler : BirdHandler {
         Network = NetworkManager.Networks[i];
     }
 
-    public void setBestPipes(MovePipe[] bestPipes) {
-        this.pipes = bestPipes;
-    }
-
-    private void Update() {
+    private void Update() { 
         return;
-        // if(!active || pipes == null) return;
-        // input[0] = Map(transform.position.y, -0.5f, 0.75f, 0 , 1f);
-        // input[1] = Map(speed.y, -40f, 10f, -4f, 1f);
-        // input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);
-        // input[3] = Map(pipes[0].transform.position.y, -6f, 6f, -1f, 1f);
-        // // input[4] = pipes[1].transform.position.x; // CHECK IF CAN OPTIMIZE OR REFACTOR
-        // // input[5] = pipes[1].transform.position.y;
-        // if(network != null && network.propagate(input) > 0.5) { // CHECK IF CAN OPTIMIZE
-        //     jump();
-        // }
     }
 
     private void FixedUpdate() { 
@@ -79,23 +67,17 @@ public class AgentBirdHandler : BirdHandler {
         if(id == -1) pipes = PipesController.getPipes();
         if(pipes == null) return;
         input[0] = Map(transform.position.y, -0.5f, 0.75f, 0 , 1f);
-        input[1] = Map(sped.y, -40f, 10f, -4f, 1f);
+        input[1] = Map(speed.y, -40f, 10f, -4f, 1f);
         input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);
         input[3] = Map(pipes[0].transform.position.y, -6f, 6f, -1f, 1f);
-        // input[4] = Map(pipes[1].transform.position.x, 0, 20f, 0, 1f); // CHECK IF CAN OPTIMIZE OR REFACTOR
+        // input[4] = Map(pipes[1].transform.position.x, 0, 20f, 0, 1f);
         // input[5] = Map(pipes[1].transform.position.y, -6f, 6f, -1f, 1f);
-        if(network != null && network.propagate(input) > 0.5) { // CHECK IF CAN OPTIMIZE
+        if(network != null && network.propagate(input) > 0.5) {
             jump();
         }
         liveTime += Time.deltaTime;
-        speed.y += gravity * 3.25f* Time.deltaTime;
-        sped.y += gravity * 3.25f* Time.deltaTime;
-        // rb.velocity += sped/0.7f * Time.deltaTime*;
-        // Debug.Log(speed.y);
-        // Debug.Log(sped.y);
-        // rb.AddForce(sped/0.7f * Time.deltaTime);
-        // Debug.Log(rb.velocity);
-        rb.MovePosition(transform.position + speed * Time.deltaTime / 0.7f); // CHECK IF CAN OPTIMIZE
+        speed.y += gravity * 3.25f * Time.deltaTime;
+        rb.MovePosition(transform.position + speed * Time.deltaTime / 0.7f);
     }
 
     private float Map(float s, float a1, float a2, float b1, float b2) {

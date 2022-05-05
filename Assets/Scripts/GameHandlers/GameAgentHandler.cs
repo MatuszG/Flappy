@@ -54,9 +54,11 @@ public class GameAgentHandler : GameHandler {
         }
     }
 
-    protected void Reset() {
-        FileSystem.ResetAgentScore();
-        FileSystem.ResetAgentPolicy();
+    protected void checkKeybordInput() {
+        if (Input.GetKeyDown(KeyCode.Delete)) {
+            FileSystem.ResetAgentScore();
+            // FileSystem.ResetAgentPolicy();
+        }
     }
 
     private void Start() {
@@ -67,7 +69,6 @@ public class GameAgentHandler : GameHandler {
         newBird = Instantiate(birdHandler);
         newBird.gameObject.GetComponent<AgentBirdHandler>().getAgentPolicy();
         newBird.gameObject.GetComponent<AgentBirdHandler>().setOn(true);
-        // Debug.Log(newBird.gameObject.GetComponent<AgentBirdHandler>().Network);
     }
     
     private void saveAgentMaxScore() {
@@ -98,13 +99,13 @@ public class GameAgentHandler : GameHandler {
         }
     }
 
-    // private void Update() {
-    //     Debug.Log(this.alive);
-    //     if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) && !this.alive) {
-    //         Debug.Log("Enter key was pressed.");
-    //     }
-    //     else {
-    //         if(!this.alive) Debug.Log("LOL");
-    //     }
-    // }
+    private void Update() {
+        checkKeybordInput();
+        if (Input.GetKeyDown(KeyCode.Escape) && !this.alive) {
+            GameObject.Find("PanelAgent").GetComponent<GameOverView>().BackToMenu();
+        }
+        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !this.alive) {
+            GameObject.Find("PanelAgent").GetComponent<GameOverView>().Restart();
+        }
+    }
 }

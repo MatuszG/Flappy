@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NeuralNetwork {
-    // private int[] topology = new int[]{4,6,3,1};
     private int[] topology = NetworkManager.Topology;
     private float score, liveTime, fitness;
     private Neuron[][] neuralNetwork;

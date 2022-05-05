@@ -11,7 +11,7 @@ public class MovePipe : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        // rb.MovePosition(transform.position + speed * Time.deltaTime * Vector3.left);
-        transform.position += speed * Time.deltaTime * Vector3.left;
+        rb.MovePosition(transform.position + speed * Time.deltaTime * Vector3.left);
+        // transform.position += speed * Time.deltaTime * Vector3.left;
     }
 }

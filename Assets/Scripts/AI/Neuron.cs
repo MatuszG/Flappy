@@ -21,7 +21,6 @@ public class Neuron {
     }
 
     public Neuron(int weightsN) {
-        // bias = NetworkManager.getRandomBias();
         bias = NetworkManager.getRandomWeight();
         weights = new float[weightsN];
         for(int i = 0; i < weights.Length; i++) weights[i] = NetworkManager.getRandomWeight();

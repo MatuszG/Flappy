@@ -1,0 +1,1 @@
+Ptak zdobędzie punkt, gdy ustawiona krawędź grafiki ptaka będzie zderzać się z krawędziami

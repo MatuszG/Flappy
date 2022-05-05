@@ -45,12 +45,7 @@ public class GameTrainingHandler : GameAgentHandler {
         elapsedTime = 0;
         Time.timeScale = 1f;
         aliveNumber = numberOfAgents;
-        try {
-            maxScore = getAgentMaxScore();
-        }
-        catch {
-            Debug.Log("violation path");
-        }
+        // maxScore = getAgentMaxScore();
         scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
         evolutionNumber = NetworkManager.EvolutionNumber;
@@ -72,6 +67,13 @@ public class GameTrainingHandler : GameAgentHandler {
         }
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
         textMeshMaxScore.text = "Max score: " + maxScore.ToString();
+    }
+
+    protected void checkKeybordInput() {
+        if (Input.GetKeyDown(KeyCode.Delete)) {
+            FileSystem.ResetAgentScore();
+            FileSystem.ResetAgentPolicy();
+        }
     }
 
     private void Restart() {

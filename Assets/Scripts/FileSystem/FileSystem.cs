@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
-// -1 means File not found
 // path - C:/Users/garba/AppData/LocalLow/DefaultCompany/Flappy/
 
+// @ -1 means File not found
 public static class FileSystem {
     static string pathScore = Application.persistentDataPath + "/playerMaxScore.bin";
     static string pathAgentScore = Application.persistentDataPath + "/agentMaxScore.bin";

@@ -5,7 +5,7 @@ using MathNet.Numerics.Distributions;
 public static class NetworkManager {
     private static NeuralNetwork[] networks;
     private static List<NeuralNetwork> networksList;
-    private static int evolutionNumber = 0, networksN = 275;
+    private static int evolutionNumber = 0, networksN = 600;
     private static int[] topology = new int[]{4,7,1};
     private static float sumFitness, maxPopulationScore = 0, mutateRatio = 0.1f, learningRate = 0.2f;
     private static bool automaticAcceleration = false, parentOffSprings = false, continueTraining = true;
@@ -18,6 +18,11 @@ public static class NetworkManager {
     public static float MutateRatio {
         get { return mutateRatio; }
         set { mutateRatio = value; }
+    }
+
+    public static float MaxPopulationScore {
+        get{return maxPopulationScore;}
+        set{maxPopulationScore = value;}
     }
 
     public static bool ParentOffSprings {
@@ -50,11 +55,6 @@ public static class NetworkManager {
         set{networksN = value;}
     }
 
-    public static float MaxPopulationScore {
-        get{return maxPopulationScore;}
-        set{maxPopulationScore = value;}
-    }
-
     public static void create() {
         networks = new NeuralNetwork[networksN];
         for(int i = 0; i < networksN; i++) {
@@ -62,15 +62,10 @@ public static class NetworkManager {
         }
     }
 
-    public static void savePopulation() {
-        
-    }
-
     public static void evolve() {
         selection();
         if(parentOffSprings) parentsCrossover();
         else crossover();
-        // if(continueTraining) savePopulation();
     }
 
     private static void selection() {
@@ -130,23 +125,23 @@ public static class NetworkManager {
     }
 
     private static void parentsCrossover() {
-        int randomRange;
+        int range;
         List<float> firstGenome, secondGenome;
         networksList = new List<NeuralNetwork>();
         // Saving the best species
         savingBests();
         // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
-            randomRange = RandomRange();
+            range = randomRange();
             firstGenome = poolSelection();
             secondGenome = poolSelection();
-            networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, randomRange));
+            networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, range));
             if(networksList.Count == networksN - 1) {
-                networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, randomRange));
+                networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, range));
             }
             else {
-                networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, randomRange));
-                networksList.Add(genomeCrossoverMutation(secondGenome, firstGenome, randomRange));
+                networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, range));
+                networksList.Add(genomeCrossoverMutation(secondGenome, firstGenome, range));
             }
         }
         networks = networksList.ToArray();
@@ -179,33 +174,12 @@ public static class NetworkManager {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 
-    private static int RandomRange() {
+    private static int randomRange() {
         float last = networks[0].getGenome().Count;
         return (int)Mathf.Round(Random.Range(0, last));
     }
 
     public static float getRandomWeight() {
         return Random.Range(-1f,1f);
-    }
-
-    public static float getWeightOffset() {
-        return Random.Range(-0.5f,0.5f);
-    }
-
-    public static float getRandomBias() {
-        if(Random.Range(0, 1f) > 0.5) return Random.Range(10f,20f);
-        else return Random.Range(-20f, -10f);
-    }
-
-    public static float getBiasOffset() {
-        if(Random.Range(0, 1f) > 0.5) return Random.Range(1.5f,5f);
-        else return Random.Range(-5f, -1.5f);
-    }
-
-    private static bool bias(float gen) {
-        if(gen <= 1 && gen >= -1) {
-            return false;
-        }
-        return true;
     }
 }

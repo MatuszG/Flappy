@@ -19,7 +19,7 @@ public class TimeSlider : MonoBehaviour {
     }
 
     void Update() {
-        if(Time.timeScale == 0) return;
+        if(Time.timeScale < 1) return;
         slider.value = Time.timeScale;
         text.text = slider.value.ToString("n2");
         if(slider.value != Time.timeScale) {

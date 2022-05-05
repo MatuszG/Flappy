@@ -13,15 +13,10 @@ public class GameHandler : MonoBehaviour {
     protected float score, maxScore;
     protected bool alive;
     private GameObject gameOverObj;
-    
-    private void Reset() {
-        FileSystem.ResetPlayer();
-    }
 
-    protected void checkKeybordInput() {
+    private void checkKeybordInput() {
         if (Input.GetKeyDown(KeyCode.Delete)) {
-            Debug.Log("detected");
-            // Reset();
+            FileSystem.ResetPlayer();
         }
     }
 
@@ -54,7 +49,6 @@ public class GameHandler : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        checkKeybordInput();
         if(alive) {
             score = getScore();
             scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
@@ -62,9 +56,13 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    // private void Update() {
-    //     if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) && !this.alive) {
-    //         Debug.Log("Enter key was pressed.");
-    //     }
-    // }
+    private void Update() {
+        checkKeybordInput();
+        if (Input.GetKeyDown(KeyCode.Escape) && !this.alive) {
+            GameObject.Find("Panel").GetComponent<GameOverView>().BackToMenu();
+        }
+        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !this.alive) {
+            GameObject.Find("Panel").GetComponent<GameOverView>().Restart();
+        }
+    }
 }
