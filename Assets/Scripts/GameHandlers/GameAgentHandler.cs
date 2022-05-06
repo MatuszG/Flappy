@@ -21,11 +21,12 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Start() {
-        this.alive = true;
+        alive = true;
         Time.timeScale = 1f;
         maxScore = getMaxScore();
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
+        newBird.gameObject.GetComponent<AgentBirdHandler>().NotificationManager = notificationManager;
         newBird.gameObject.GetComponent<AgentBirdHandler>().getAgentPolicy();
         newBird.gameObject.GetComponent<AgentBirdHandler>().setOn(true);
     }
@@ -42,10 +43,10 @@ public class GameAgentHandler : GameHandler {
 
     private void Update() {
         checkKeybordInput();
-        if (Input.GetKeyDown(KeyCode.Escape) && !this.alive) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !alive) {
             GameObject.Find("PanelAgent").GetComponent<GameOverView>().BackToMenu();
         }
-        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !this.alive) {
+        if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !alive) {
             GameObject.Find("PanelAgent").GetComponent<GameOverView>().Restart();
         }
     }
@@ -87,6 +88,7 @@ public class GameAgentHandler : GameHandler {
     protected void checkKeybordInput() {
         if (Input.GetKeyDown(KeyCode.Delete)) {
             FileSystem.ResetAgentScore();
+            notificationManager.GetComponent<NotificationScript>().ShowNotification("Agent score has been deleted!");
             // FileSystem.ResetAgentPolicy();
         }
     }

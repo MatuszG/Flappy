@@ -6,9 +6,9 @@
 - Sprawdzenie czy "wypłaszczanie" learning rate pomaga w nauce (jest niezbędne)
 - SPRAWDZENIE PRZEPEŁNIEŃ (FITNESS)
 - Population manager
-
-- Notification manager
 - Poprawienie błedów
+- Notification manager
+
 - Przygotowanie nowego repo dla licencjatu
 - Napisanie do promotora
 - Poprawienie płynności rozpoczynania gry treningowej

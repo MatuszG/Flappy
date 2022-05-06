@@ -48,6 +48,7 @@ MonoBehaviour:
   birdHandler: {fileID: 7452896990459617820, guid: 0a468fb0938530d4ea409718f8c07cb0, type: 3}
   pipeHandler: {fileID: 2374716524926661702, guid: fd5a28ca0f9fecd4da9bb7d60900741a, type: 3}
   scoreText: {fileID: 3349987320337310633}
+  notificationManager: {fileID: 8106712084544660025}
 --- !u!1001 &870752926555162468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,6 +56,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8014553885529618159}
     m_Modifications:
+    - target: {fileID: 4560857806134715557, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
+      propertyPath: notification
+      value: 
+      objectReference: {fileID: 5872076092756289311}
+    - target: {fileID: 5199131375854598929, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5598580440984726460, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -145,6 +154,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
+--- !u!1 &8106712084544660025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8977181061881881949, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
+  m_PrefabInstance: {fileID: 870752926555162468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5872076092756289311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6730707932184223867, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}
+  m_PrefabInstance: {fileID: 870752926555162468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3349987320337310633 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2479234431101396173, guid: 39a60f4732dac434593839395fb9d0b8, type: 3}

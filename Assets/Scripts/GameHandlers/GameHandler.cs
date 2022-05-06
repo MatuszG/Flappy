@@ -9,6 +9,7 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] protected GameObject birdHandler;
     [SerializeField] protected GameObject pipeHandler;
     [SerializeField] protected GameObject scoreText;
+    [SerializeField] protected GameObject notificationManager;
     protected GameObject newBird;
     protected float score, maxScore;
     protected bool alive;
@@ -17,6 +18,7 @@ public class GameHandler : MonoBehaviour {
     private void checkKeybordInput() {
         if (Input.GetKeyDown(KeyCode.Delete)) {
             FileSystem.ResetPlayer();
+            notificationManager.GetComponent<NotificationScript>().ShowNotification("Player score has been deleted!");
         }
     }
 

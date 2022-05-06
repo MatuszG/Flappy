@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &937445973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2478519478737212583, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+  m_PrefabInstance: {fileID: 1920069175}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1273157325
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,9 +222,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1905327399563024687, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905327399563024687, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 325
+      objectReference: {fileID: 0}
     - target: {fileID: 2463241095001098421, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: agentMaxScoreText
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478519478737212583, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2902108896809759540, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -237,10 +254,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3975052367322976205, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3979775764241521008, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_MinValue
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4074914244382935297, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: notificationPrefab
+      value: 
+      objectReference: {fileID: 937445973}
     - target: {fileID: 6008757425991153669, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -293,6 +318,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameAgentHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 6141978484226024729, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464193867068968363, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7775755692353239350, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -301,5 +334,34 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8275757402974033601, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.39226595
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275757402974033601, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.39226595
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275757402974033601, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.4056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275757402974033601, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4284769383
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275757402974033601, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706591566930466618, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+      propertyPath: notificationManager
+      value: 
+      objectReference: {fileID: 1920069176}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+--- !u!1 &1920069176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6234432221414307021, guid: 7cbeabe9532a8ea4c81f82f61acaf60a, type: 3}
+  m_PrefabInstance: {fileID: 1920069175}
+  m_PrefabAsset: {fileID: 0}
