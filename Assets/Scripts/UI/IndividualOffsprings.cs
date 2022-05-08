@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ParentsOffspringsScript : MonoBehaviour {
+public class IndividualOffsprings : MonoBehaviour {
     private bool parentOffSprings;
     private Button button;
 
     void Awake() {
         button = GetComponent<Button>();
-        button.interactable = !PopulationManager.ParentOffSprings;
+        button.interactable = PopulationManager.ParentOffSprings;
     }
 
     public void Clicked() {

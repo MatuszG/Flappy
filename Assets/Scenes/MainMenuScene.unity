@@ -123,46 +123,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &33047516 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6051191046066228183, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
-  m_PrefabInstance: {fileID: 7466824613295971829}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &33047518 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5418949591246449121, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
   m_PrefabInstance: {fileID: 7466824613295971829}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33047516}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &33047521
+--- !u!114 &33047521 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33047516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4c5d0a11ce237d4abfdc258b6bfe156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &315550491 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5049262624432214784, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8442488714624949454, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
   m_PrefabInstance: {fileID: 7466824613295971829}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &315550492
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaab7f56d09254b428d275e8900ce072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &315550492 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8012213901047300680, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
+  m_PrefabInstance: {fileID: 7466824613295971829}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315550491}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4c5d0a11ce237d4abfdc258b6bfe156, type: 3}
@@ -173,7 +161,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4823278185893290261, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
   m_PrefabInstance: {fileID: 7466824613295971829}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315550491}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -545,7 +533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4823278185893290261, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4823278185893290261, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
       propertyPath: m_Colors.m_ColorMultiplier
@@ -710,7 +698,7 @@ PrefabInstance:
     - target: {fileID: 5418949591246449121, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 315550492}
+      objectReference: {fileID: 33047521}
     - target: {fileID: 5418949591246449121, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -745,7 +733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418949591246449121, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: ParentsOffspringsScript, Assembly-CSharp
+      value: IndividualOffsprings, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5418949591246449121, guid: d8aed7db5a4c8ec4bbf2d8c48da5f432, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument

@@ -9,6 +9,11 @@
 - Poprawienie błedów
 - Notification manager
 
-- Przygotowanie nowego repo dla licencjatu
 - Napisanie do promotora
+- Przygotowanie nowego repo dla licencjatu
 - Poprawienie płynności rozpoczynania gry treningowej
+- Znalezc kolor gradientu dla powiadomień (poładnić XD)
+- Poprawić accelerating time
+
+- Zadzwonić do lekarza
+- Ogarnąć zajęcia które muszę nadrobić (FAKULTETY)

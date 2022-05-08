@@ -8,6 +8,7 @@ public class GameAgentHandler : GameHandler {
     [SerializeField] protected GameObject toggleObj;
     protected bool automaticAcceleration;
     protected Toggle toggle;
+    protected int fps;
 
     public void changeAcceleration() {
         automaticAcceleration = !automaticAcceleration;
@@ -42,6 +43,7 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Update() {
+        fps = (int) (1 / Time.unscaledDeltaTime);
         checkKeybordInput();
         if (Input.GetKeyDown(KeyCode.Escape) && !alive) {
             GameObject.Find("PanelAgent").GetComponent<GameOverView>().BackToMenu();
@@ -60,6 +62,9 @@ public class GameAgentHandler : GameHandler {
         // }
         // else 
         if(automaticAcceleration) {
+            // if(Time.timeScale < 40 && fps > 120) {
+            //     Time.timeScale += 0.01f;
+            // }
             if(Time.timeScale < 1f) return;
             else if(Time.timeScale < 1.5f && alive < 500) {
                 Time.timeScale += 0.003f;
@@ -80,6 +85,12 @@ public class GameAgentHandler : GameHandler {
                 Time.timeScale += 0.01f;
             }
             else if(Time.timeScale < 20f && alive < 30) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 30f && alive < 10) { 
+                Time.timeScale += 0.01f;
+            }
+            else if(Time.timeScale < 40f && alive < 5) { 
                 Time.timeScale += 0.01f;
             }
         }

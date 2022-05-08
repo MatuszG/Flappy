@@ -5,7 +5,7 @@ using MathNet.Numerics.Distributions;
 public static class PopulationManager {
     private static NeuralNetwork[] networks;
     private static List<NeuralNetwork> networksList;
-    private static int evolutionNumber = 0, networksN = 600;
+    private static int evolutionNumber = 0, networksN = 800;
     private static int[] topology = new int[]{4,7,1};
     private static float maxPopulationScore = 0, mutateRatio = 0.1f, learningRate = 0.2f;
     private static double sumFitness;
