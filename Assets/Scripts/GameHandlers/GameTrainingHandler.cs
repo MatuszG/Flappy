@@ -39,12 +39,14 @@ public class GameTrainingHandler : GameAgentHandler {
         textMeshAlive = aliveText.gameObject.GetComponent<TextMeshProUGUI>();
         // FileSystem.printPath();
         // C:/Users/mateo/AppData/LocalLow/DefaultCompany/Flappy/
+        // C:/Users/garba/AppData/LocalLow/DefaultCompany/Flappy/
     }
 
     private void Start() {
         Time.timeScale = 1f;
         aliveNumber = numberOfAgents;
         maxScore = getAgentMaxScore();
+        lastMaxScore = maxScore;
         scores = new float[numberOfAgents];
         notAlive = new bool[numberOfAgents];
         evolutionNumber = PopulationManager.EvolutionNumber;
@@ -164,8 +166,11 @@ public class GameTrainingHandler : GameAgentHandler {
         if(maxScore < scores[i]) {
             maxScore = scores[i];
             PopulationManager.MaxPopulationScore = maxScore;
-            FileSystem.SaveAgentMaxScore(scores[i]);
-            newBirdsHandler[i].saveAgentPolicy();
+            if(maxScore < 10000 || lastMaxScore + 10000 == maxScore) {
+                lastMaxScore = maxScore;
+                newBirdsHandler[i].saveAgentPolicy();
+                FileSystem.SaveAgentMaxScore(scores[i]);
+            }
         }
         if(currentMaxScore < scores[i]) {
             currentMaxScore = scores[i];

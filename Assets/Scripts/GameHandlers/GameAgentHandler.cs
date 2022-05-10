@@ -9,6 +9,7 @@ public class GameAgentHandler : GameHandler {
     protected bool automaticAcceleration;
     protected Toggle toggle;
     protected int fps;
+    protected float lastMaxScore;
 
     public void changeAcceleration() {
         automaticAcceleration = !automaticAcceleration;
@@ -25,6 +26,7 @@ public class GameAgentHandler : GameHandler {
         alive = true;
         Time.timeScale = 1f;
         maxScore = getMaxScore();
+        lastMaxScore = maxScore;
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
         newBird.gameObject.GetComponent<AgentBirdHandler>().NotificationManager = notificationManager;
@@ -105,12 +107,19 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void saveAgentMaxScore() {
+        if(maxScore < 10 || lastMaxScore + 10000 == maxScore) {
+            lastMaxScore = maxScore;
+            Debug.Log("TEST");
+        }
         if(maxScore < score) {
             maxScore = score;
             PopulationManager.MaxPopulationScore = (int)score;
-            FileSystem.SaveAgentMaxScore(score);
-            NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
-            FileSystem.SaveAgentPolicy(network.getGenome());
+            if(maxScore < 10000 || lastMaxScore + 10000 == maxScore) {
+                lastMaxScore = maxScore;
+                NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
+                FileSystem.SaveAgentMaxScore(score);
+                FileSystem.SaveAgentPolicy(network.getGenome());
+            }  
         }
     }   
 
