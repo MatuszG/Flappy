@@ -67,7 +67,7 @@ public class GameTrainingHandler : GameAgentHandler {
             // for(int i = 0; i < numberOfAgents; i++) newBirdsHandler[i].setOn(true);
         }
         textMeshEvolution.text = "Evolution: " + evolutionNumber.ToString();
-        textMeshMaxScore.text = "Max score: " + maxScore.ToString();
+        textMeshMaxScore.text = "Max score: " + maxScore.ToString("0");
     }
 
     protected new void checkKeybordInput() {

@@ -36,6 +36,7 @@ public class GameAgentHandler : GameHandler {
 
     private void FixedUpdate() {
         checkKeybordInput();
+        // Debug.Log(newBird.transform.position);
         if(this.alive) {
             autoSpeed(0);
             score = getAgentScore();
@@ -92,9 +93,13 @@ public class GameAgentHandler : GameHandler {
             else if(Time.timeScale < 30f && alive < 10) { 
                 Time.timeScale += 0.01f;
             }
-            else if(Time.timeScale < 40f && alive < 5) { 
+            else if(Time.timeScale < 50f && alive < 5) { 
                 Time.timeScale += 0.01f;
+                Time.fixedDeltaTime = 0.01f;
             }
+            // else if(Time.timeScale < 250f && alive < 1) { 
+            //     Time.timeScale += 0.01f;
+            // }
         }
     }
 
