@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Neuron {
-    private float value = 0;
-    private float bias;
+    private float value = 0, bias;
     private float[] weights;
 
     public float Value {

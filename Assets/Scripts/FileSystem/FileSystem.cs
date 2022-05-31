@@ -28,15 +28,15 @@ public static class FileSystem {
         File.Delete(pathAgentPolicy);
     }
 
-    public static void SaveMaxScore(float score) {
-        float data = GetMaxScore();
+    public static void SaveMaxScore(int score) {
+        int data = GetMaxScore();
         if(data < score) {
             SaveScore(pathScore, score);
         }
     }
 
-    public static void SaveAgentMaxScore(float score) {
-        float data = GetAgentMaxScore();
+    public static void SaveAgentMaxScore(int score) {
+        int data = GetAgentMaxScore();
         if(data < score) {
             SaveScore(pathAgentScore, score);
         }
@@ -64,19 +64,19 @@ public static class FileSystem {
         return new List<float>();
     }
 
-    public static float GetMaxScore() {
-        float data = LoadScore(pathScore);
-        if(data == -1f) return 0;
+    public static int GetMaxScore() {
+        int data = LoadScore(pathScore);
+        if(data == -1) return 0;
         return data;
     }
 
-    public static float GetAgentMaxScore() {
-        float data = LoadScore(pathAgentScore);
-        if(data == -1f) return 0;
+    public static int GetAgentMaxScore() {
+        int data = LoadScore(pathAgentScore);
+        if(data == -1) return 0;
         return data;
     }
 
-    private static void SaveScore(string path, float score) {
+    private static void SaveScore(string path, int score) {
         BinaryFormatter formatter = new BinaryFormatter();
         PlayerScore data = new PlayerScore(score);
         FileStream stream = new FileStream(path, FileMode.Create);
@@ -84,7 +84,7 @@ public static class FileSystem {
         stream.Close();
     }
 
-    private static float LoadScore(string path) {
+    private static int LoadScore(string path) {
         if(File.Exists(path)) {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
@@ -93,7 +93,7 @@ public static class FileSystem {
             return data.score;
         }
         else {
-            return -1f;
+            return -1;
         }
     }
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class NeuralNetwork {
     private int[] topology = PopulationManager.Topology;
-    private float score, liveTime;
+    private int score;
+    private float liveTime;
     private double fitness;
     private Neuron[][] neuralNetwork;
 
@@ -22,7 +23,7 @@ public class NeuralNetwork {
         get{ return liveTime; }
         set{ liveTime = value; }
     }
-    public float Score {
+    public int Score {
         get{ return score; }
         set{ score = value; }
     }

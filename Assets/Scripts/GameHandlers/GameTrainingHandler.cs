@@ -15,15 +15,16 @@ public class GameTrainingHandler : GameAgentHandler {
     private AgentBirdHandler[] newBirdsHandler;
     private TextMeshProUGUI textMeshScore, textMeshEvolution, textMeshMaxScore, textMeshAlive;
     private bool[] notAlive;
-    private float[] scores;
-    private float currentMaxScore;
-    private int numberOfAgents, aliveNumber, evolutionNumber;
+    private int[] scores;
+    private int currentMaxScore, numberOfAgents, aliveNumber, evolutionNumber;
+    private List<float> bestPolicy;
     private AgentBirdHandler newBirdHandler;
     private GameObject pipes;
     private MovePipe[] bestPipes;
 
     private void OnEnable() {
         automaticAcceleration = PopulationManager.AutomaticAcceleration;
+        bestPolicy = new List<float>();
     }
 
     private void Awake() {
@@ -44,10 +45,11 @@ public class GameTrainingHandler : GameAgentHandler {
 
     private void Start() {
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.0167f;
         aliveNumber = numberOfAgents;
         maxScore = getAgentMaxScore();
-        lastMaxScore = maxScore;
-        scores = new float[numberOfAgents];
+        lastSavedMaxScore = maxScore;
+        scores = new int[numberOfAgents];
         notAlive = new bool[numberOfAgents];
         evolutionNumber = PopulationManager.EvolutionNumber;
         if(evolutionNumber == 0) {
@@ -112,7 +114,7 @@ public class GameTrainingHandler : GameAgentHandler {
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
         for(int i = 0; i < numberOfAgents; i++) update(i);
-        textMeshScore.text = currentMaxScore.ToString("0");
+        textMeshScore.text = currentMaxScore.ToString("n0");
         textMeshAlive.text = "Alive: " + aliveNumber.ToString();
     }
 
@@ -158,7 +160,7 @@ public class GameTrainingHandler : GameAgentHandler {
         newBirdsHandler[i] = newBirdHandler;
     }
 
-    private float getAgentScore(int i) {
+    private int getAgentScore(int i) {
         return newBirdsHandler[i].Score;
     }
 
@@ -166,9 +168,14 @@ public class GameTrainingHandler : GameAgentHandler {
         if(maxScore < scores[i]) {
             maxScore = scores[i];
             PopulationManager.MaxPopulationScore = maxScore;
-            if(maxScore < 10000 || lastMaxScore + 10000 == maxScore) {
-                lastMaxScore = maxScore;
-                newBirdsHandler[i].saveAgentPolicy();
+            if(maxScore < 10000 || lastSavedMaxScore + 10000 == maxScore) {
+                lastSavedMaxScore = maxScore;
+                if(bestPolicy != PopulationManager.Networks[i].getGenome()) {
+                    newBirdsHandler[i].saveAgentPolicy();
+                }
+                else {
+                    Debug.Log("working");
+                }
                 FileSystem.SaveAgentMaxScore(scores[i]);
             }
         }
@@ -177,7 +184,7 @@ public class GameTrainingHandler : GameAgentHandler {
         }
     }
 
-    private float getAgentMaxScore() {
+    private int getAgentMaxScore() {
         return FileSystem.GetAgentMaxScore();
     }
 }

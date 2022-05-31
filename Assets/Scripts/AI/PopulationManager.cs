@@ -5,9 +5,9 @@ using MathNet.Numerics.Distributions;
 public static class PopulationManager {
     private static NeuralNetwork[] networks;
     private static List<NeuralNetwork> networksList;
-    private static int evolutionNumber = 0, networksN = 800;
+    private static int evolutionNumber = 0, networksN = 800, maxPopulationScore = 0;
     private static int[] topology = new int[]{4,7,1};
-    private static float maxPopulationScore = 0, mutateRatio = 0.1f, learningRate = 0.2f;
+    private static float mutateRatio = 0.1f, learningRate = 0.2f;
     private static double sumFitness;
     private static bool automaticAcceleration = false, parentOffSprings = false;
 
@@ -21,7 +21,7 @@ public static class PopulationManager {
         set { mutateRatio = value; }
     }
 
-    public static float MaxPopulationScore {
+    public static int MaxPopulationScore {
         get{return maxPopulationScore;}
         set{maxPopulationScore = value;}
     }
@@ -101,7 +101,7 @@ public static class PopulationManager {
         return networks[i-1].getGenome();
     }
 
-    private static void savingBests() {
+    private static void savingBestSpecies() {
         // Saving the best species
         int i = 0;
         List<float> genome = networks[i++].getGenome();
@@ -115,7 +115,7 @@ public static class PopulationManager {
     private static void crossover() {
         networksList = new List<NeuralNetwork>();
         List<float> genome;
-        savingBests();
+        savingBestSpecies();
         // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
             genome = poolSelection();
@@ -130,7 +130,7 @@ public static class PopulationManager {
         List<float> firstGenome, secondGenome;
         networksList = new List<NeuralNetwork>();
         // Saving the best species
-        savingBests();
+        savingBestSpecies();
         // Crossover (mutation) for pool selected species
         while (networksList.Count < networksN) { 
             range = randomRange();

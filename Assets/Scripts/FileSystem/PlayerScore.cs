@@ -4,8 +4,8 @@ using UnityEngine;
 
 [System.Serializable]
 public class PlayerScore {
-    public float score;
-    public PlayerScore(float score) {
+    public int score;
+    public PlayerScore(int score) {
         this.score = score;
     }
 }

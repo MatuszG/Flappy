@@ -27,7 +27,7 @@ public class AgentBirdHandler : BirdHandler {
 
     public void getAgentPolicy() {
         if(FileSystem.GetAgentPolicy().Count == 0) {
-            notificationManager.GetComponent<NotificationScript>().ShowNotification("Agent must be trained to perform this task! Current agent is randomly created!");
+            notificationManager.GetComponent<NotificationScript>().ShowNotification("Agent must be trained to perform this task! Current agent is now randomly created!");
         }
         network = new NeuralNetwork(FileSystem.GetAgentPolicy());
     }
@@ -36,7 +36,7 @@ public class AgentBirdHandler : BirdHandler {
         network.LiveTime = liveTime;
     }
 
-    public void updateNetworkScore(float score) {
+    public void updateNetworkScore(int score) {
         network.Score = score;
     }
 

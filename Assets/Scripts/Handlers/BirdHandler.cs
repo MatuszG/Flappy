@@ -8,7 +8,7 @@ public class BirdHandler : MonoBehaviour {
     [SerializeField] protected Sprite[] sprites;
     protected int id, spriteIndex;
     protected bool alive;
-    protected float score, maxScore;
+    protected int score, maxScore;
     protected Vector3 speed;
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
@@ -19,7 +19,7 @@ public class BirdHandler : MonoBehaviour {
         set { id = value; }
     }
     
-    public float Score {
+    public int Score {
         get { return score; }
         set { score = value; }
     }

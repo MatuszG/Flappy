@@ -11,7 +11,7 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] protected GameObject scoreText;
     [SerializeField] protected GameObject notificationManager;
     protected GameObject newBird;
-    protected float score, maxScore;
+    protected int score, maxScore;
     protected bool alive;
     private GameObject gameOverObj;
 
@@ -22,32 +22,13 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    public void setDead() {
-        alive = false;
-        Time.timeScale = 0.00f;
-        gameOverObj = Instantiate(gameOver);
-    }
-
     private void Start() {
         alive = true;
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.01f;
         maxScore = getMaxScore();
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
-    }
-
-    private void saveMaxScore() {
-        if(maxScore < score) {
-            FileSystem.SaveMaxScore(score);
-        }
-    }
-
-    private float getMaxScore() {
-        return FileSystem.GetMaxScore();
-    }
-
-    private float getScore() {
-        return newBird.gameObject.GetComponent<BirdHandler>().Score;
     }
 
     private void FixedUpdate() {
@@ -66,5 +47,25 @@ public class GameHandler : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !this.alive) {
             GameObject.Find("Panel").GetComponent<GameOverView>().Restart();
         }
+    }
+    
+    public void setDead() {
+        alive = false;
+        Time.timeScale = 0.00f;
+        gameOverObj = Instantiate(gameOver);
+    }
+    
+    private void saveMaxScore() {
+        if(maxScore < score) {
+            FileSystem.SaveMaxScore(score);
+        }
+    }
+
+    private int getMaxScore() {
+        return FileSystem.GetMaxScore();
+    }
+
+    private int getScore() {
+        return newBird.gameObject.GetComponent<BirdHandler>().Score;
     }
 }

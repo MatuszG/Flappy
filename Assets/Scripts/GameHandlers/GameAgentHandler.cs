@@ -9,7 +9,7 @@ public class GameAgentHandler : GameHandler {
     protected bool automaticAcceleration;
     protected Toggle toggle;
     protected int fps;
-    protected float lastMaxScore;
+    protected int lastSavedMaxScore;
 
     public void changeAcceleration() {
         automaticAcceleration = !automaticAcceleration;
@@ -25,8 +25,9 @@ public class GameAgentHandler : GameHandler {
     private void Start() {
         alive = true;
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.01f;
         maxScore = getMaxScore();
-        lastMaxScore = maxScore;
+        lastSavedMaxScore = maxScore;
         Instantiate(pipeHandler);
         newBird = Instantiate(birdHandler);
         newBird.gameObject.GetComponent<AgentBirdHandler>().NotificationManager = notificationManager;
@@ -40,7 +41,7 @@ public class GameAgentHandler : GameHandler {
         if(this.alive) {
             autoSpeed(0);
             score = getAgentScore();
-            scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("0");
+            scoreText.gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString("n0");
             saveAgentMaxScore();
         }
     }
@@ -112,27 +113,24 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void saveAgentMaxScore() {
-        if(maxScore < 10 || lastMaxScore + 10000 == maxScore) {
-            lastMaxScore = maxScore;
-            Debug.Log("TEST");
-        }
         if(maxScore < score) {
             maxScore = score;
-            PopulationManager.MaxPopulationScore = (int)score;
-            if(maxScore < 10000 || lastMaxScore + 10000 == maxScore) {
-                lastMaxScore = maxScore;
+            PopulationManager.MaxPopulationScore = score;
+            if(maxScore < 10000 || lastSavedMaxScore + 10000 == maxScore) {
+                lastSavedMaxScore = maxScore;
                 NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
                 FileSystem.SaveAgentMaxScore(score);
-                FileSystem.SaveAgentPolicy(network.getGenome());
+                /* saving testing agent policy is not required */
+                // FileSystem.SaveAgentPolicy(network.getGenome());
             }  
         }
     }   
 
-    private float getMaxScore() {
+    private int getMaxScore() {
         return FileSystem.GetAgentMaxScore();
     }
 
-    private float getAgentScore() {
+    private int getAgentScore() {
         return newBird.gameObject.GetComponent<AgentBirdHandler>().Score;
     }
 }
