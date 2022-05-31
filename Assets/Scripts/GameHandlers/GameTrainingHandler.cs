@@ -173,9 +173,6 @@ public class GameTrainingHandler : GameAgentHandler {
                 if(bestPolicy != PopulationManager.Networks[i].getGenome()) {
                     newBirdsHandler[i].saveAgentPolicy();
                 }
-                else {
-                    Debug.Log("working");
-                }
                 FileSystem.SaveAgentMaxScore(scores[i]);
             }
         }
