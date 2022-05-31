@@ -22,7 +22,7 @@ public class TimeSlider : MonoBehaviour {
     void Update() {
         if(Time.timeScale < 1) return;
         else if(Time.timeScale >= 30f) {
-            Time.fixedDeltaTime = 0.01;
+            Time.fixedDeltaTime = 0.01f;
         }
         slider.value = Time.timeScale;
         text.text = slider.value.ToString("n2");
