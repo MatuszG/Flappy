@@ -9,7 +9,12 @@ public static class PopulationManager {
     private static int[] topology = new int[]{4,7,1};
     private static float mutateRatio = 0.1f, learningRate = 0.2f;
     private static double sumFitness;
-    private static bool automaticAcceleration = false, parentOffSprings = false;
+    private static bool automaticAcceleration = false, parentsOffSprings = false;
+
+    public static double SumFitness {
+        get { return sumFitness; }
+        set { sumFitness = value; }
+    }
 
     public static float LearningRate {
         get { return learningRate; }
@@ -26,9 +31,9 @@ public static class PopulationManager {
         set{maxPopulationScore = value;}
     }
 
-    public static bool ParentOffSprings {
-        get { return parentOffSprings; }
-        set { parentOffSprings = value; }
+    public static bool ParentsOffSprings {
+        get { return parentsOffSprings; }
+        set { parentsOffSprings = value; }
     }
 
     public static bool AutomaticAcceleration {
@@ -65,7 +70,8 @@ public static class PopulationManager {
 
     public static void evolve() {
         selection();
-        if(parentOffSprings) parentsCrossover();
+        Test.calculate();
+        if(parentsOffSprings) parentsCrossover();
         else crossover();
     }
 
@@ -89,11 +95,9 @@ public static class PopulationManager {
 
     private static List<float> poolSelection() {
         int i;
-        double sum = 0;
         double random = Random.Range(0, 1);
         for(i = 0; i < networks.Length; i++) {
             random -= networks[i].Fitness;
-            sum += networks[i].Fitness;
             if(random <= 0) {
                 return networks[i].getGenome();
             } 
@@ -102,7 +106,6 @@ public static class PopulationManager {
     }
 
     private static void savingBestSpecies() {
-        // Saving the best species
         int i = 0;
         List<float> genome = networks[i++].getGenome();
         networksList.Add(new NeuralNetwork(genome));
@@ -129,14 +132,12 @@ public static class PopulationManager {
         int range;
         List<float> firstGenome, secondGenome;
         networksList = new List<NeuralNetwork>();
-        // Saving the best species
         savingBestSpecies();
-        // Crossover (mutation) for pool selected species
+        // Crossover (and mutation) for pool selected species
         while (networksList.Count < networksN) { 
             range = randomRange();
             firstGenome = poolSelection();
             secondGenome = poolSelection();
-            networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, range));
             if(networksList.Count == networksN - 1) {
                 networksList.Add(genomeCrossoverMutation(firstGenome, secondGenome, range));
             }
@@ -181,6 +182,6 @@ public static class PopulationManager {
     }
 
     public static float getRandomWeight() {
-        return Random.Range(-1f,1f);
+        return Random.Range(-1f, 1f);
     }
 }

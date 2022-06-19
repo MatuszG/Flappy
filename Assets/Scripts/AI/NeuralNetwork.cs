@@ -37,9 +37,12 @@ public class NeuralNetwork {
         for(int i = 0; i < topology.Length; i++) {
             neuralNetwork[i] = new Neuron[topology[i]];
             for(int j = 0; j < topology[i]; j++) {
-                if(i == 0) neuralNetwork[i][j] = new Neuron(1,false);
+                // creating input layer
+                if(i == 0) neuralNetwork[i][j] = new Neuron(0 ,false);
+                // creating hidden layer 
                 else if(i == topology.Length - 1) neuralNetwork[i][j] = new Neuron(topology[i - 1], false);
-                else neuralNetwork[i][j] = new Neuron(topology[i-1]);   
+                // creating output layer
+                else neuralNetwork[i][j] = new Neuron(topology[i-1]);
             }
         }
     }
@@ -47,6 +50,7 @@ public class NeuralNetwork {
     public NeuralNetwork(List<float> genome) {
         this.neuralNetwork = new NeuralNetwork().Network;
         if(genome.Count == 0) return;
+        // adding bias from latest (output) neuron - this weight wasn't used in crossover and mutation
         genome.Add(0);
         float[] gens = genome.ToArray();
         int id = 0;
@@ -62,7 +66,9 @@ public class NeuralNetwork {
 
     public double propagate(float[] input) {
         int i = 0;
-        for(int j = 0; j < neuralNetwork[i].Length; j++) neuralNetwork[i][j].Value = input[j];
+        // input values for input layer
+        for(int j = 0; j < neuralNetwork[i].Length; j++) neuralNetwork[i][j].Value = input[j]; 
+        // calculating neuron values in rest layers
         for(i = 1; i < neuralNetwork.Length; i++) {
             for(int j = 0; j < neuralNetwork[i].Length; j++) {
                 neuralNetwork[i][j].Value = neuralNetwork[i][j].Bias;
@@ -71,7 +77,8 @@ public class NeuralNetwork {
                 }
             }
         }
-        return activationSigmoidFunction(neuralNetwork[neuralNetwork.Length-1][0].Value);
+        // activating function on singular output neuron value 
+        return activationSigmoidFunction(neuralNetwork[neuralNetwork.Length-1][0].Value); 
     }
 
     public List<float> getGenome() {
@@ -85,6 +92,7 @@ public class NeuralNetwork {
                 genome.Add(neuralNetwork[i][j].Bias);
             }
         }
+        // remove last weight (bias weight) from output neuron
         genome.RemoveAt(genome.Count - 1);
         return genome;
     }

@@ -27,7 +27,8 @@ public class AgentBirdHandler : BirdHandler {
 
     public void getAgentPolicy() {
         if(FileSystem.GetAgentPolicy().Count == 0) {
-            notificationManager.GetComponent<NotificationScript>().ShowNotification("Agent must be trained to perform this task! Current agent is now randomly created!");
+            notificationManager.GetComponent<NotificationScript>().ShowNotification(
+                "Agent must be trained to perform this task! Current agent is now randomly created!");
         }
         network = new NeuralNetwork(FileSystem.GetAgentPolicy());
     }
@@ -64,8 +65,16 @@ public class AgentBirdHandler : BirdHandler {
         active = true;
         gameObject.SetActive(true);
         transform.position = defaultPos;
-        maxScore = FileSystem.GetAgentMaxScore();
+        // maxScore = FileSystem.GetAgentMaxScore();
+        maxScore = 32333333;
         Network = PopulationManager.Networks[i];
+    }
+
+    private void assignInputValues() {
+        input[0] = Map(transform.position.y, -0.5f, 0.75f, 0 , 1f);
+        input[1] = Map(speed.y, -40f, 10f, -4f, 1f);
+        input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);
+        input[3] = Map(pipes[0].transform.position.y, -6f, 6f, -1f, 1f);
     }
 
     private void Update() { 
@@ -76,12 +85,7 @@ public class AgentBirdHandler : BirdHandler {
         if(!active) return;
         if(id == -1) pipes = PipesController.getPipes();
         if(pipes == null) return;
-        input[0] = Map(transform.position.y, -0.5f, 0.75f, 0 , 1f);
-        input[1] = Map(speed.y, -40f, 10f, -4f, 1f);
-        input[2] = Map(pipes[0].transform.position.x, 0, 20f, 0, 1f);
-        input[3] = Map(pipes[0].transform.position.y, -6f, 6f, -1f, 1f);
-        // input[4] = Map(pipes[1].transform.position.x, 0, 20f, 0, 1f);
-        // input[5] = Map(pipes[1].transform.position.y, -6f, 6f, -1f, 1f);
+        assignInputValues();
         if(network != null && network.propagate(input) > 0.5) {
             jump();
         }

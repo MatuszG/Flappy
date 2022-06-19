@@ -50,10 +50,10 @@ public class PipeHandler : MonoBehaviour {
     private void addPipe(float xPos) {
         float range = Random.Range(-6f, 6f);
         GameObject newPipe = Instantiate(pipe, transform.position, Quaternion.identity);
-        newPipe.transform.position = transform.position + new Vector3(xPos, range, 0); // (-6f, -6f)
+        newPipe.transform.position = transform.position + new Vector3(xPos, range, 0);
         PipesController.addPipe(newPipe.gameObject);
-        float timeDestroy = offsetTime + xPosDiff * pipesMin * diffRange;
-        Destroy(newPipe, timeDestroy);
+        float destroyTime = offsetTime + xPosDiff * pipesMin * diffRange;
+        Destroy(newPipe, destroyTime);
         if(xPos == xPosDiff * pipesMin) {
             timer = 0;
             diffTime = Random.Range(timeMovePipe - diffRange, timeMovePipe + diffRange);

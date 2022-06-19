@@ -6,10 +6,11 @@ using TMPro;
 
 public class GameAgentHandler : GameHandler {
     [SerializeField] protected GameObject toggleObj;
-    protected bool automaticAcceleration;
     protected Toggle toggle;
-    protected int fps;
     protected int lastSavedMaxScore;
+	protected bool automaticAcceleration;
+	
+	protected const int offsetToSave = 1000;
 
     public void changeAcceleration() {
         automaticAcceleration = !automaticAcceleration;
@@ -47,7 +48,7 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Update() {
-        fps = (int) (1 / Time.unscaledDeltaTime);
+        //fps = (int) (1 / Time.unscaledDeltaTime);
         checkKeybordInput();
         if (Input.GetKeyDown(KeyCode.Escape) && !alive) {
             GameObject.Find("PanelAgent").GetComponent<GameOverView>().BackToMenu();
@@ -66,9 +67,6 @@ public class GameAgentHandler : GameHandler {
         // }
         // else 
         if(automaticAcceleration) {
-            // if(Time.timeScale < 40 && fps > 120) {
-            //     Time.timeScale += 0.01f;
-            // }
             if(Time.timeScale < 1f) return;
             else if(Time.timeScale < 1.5f && alive < 500) {
                 Time.timeScale += 0.003f;
@@ -98,9 +96,6 @@ public class GameAgentHandler : GameHandler {
                 Time.timeScale += 0.01f;
                 Time.fixedDeltaTime = 0.01f;
             }
-            // else if(Time.timeScale < 250f && alive < 1) { 
-            //     Time.timeScale += 0.01f;
-            // }
         }
     }
 
@@ -116,7 +111,7 @@ public class GameAgentHandler : GameHandler {
         if(maxScore < score) {
             maxScore = score;
             PopulationManager.MaxPopulationScore = score;
-            if(maxScore < 10000 || lastSavedMaxScore + 10000 == maxScore) {
+            if(maxScore < offsetToSave || lastSavedMaxScore + offsetToSave == maxScore) {
                 lastSavedMaxScore = maxScore;
                 NeuralNetwork network = newBird.gameObject.GetComponent<AgentBirdHandler>().Network;
                 FileSystem.SaveAgentMaxScore(score);

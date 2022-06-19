@@ -5,15 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ParentsOffspringsScript : MonoBehaviour {
-    private bool parentOffSprings;
     private Button button;
 
     void Awake() {
         button = GetComponent<Button>();
-        button.interactable = !PopulationManager.ParentOffSprings;
+        button.interactable = !PopulationManager.ParentsOffSprings;
     }
 
     public void Clicked() {
-        PopulationManager.ParentOffSprings = !PopulationManager.ParentOffSprings;
+        PopulationManager.ParentsOffSprings = !PopulationManager.ParentsOffSprings;
     }
 }

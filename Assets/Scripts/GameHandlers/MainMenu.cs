@@ -21,12 +21,14 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Train() {
+        Test.start();
         PopulationManager.EvolutionNumber = 0;
         SceneManager.LoadScene("TrainingScene");
     }
 
-    public void TrainAgain() {
-        PopulationManager.EvolutionNumber++;
+    public void ContinueTesting() {
+        Test.increment();
+        PopulationManager.EvolutionNumber = 0;
         SceneManager.LoadScene("TrainingScene");
     }
 

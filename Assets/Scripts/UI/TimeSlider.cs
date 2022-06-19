@@ -27,7 +27,7 @@ public class TimeSlider : MonoBehaviour {
         slider.value = Time.timeScale;
         text.text = slider.value.ToString("n2");
         currentFps = (int) (1 / Time.unscaledDeltaTime);
-        if(currentFps < 100) {
+        if(currentFps < 55) {
             slider.interactable = false;
             return;
         }
