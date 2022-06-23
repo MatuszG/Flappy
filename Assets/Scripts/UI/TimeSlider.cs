@@ -21,13 +21,16 @@ public class TimeSlider : MonoBehaviour {
 
     void Update() {
         if(Time.timeScale < 1) return;
-        else if(Time.timeScale >= 30f) {
-            Time.fixedDeltaTime = 0.01f;
-        }
+        // else if(Time.timeScale >= 30f) {
+        //     Time.fixedDeltaTime = 0.0167f;
+        // }
+        // else if(Time.timeScale < 30f) {
+        //     Time.fixedDeltaTime = 0.0167f;
+        // }
         slider.value = Time.timeScale;
         text.text = slider.value.ToString("n2");
-        currentFps = (int) (1 / Time.unscaledDeltaTime);
-        if(currentFps < 55) {
+        currentFps = (int) (1 / Time.fixedDeltaTime);
+        if(currentFps < 58) {
             slider.interactable = false;
             return;
         }

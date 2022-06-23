@@ -89,7 +89,7 @@ public class AgentBirdHandler : BirdHandler {
         if(network != null && network.propagate(input) > 0.5) {
             jump();
         }
-        liveTime += Time.deltaTime;
+        liveTime += Time.fixedDeltaTime;
         speed.y += gravity * 3.25f * Time.deltaTime;
         rb.MovePosition(transform.position + speed * Time.deltaTime / 0.7f);
     }

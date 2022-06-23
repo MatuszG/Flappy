@@ -26,7 +26,7 @@ public class GameAgentHandler : GameHandler {
     private void Start() {
         alive = true;
         Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.01f;
+        Time.fixedDeltaTime = 0.0167f;
         maxScore = getMaxScore();
         lastSavedMaxScore = maxScore;
         Instantiate(pipeHandler);
@@ -94,7 +94,7 @@ public class GameAgentHandler : GameHandler {
             }
             else if(Time.timeScale < 50f && alive < 5) { 
                 Time.timeScale += 0.01f;
-                Time.fixedDeltaTime = 0.01f;
+                // Time.fixedDeltaTime = 0.01f;
             }
         }
     }

@@ -22,6 +22,7 @@ public class GameTrainingHandler : GameAgentHandler {
     private GameObject pipes;
     private MovePipe[] bestPipes;
     private bool test;
+    private int currentFps;
 
     private void OnEnable() {
         automaticAcceleration = PopulationManager.AutomaticAcceleration;
@@ -104,8 +105,12 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void FixedUpdate() {
+        currentFps = (int) (1 / Time.fixedDeltaTime);
+        if(Time.timeScale >= 30 && currentFps > 100 || currentFps >= 59) {
+            Time.timeScale += 0.001f;
+        }
         checkKeybordInput();
-        autoSpeed(aliveNumber);
+        // autoSpeed(aliveNumber);
         setBestPipes();
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
