@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Train() {
-        Test.start();
+        Test.Start();
         PopulationManager.EvolutionNumber = 0;
         SceneManager.LoadScene("TrainingScene");
     }

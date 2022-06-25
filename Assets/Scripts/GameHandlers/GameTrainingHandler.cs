@@ -25,7 +25,6 @@ public class GameTrainingHandler : GameAgentHandler {
     private int currentFps;
 
     private void OnEnable() {
-        automaticAcceleration = PopulationManager.AutomaticAcceleration;
         bestPolicy = new List<float>();
         test = true;
     }
@@ -83,34 +82,8 @@ public class GameTrainingHandler : GameAgentHandler {
         Start();
     }
 
-    private void fixedLearningRate() {
-        if(maxScore == 500) {
-            PopulationManager.LearningRate = 0.2f;
-        }
-        else if(maxScore == 1000) {
-            PopulationManager.LearningRate = 0.1f;
-        }
-        else if(maxScore == 1500) {
-            PopulationManager.LearningRate = 0.07f;
-        }
-        else if(maxScore == 2000) {
-            PopulationManager.LearningRate = 0.05f;
-        }
-        else if(maxScore == 4000) {
-            PopulationManager.LearningRate = 0.03f;
-        }
-        else if(maxScore == 5000) {
-            PopulationManager.LearningRate = 0.01f;
-        }
-    }
-
     private void FixedUpdate() {
-        currentFps = (int) (1 / Time.fixedDeltaTime);
-        if(Time.timeScale >= 30 && currentFps > 100 || currentFps >= 59) {
-            Time.timeScale += 0.001f;
-        }
         checkKeybordInput();
-        // autoSpeed(aliveNumber);
         setBestPipes();
         currentMaxScore = 0;
         for(int i = 0; i < numberOfAgents; i++) checkAlive(i);
