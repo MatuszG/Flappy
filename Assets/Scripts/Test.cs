@@ -14,15 +14,9 @@ public static class Test {
     // private static int[] populationSize = new int[]{1000};
     private static float[] averages = new float[]{1, 5, 10, 15, 30, 50, 75, 100};
     // private static float[] rates = new float[]{1f, 0.75f, 0.5f, 0.25f, 0.1f};
-    private static float[] rates = new float[]{0.1f};
     private static string path = Application.persistentDataPath + "/Parents/";
+    private static float[] rates = new float[]{0.1f};
     private static string[] info;
-    // private static string[] info = {
-    //     $"# Mutate ratio: {PopulationManager.MutateRatio} ",
-    //     $"# Learning rate: {PopulationManager.LearningRate} ",
-    //     $"# Topology: {PopulationManager.Topology[0]}|{PopulationManager.Topology[1]}|{PopulationManager.Topology[2]}",
-    //     "#Ev\tM_Score\tMax_Live_Time\tMax_Fitness\tAvg_1\tAvg_5\tAvg_10\tAvg_15\tAvg_30\tAvg_50\tAvg_75\tAvg_100"
-    // };
     private static List<string> data;
     private static List<float> liveTimes, fitnesses;
     private static List<int> scores;
@@ -38,7 +32,6 @@ public static class Test {
     }
 
     public static void Start() {
-        // populationSize = new int[]{1000};
         scoreUpperBound = 10000;
         populationId = 0;
         maxProbes = 20;
