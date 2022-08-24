@@ -10,6 +10,7 @@ public static class PopulationManager {
     private static float mutateRatio = 0.1f, learningRate = 0.2f;
     private static double sumFitness;
     private static bool automaticAcceleration = false, parentsOffSprings = false;
+    private static bool testing;
 
     public static double SumFitness {
         get { return sumFitness; }
@@ -41,6 +42,11 @@ public static class PopulationManager {
         set { automaticAcceleration = value; }
     }
 
+    public static bool Testing {
+        get { return testing; }
+        set { testing = value; }
+    }
+
     public static NeuralNetwork[] Networks {
         get{return networks;}
         set{networks = value;}
@@ -70,7 +76,7 @@ public static class PopulationManager {
 
     public static void evolve() {
         selection();
-        Test.calculate();
+        if(testing) Test.calculate();
         if(parentsOffSprings) parentsCrossover();
         else crossover();
     }

@@ -39,7 +39,6 @@ public class GameAgentHandler : GameHandler {
     }
 
     private void Update() {
-        //fps = (int) (1 / Time.unscaledDeltaTime);
         checkKeybordInput();
         if (!this.alive) Time.timeScale = 0f;
         if (Input.GetKeyDown(KeyCode.Escape) && !alive) {

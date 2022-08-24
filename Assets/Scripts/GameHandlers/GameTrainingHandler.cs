@@ -10,7 +10,7 @@ public class GameTrainingHandler : GameAgentHandler {
     [SerializeField] private GameObject evolutionText;
     [SerializeField] private GameObject maxScoreText;
     [SerializeField] private GameObject aliveText;
-    [SerializeField] private bool test;
+    [SerializeField] private bool testing;
     private MainMenu menu;
     private GameObject[] newBirds;
     private AgentBirdHandler[] newBirdsHandler;
@@ -46,6 +46,7 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void Start() {
+        PopulationManager.Testing = testing;
         bestPolicy = new List<float>();
         aliveNumber = numberOfAgents;
         maxScore = getAgentMaxScore();
@@ -73,6 +74,8 @@ public class GameTrainingHandler : GameAgentHandler {
         }
     }
 
+    private void Update() { return; }
+
     private void Restart() {
         Time.timeScale = 1f;
         pipes.GetComponent<PipeHandler>().Restart();
@@ -88,8 +91,8 @@ public class GameTrainingHandler : GameAgentHandler {
         for(int i = 0; i < numberOfAgents; i++) update(i);
         textMeshScore.text = currentMaxScore.ToString("n0");
         textMeshAlive.text = "Alive: " + aliveNumber.ToString();
-        if(Test.ScoreUpperBound < currentMaxScore && test) {
-            test = false;
+        if(Test.ScoreUpperBound < currentMaxScore && testing) {
+            testing = false;
             Time.timeScale = 0;
             PopulationManager.MaxPopulationScore = currentMaxScore;
             PopulationManager.EvolutionNumber++;
