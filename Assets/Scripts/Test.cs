@@ -8,14 +8,10 @@ using UnityEngine;
 // C:\Users\garba\AppData\LocalLow\DefaultCompany\Flappy
 
 public static class Test {
-    // private static int[] populationSize = new int[]{800, 600, 500, 250, 100};
     private static int[] populationSize = new int[]{600, 500, 250, 100};
-    // private static int[] populationSize = new int[]{1500, 1250, 1000};
-    // private static int[] populationSize = new int[]{1000};
     private static float[] averages = new float[]{1, 5, 10, 15, 30, 50, 75, 100};
-    // private static float[] rates = new float[]{1f, 0.75f, 0.5f, 0.25f, 0.1f};
     private static string path = Application.persistentDataPath + "/Parents/";
-    private static float[] rates = new float[]{0.1f};
+    private static float[] rates = new float[]{1f, 0.75f, 0.5f, 0.25f, 0.1f};
     private static string[] info;
     private static List<string> data;
     private static List<float> liveTimes, fitnesses;

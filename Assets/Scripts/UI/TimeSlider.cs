@@ -8,7 +8,7 @@ public class TimeSlider : MonoBehaviour {
     [SerializeField] private Slider slider;
     [SerializeField] private GameObject textMesh;
     private TextMeshProUGUI text;
-    int currentFps = 0;
+    int currentFps;
 
     void Start() {
         slider.value = Time.timeScale; 
@@ -31,7 +31,7 @@ public class TimeSlider : MonoBehaviour {
         if(Time.timeScale < 30f) Time.fixedDeltaTime = 0.0167f;
         if(Time.timeScale >= 30f) Time.fixedDeltaTime = 0.01f;
         if(Time.timeScale >= 30 && currentFps > 99 || currentFps >= 59) {
-            if(Time.timeScale < 50 && PopulationManager.AutomaticAcceleration) Time.timeScale += 0.05f;
+            if(Time.timeScale < 50 && PopulationManager.AutomaticAcceleration) Time.timeScale += 0.1f;
         }
     }
 }

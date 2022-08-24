@@ -16,5 +16,8 @@ EditorBuildSettings:
     guid: 93769f6a03800df45846fea414d53fa7
   - enabled: 1
     path: Assets/Scenes/TrainingScene.unity
+    guid: 943fb96f302008e4392fee47799eb437
+  - enabled: 1
+    path: Assets/Scenes/TestingScene.unity
     guid: eec4e9564b08d8448b32152d6dac717d
   m_configObjects: {}

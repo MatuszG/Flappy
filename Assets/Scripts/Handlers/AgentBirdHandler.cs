@@ -28,7 +28,7 @@ public class AgentBirdHandler : BirdHandler {
     public void getAgentPolicy() {
         if(FileSystem.GetAgentPolicy().Count == 0) {
             notificationManager.GetComponent<NotificationScript>().ShowNotification(
-                "Agent must be trained to perform this task! Current agent is now randomly created!");
+                "Agent must be trained before performing this task! Currently agent is randomly generated!");
         }
         network = new NeuralNetwork(FileSystem.GetAgentPolicy());
     }
@@ -65,8 +65,7 @@ public class AgentBirdHandler : BirdHandler {
         active = true;
         gameObject.SetActive(true);
         transform.position = defaultPos;
-        // maxScore = FileSystem.GetAgentMaxScore();
-        maxScore = 32333333;
+        maxScore = FileSystem.GetAgentMaxScore();
         Network = PopulationManager.Networks[i];
     }
 

@@ -10,6 +10,7 @@ public class GameTrainingHandler : GameAgentHandler {
     [SerializeField] private GameObject evolutionText;
     [SerializeField] private GameObject maxScoreText;
     [SerializeField] private GameObject aliveText;
+    [SerializeField] private bool test;
     private MainMenu menu;
     private GameObject[] newBirds;
     private AgentBirdHandler[] newBirdsHandler;
@@ -21,12 +22,11 @@ public class GameTrainingHandler : GameAgentHandler {
     private AgentBirdHandler newBirdHandler;
     private GameObject pipes;
     private MovePipe[] bestPipes;
-    private bool test;
     private int currentFps;
 
     private void OnEnable() {
-        bestPolicy = new List<float>();
-        test = true;
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.0167f;
     }
 
     private void Awake() {
@@ -46,11 +46,9 @@ public class GameTrainingHandler : GameAgentHandler {
     }
 
     private void Start() {
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.0167f;
+        bestPolicy = new List<float>();
         aliveNumber = numberOfAgents;
-        // maxScore = getAgentMaxScore();
-        maxScore = 31222222;
+        maxScore = getAgentMaxScore();
         lastSavedMaxScore = maxScore;
         scores = new int[numberOfAgents];
         notAlive = new bool[numberOfAgents];
