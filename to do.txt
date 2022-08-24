@@ -1,0 +1,2 @@
+- new generation of learning - using some way of derivatives, improvements time of learning by forecasting
+- pipe holes with different size
